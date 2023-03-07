@@ -3,7 +3,8 @@
 .RData
 .Ruserdata
 
-.test
-.Rproj
-.css
-.json
+*.txt
+*.Rproj
+*.css
+*.json
+*.html
