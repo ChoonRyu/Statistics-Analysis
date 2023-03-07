@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 11 추정과 가설 검정 | 통계와 분석</title>
+  <meta name="description" content="<p>통계와 분석의 강의 노트.
+HTML 아웃풋 포맷은 bookdown::gitbook,
+_output.yml 파일에 적었다.</p>" />
+  <meta name="generator" content="bookdown 0.32 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 11 추정과 가설 검정 | 통계와 분석" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>통계와 분석의 강의 노트.
+HTML 아웃풋 포맷은 bookdown::gitbook,
+_output.yml 파일에 적었다.</p>" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 11 추정과 가설 검정 | 통계와 분석" />
+  
+  <meta name="twitter:description" content="<p>통계와 분석의 강의 노트.
+HTML 아웃풋 포맷은 bookdown::gitbook,
+_output.yml 파일에 적었다.</p>" />
+  
+
+<meta name="author" content="류춘렬" />
+
+
+<meta name="date" content="2023-03-05" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="범주형-자료분석.html"/>
+<link rel="next" href="분산분석.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Statistics and Analysis</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> url: your book url like https://bookdown.org/yihui/bookdown</a></li>
+<li class="chapter" data-level="2" data-path="강의-소개.html"><a href="강의-소개.html"><i class="fa fa-check"></i><b>2</b> 강의 소개</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="강의-소개.html"><a href="강의-소개.html#r의-세상으로"><i class="fa fa-check"></i><b>2.1</b> R의 세상으로</a></li>
+<li class="chapter" data-level="2.2" data-path="강의-소개.html"><a href="강의-소개.html#사전-지식"><i class="fa fa-check"></i><b>2.2</b> 사전 지식</a></li>
+<li class="chapter" data-level="2.3" data-path="강의-소개.html"><a href="강의-소개.html#균형"><i class="fa fa-check"></i><b>2.3</b> 균형</a></li>
+<li class="chapter" data-level="2.4" data-path="강의-소개.html"><a href="강의-소개.html#보고서와-문서-작성"><i class="fa fa-check"></i><b>2.4</b> 보고서와 문서 작성</a></li>
+<li class="chapter" data-level="2.5" data-path="강의-소개.html"><a href="강의-소개.html#강의의-구조-세-부분"><i class="fa fa-check"></i><b>2.5</b> 강의의 구조: 세 부분</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="통계의-기초-개념.html"><a href="통계의-기초-개념.html"><i class="fa fa-check"></i><b>3</b> 통계의 기초 개념</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="통계의-기초-개념.html"><a href="통계의-기초-개념.html#모집단과-표본"><i class="fa fa-check"></i><b>3.1</b> 모집단과 표본</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="통계의-기초-개념.html"><a href="통계의-기초-개념.html#모집단과-표본의-개념"><i class="fa fa-check"></i><b>3.1.1</b> 모집단과 표본의 개념</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="통계의-기초-개념.html"><a href="통계의-기초-개념.html#기술통계학과-추론통계학"><i class="fa fa-check"></i><b>3.2</b> 기술통계학과 추론통계학</a></li>
+<li class="chapter" data-level="3.3" data-path="통계의-기초-개념.html"><a href="통계의-기초-개념.html#측정-척도"><i class="fa fa-check"></i><b>3.3</b> 측정 척도</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="통계의-기초-개념.html"><a href="통계의-기초-개념.html#명목척도"><i class="fa fa-check"></i><b>3.3.1</b> 명목척도</a></li>
+<li class="chapter" data-level="3.3.2" data-path="통계의-기초-개념.html"><a href="통계의-기초-개념.html#서열-척도"><i class="fa fa-check"></i><b>3.3.2</b> 서열 척도</a></li>
+<li class="chapter" data-level="3.3.3" data-path="통계의-기초-개념.html"><a href="통계의-기초-개념.html#등간-척도"><i class="fa fa-check"></i><b>3.3.3</b> 등간 척도</a></li>
+<li class="chapter" data-level="3.3.4" data-path="통계의-기초-개념.html"><a href="통계의-기초-개념.html#비율-척도"><i class="fa fa-check"></i><b>3.3.4</b> 비율 척도</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="통계의-기초-개념.html"><a href="통계의-기초-개념.html#변수"><i class="fa fa-check"></i><b>3.4</b> 변수</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="통계의-기초-개념.html"><a href="통계의-기초-개념.html#정량-변수와-정성-변수"><i class="fa fa-check"></i><b>3.4.1</b> 정량 변수와 정성 변수</a></li>
+<li class="chapter" data-level="3.4.2" data-path="통계의-기초-개념.html"><a href="통계의-기초-개념.html#이산변수와-연속변수"><i class="fa fa-check"></i><b>3.4.2</b> 이산변수와 연속변수</a></li>
+<li class="chapter" data-level="3.4.3" data-path="통계의-기초-개념.html"><a href="통계의-기초-개념.html#확률-변수"><i class="fa fa-check"></i><b>3.4.3</b> 확률 변수</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="통계의-기초-개념.html"><a href="통계의-기초-개념.html#인과관계와-변수"><i class="fa fa-check"></i><b>3.5</b> 인과관계와 변수</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="통계의-기초-개념.html"><a href="통계의-기초-개념.html#독립변수와-종속변수"><i class="fa fa-check"></i><b>3.5.1</b> 독립변수와 종속변수</a></li>
+<li class="chapter" data-level="3.5.2" data-path="통계의-기초-개념.html"><a href="통계의-기초-개념.html#매개변수와-조절변수"><i class="fa fa-check"></i><b>3.5.2</b> 매개변수와 조절변수</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="기본.html"><a href="기본.html"><i class="fa fa-check"></i><b>4</b> 기본</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="기본.html"><a href="기본.html#r과-rstudio-설치"><i class="fa fa-check"></i><b>4.1</b> R과 RStudio 설치</a></li>
+<li class="chapter" data-level="4.2" data-path="기본.html"><a href="기본.html#rstudio"><i class="fa fa-check"></i><b>4.2</b> RStudio</a></li>
+<li class="chapter" data-level="4.3" data-path="기본.html"><a href="기본.html#r-코드-실행"><i class="fa fa-check"></i><b>4.3</b> R 코드 실행</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="기본.html"><a href="기본.html#r-스크립트"><i class="fa fa-check"></i><b>4.3.1</b> R 스크립트</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="기본.html"><a href="기본.html#변수와-함수"><i class="fa fa-check"></i><b>4.4</b> 변수와 함수</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="기본.html"><a href="기본.html#데이터-저장"><i class="fa fa-check"></i><b>4.4.1</b> 데이터 저장</a></li>
+<li class="chapter" data-level="4.4.2" data-path="기본.html"><a href="기본.html#변수-이름을-만들기"><i class="fa fa-check"></i><b>4.4.2</b> 변수 이름을 만들기</a></li>
+<li class="chapter" data-level="4.4.3" data-path="기본.html"><a href="기본.html#벡터와-데이터-프레임"><i class="fa fa-check"></i><b>4.4.3</b> 벡터와 데이터 프레임</a></li>
+<li class="chapter" data-level="4.4.4" data-path="기본.html"><a href="기본.html#함수-functions"><i class="fa fa-check"></i><b>4.4.4</b> 함수 functions</a></li>
+<li class="chapter" data-level="4.4.5" data-path="기본.html"><a href="기본.html#수학-연산"><i class="fa fa-check"></i><b>4.4.5</b> 수학 연산</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="기본.html"><a href="기본.html#패키지"><i class="fa fa-check"></i><b>4.5</b> 패키지</a></li>
+<li class="chapter" data-level="4.6" data-path="기본.html"><a href="기본.html#기술적-통계"><i class="fa fa-check"></i><b>4.6</b> 기술적 통계</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="기본.html"><a href="기본.html#숫자형-자료-numerical"><i class="fa fa-check"></i><b>4.6.1</b> 숫자형 자료 numerical</a></li>
+<li class="chapter" data-level="4.6.2" data-path="기본.html"><a href="기본.html#범주형-자료-categorical"><i class="fa fa-check"></i><b>4.6.2</b> 범주형 자료 categorical</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="기본.html"><a href="기본.html#숫자형-자료의-그래프"><i class="fa fa-check"></i><b>4.7</b> 숫자형 자료의 그래프</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="기본.html"><a href="기본.html#그래프-plot"><i class="fa fa-check"></i><b>4.7.1</b> 그래프 plot</a></li>
+<li class="chapter" data-level="4.7.2" data-path="기본.html"><a href="기본.html#색깔-모양-축의-이름표"><i class="fa fa-check"></i><b>4.7.2</b> 색깔, 모양, 축의 이름표</a></li>
+<li class="chapter" data-level="4.7.3" data-path="기본.html"><a href="기본.html#축의-한계와-크기"><i class="fa fa-check"></i><b>4.7.3</b> 축의 한계와 크기</a></li>
+<li class="chapter" data-level="4.7.4" data-path="기본.html"><a href="기본.html#집단-비교하기"><i class="fa fa-check"></i><b>4.7.4</b> 집단 비교하기</a></li>
+<li class="chapter" data-level="4.7.5" data-path="기본.html"><a href="기본.html#박스플롯-boxplots"><i class="fa fa-check"></i><b>4.7.5</b> 박스플롯 boxplots</a></li>
+<li class="chapter" data-level="4.7.6" data-path="기본.html"><a href="기본.html#히스토그램"><i class="fa fa-check"></i><b>4.7.6</b> 히스토그램</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="기본.html"><a href="기본.html#범주형-데이터-그래프"><i class="fa fa-check"></i><b>4.8</b> 범주형 데이터 그래프</a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="기본.html"><a href="기본.html#막대-그래프"><i class="fa fa-check"></i><b>4.8.1</b> 막대 그래프</a></li>
+</ul></li>
+<li class="chapter" data-level="4.9" data-path="기본.html"><a href="기본.html#그래프-저장하기"><i class="fa fa-check"></i><b>4.9</b> 그래프 저장하기</a></li>
+<li class="chapter" data-level="4.10" data-path="기본.html"><a href="기본.html#문제-해결하기"><i class="fa fa-check"></i><b>4.10</b> 문제 해결하기</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html"><i class="fa fa-check"></i><b>5</b> 데이터의 변환, 요약, 분석</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#데이터-프레임과-데이터-종류"><i class="fa fa-check"></i><b>5.1</b> 데이터 프레임과 데이터 종류</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#종류와-구조"><i class="fa fa-check"></i><b>5.1.1</b> 종류와 구조</a></li>
+<li class="chapter" data-level="5.1.2" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#테이블-종류"><i class="fa fa-check"></i><b>5.1.2</b> 테이블 종류</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#데이터프레임-안의-벡터"><i class="fa fa-check"></i><b>5.2</b> 데이터프레임 안의 벡터</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#벡터와-요소에-접근하기"><i class="fa fa-check"></i><b>5.2.1</b> 벡터와 요소에 접근하기</a></li>
+<li class="chapter" data-level="5.2.2" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#기호-사용"><i class="fa fa-check"></i><b>5.2.2</b> “$” 기호 사용</a></li>
+<li class="chapter" data-level="5.2.3" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#조건-사용하기"><i class="fa fa-check"></i><b>5.2.3</b> 조건 사용하기</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#데이터-가져오기"><i class="fa fa-check"></i><b>5.3</b> 데이터 가져오기</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#csv-파일-가져오기"><i class="fa fa-check"></i><b>5.3.1</b> csv 파일 가져오기</a></li>
+<li class="chapter" data-level="5.3.2" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#엑셀-파일-가져오기"><i class="fa fa-check"></i><b>5.3.2</b> 엑셀 파일 가져오기</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#데이터의-저장과-내보내기"><i class="fa fa-check"></i><b>5.4</b> 데이터의 저장과 내보내기</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#데이터를-내보내기"><i class="fa fa-check"></i><b>5.4.1</b> 데이터를 내보내기</a></li>
+<li class="chapter" data-level="5.4.2" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#r-데이터의-저장과-불러오기"><i class="fa fa-check"></i><b>5.4.2</b> R 데이터의 저장과 불러오기</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#rstudio-프로젝트"><i class="fa fa-check"></i><b>5.5</b> RStudio 프로젝트</a></li>
+<li class="chapter" data-level="5.6" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#t-검정-실행하기"><i class="fa fa-check"></i><b>5.6</b> t 검정 실행하기</a></li>
+<li class="chapter" data-level="5.7" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#선형-회귀분석-모델"><i class="fa fa-check"></i><b>5.7</b> 선형 회귀분석 모델</a></li>
+<li class="chapter" data-level="5.8" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#집단-별로-요약하기"><i class="fa fa-check"></i><b>5.8</b> 집단 별로 요약하기</a></li>
+<li class="chapter" data-level="5.9" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#파이프를-이용하기"><i class="fa fa-check"></i><b>5.9</b> %&gt;% 파이프를 이용하기</a>
+<ul>
+<li class="chapter" data-level="5.9.1" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#파이프"><i class="fa fa-check"></i><b>5.9.1</b> 파이프</a></li>
+</ul></li>
+<li class="chapter" data-level="5.10" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#두-개의-r-base-and-tidyverse"><i class="fa fa-check"></i><b>5.10</b> 두 개의 R: Base and tidyverse</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="기술통계.html"><a href="기술통계.html"><i class="fa fa-check"></i><b>6</b> 기술통계</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="기술통계.html"><a href="기술통계.html#빈도분포"><i class="fa fa-check"></i><b>6.1</b> 빈도분포</a></li>
+<li class="chapter" data-level="6.2" data-path="기술통계.html"><a href="기술통계.html#집중화-경향치"><i class="fa fa-check"></i><b>6.2</b> 집중화 경향치</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="기술통계.html"><a href="기술통계.html#평균"><i class="fa fa-check"></i><b>6.2.1</b> 평균</a></li>
+<li class="chapter" data-level="6.2.2" data-path="기술통계.html"><a href="기술통계.html#중앙값"><i class="fa fa-check"></i><b>6.2.2</b> 중앙값</a></li>
+<li class="chapter" data-level="6.2.3" data-path="기술통계.html"><a href="기술통계.html#최빈값"><i class="fa fa-check"></i><b>6.2.3</b> 최빈값</a></li>
+<li class="chapter" data-level="6.2.4" data-path="기술통계.html"><a href="기술통계.html#집중경향치의-비교"><i class="fa fa-check"></i><b>6.2.4</b> 집중경향치의 비교</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="기술통계.html"><a href="기술통계.html#분포와-분산도"><i class="fa fa-check"></i><b>6.3</b> 분포와 분산도</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="기술통계.html"><a href="기술통계.html#범위"><i class="fa fa-check"></i><b>6.3.1</b> 범위</a></li>
+<li class="chapter" data-level="6.3.2" data-path="기술통계.html"><a href="기술통계.html#표준편차와-분산"><i class="fa fa-check"></i><b>6.3.2</b> 표준편차와 분산</a></li>
+<li class="chapter" data-level="6.3.3" data-path="기술통계.html"><a href="기술통계.html#사분위편차"><i class="fa fa-check"></i><b>6.3.3</b> 사분위편차</a></li>
+<li class="chapter" data-level="6.3.4" data-path="기술통계.html"><a href="기술통계.html#변동계수와-사분위분산계수"><i class="fa fa-check"></i><b>6.3.4</b> 변동계수와 사분위분산계수</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="기술통계.html"><a href="기술통계.html#z값과-분포의-표준화"><i class="fa fa-check"></i><b>6.4</b> Z값과 분포의 표준화</a></li>
+<li class="chapter" data-level="6.5" data-path="기술통계.html"><a href="기술통계.html#비대칭도"><i class="fa fa-check"></i><b>6.5</b> 비대칭도</a></li>
+<li class="chapter" data-level="6.6" data-path="기술통계.html"><a href="기술통계.html#교차-분석"><i class="fa fa-check"></i><b>6.6</b> 교차 분석</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="기술통계.html"><a href="기술통계.html#범주형-자료의-빈도-분석"><i class="fa fa-check"></i><b>6.6.1</b> 범주형 자료의 빈도 분석</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="확률분포와-표집분포.html"><a href="확률분포와-표집분포.html"><i class="fa fa-check"></i><b>7</b> 확률분포와 표집분포</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="확률분포와-표집분포.html"><a href="확률분포와-표집분포.html#확률분포"><i class="fa fa-check"></i><b>7.1</b> 확률분포</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="확률분포와-표집분포.html"><a href="확률분포와-표집분포.html#확률"><i class="fa fa-check"></i><b>7.1.1</b> 확률</a></li>
+<li class="chapter" data-level="7.1.2" data-path="확률분포와-표집분포.html"><a href="확률분포와-표집분포.html#확률변수"><i class="fa fa-check"></i><b>7.1.2</b> 확률변수</a></li>
+<li class="chapter" data-level="7.1.3" data-path="확률분포와-표집분포.html"><a href="확률분포와-표집분포.html#이항확률분포"><i class="fa fa-check"></i><b>7.1.3</b> 이항확률분포</a></li>
+<li class="chapter" data-level="7.1.4" data-path="확률분포와-표집분포.html"><a href="확률분포와-표집분포.html#확률함수와-확률분포"><i class="fa fa-check"></i><b>7.1.4</b> 확률함수와 확률분포</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="확률분포와-표집분포.html"><a href="확률분포와-표집분포.html#확률분포의-종류"><i class="fa fa-check"></i><b>7.2</b> 확률분포의 종류</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="확률분포와-표집분포.html"><a href="확률분포와-표집분포.html#정규분포"><i class="fa fa-check"></i><b>7.2.1</b> 정규분포</a></li>
+<li class="chapter" data-level="7.2.2" data-path="확률분포와-표집분포.html"><a href="확률분포와-표집분포.html#t-분포"><i class="fa fa-check"></i><b>7.2.2</b> t 분포</a></li>
+<li class="chapter" data-level="7.2.3" data-path="확률분포와-표집분포.html"><a href="확률분포와-표집분포.html#카이제곱분포"><i class="fa fa-check"></i><b>7.2.3</b> 카이제곱분포</a></li>
+<li class="chapter" data-level="7.2.4" data-path="확률분포와-표집분포.html"><a href="확률분포와-표집분포.html#f-분포"><i class="fa fa-check"></i><b>7.2.4</b> F 분포</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="확률분포와-표집분포.html"><a href="확률분포와-표집분포.html#표집분포"><i class="fa fa-check"></i><b>7.3</b> 표집분포</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="확률분포와-표집분포.html"><a href="확률분포와-표집분포.html#중심극한-정리"><i class="fa fa-check"></i><b>7.3.1</b> 중심극한 정리</a></li>
+<li class="chapter" data-level="7.3.2" data-path="확률분포와-표집분포.html"><a href="확률분포와-표집분포.html#평균의-표집분포-한-모집단"><i class="fa fa-check"></i><b>7.3.2</b> 평균의 표집분포: 한 모집단</a></li>
+<li class="chapter" data-level="7.3.3" data-path="확률분포와-표집분포.html"><a href="확률분포와-표집분포.html#평균-차이의-표집분포-두-모집단"><i class="fa fa-check"></i><b>7.3.3</b> 평균 차이의 표집분포: 두 모집단</a></li>
+<li class="chapter" data-level="7.3.4" data-path="확률분포와-표집분포.html"><a href="확률분포와-표집분포.html#분산의-표집분포-한-모집단"><i class="fa fa-check"></i><b>7.3.4</b> 분산의 표집분포: 한 모집단</a></li>
+<li class="chapter" data-level="7.3.5" data-path="확률분포와-표집분포.html"><a href="확률분포와-표집분포.html#분산의-표집분포-두-모집단"><i class="fa fa-check"></i><b>7.3.5</b> 분산의 표집분포: 두 모집단</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="탐색적-데이터-분석.html"><a href="탐색적-데이터-분석.html"><i class="fa fa-check"></i><b>8</b> 탐색적 데이터 분석</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="탐색적-데이터-분석.html"><a href="탐색적-데이터-분석.html#r-markdown으로-보고서-작성"><i class="fa fa-check"></i><b>8.1</b> R Markdown으로 보고서 작성</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="탐색적-데이터-분석.html"><a href="탐색적-데이터-분석.html#시작하기"><i class="fa fa-check"></i><b>8.1.1</b> 시작하기</a></li>
+<li class="chapter" data-level="8.1.2" data-path="탐색적-데이터-분석.html"><a href="탐색적-데이터-분석.html#텍스트-포맷"><i class="fa fa-check"></i><b>8.1.2</b> 텍스트 포맷</a></li>
+<li class="chapter" data-level="8.1.3" data-path="탐색적-데이터-분석.html"><a href="탐색적-데이터-분석.html#리스트-표-그림"><i class="fa fa-check"></i><b>8.1.3</b> 리스트, 표, 그림</a></li>
+<li class="chapter" data-level="8.1.4" data-path="탐색적-데이터-분석.html"><a href="탐색적-데이터-분석.html#코드-청크"><i class="fa fa-check"></i><b>8.1.4</b> 코드 청크</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="탐색적-데이터-분석.html"><a href="탐색적-데이터-분석.html#ggplot2-그래프를-보기-좋게"><i class="fa fa-check"></i><b>8.2</b> ggplot2 그래프를 보기 좋게</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="탐색적-데이터-분석.html"><a href="탐색적-데이터-분석.html#테마-이용"><i class="fa fa-check"></i><b>8.2.1</b> 테마 이용</a></li>
+<li class="chapter" data-level="8.2.2" data-path="탐색적-데이터-분석.html"><a href="탐색적-데이터-분석.html#칼라-팔레트"><i class="fa fa-check"></i><b>8.2.2</b> 칼라 팔레트</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="탐색적-데이터-분석.html"><a href="탐색적-데이터-분석.html#테마-맞춤"><i class="fa fa-check"></i><b>8.3</b> 4.2.3 테마 맞춤</a></li>
+<li class="chapter" data-level="8.4" data-path="탐색적-데이터-분석.html"><a href="탐색적-데이터-분석.html#극단값과-결측값"><i class="fa fa-check"></i><b>8.4</b> 극단값과 결측값</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="탐색적-데이터-분석.html"><a href="탐색적-데이터-분석.html#극단값-탐지"><i class="fa fa-check"></i><b>8.4.1</b> 극단값 탐지</a></li>
+<li class="chapter" data-level="8.4.2" data-path="탐색적-데이터-분석.html"><a href="탐색적-데이터-분석.html#극단값에-라벨-붙이기"><i class="fa fa-check"></i><b>8.4.2</b> 극단값에 라벨 붙이기</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="탐색적-데이터-분석.html"><a href="탐색적-데이터-분석.html#산포도-그래프의-추세"><i class="fa fa-check"></i><b>8.5</b> 산포도 그래프의 추세</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="티검정.html"><a href="티검정.html"><i class="fa fa-check"></i><b>9</b> 티검정</a></li>
+<li class="chapter" data-level="10" data-path="범주형-자료분석.html"><a href="범주형-자료분석.html"><i class="fa fa-check"></i><b>10</b> 범주형 자료분석</a></li>
+<li class="chapter" data-level="11" data-path="추정과-가설-검정.html"><a href="추정과-가설-검정.html"><i class="fa fa-check"></i><b>11</b> 추정과 가설 검정</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="추정과-가설-검정.html"><a href="추정과-가설-검정.html#추정"><i class="fa fa-check"></i><b>11.1</b> 추정</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="추정과-가설-검정.html"><a href="추정과-가설-검정.html#점-추정"><i class="fa fa-check"></i><b>11.1.1</b> 점 추정</a></li>
+<li class="chapter" data-level="11.1.2" data-path="추정과-가설-검정.html"><a href="추정과-가설-검정.html#구간-추정"><i class="fa fa-check"></i><b>11.1.2</b> 구간 추정</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="추정과-가설-검정.html"><a href="추정과-가설-검정.html#검정"><i class="fa fa-check"></i><b>11.2</b> 검정</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="추정과-가설-검정.html"><a href="추정과-가설-검정.html#가설-검정"><i class="fa fa-check"></i><b>11.2.1</b> 가설 검정</a></li>
+<li class="chapter" data-level="11.2.2" data-path="추정과-가설-검정.html"><a href="추정과-가설-검정.html#모-평균의-검정"><i class="fa fa-check"></i><b>11.2.2</b> 모 평균의 검정</a></li>
+<li class="chapter" data-level="11.2.3" data-path="추정과-가설-검정.html"><a href="추정과-가설-검정.html#모-분산의-검정"><i class="fa fa-check"></i><b>11.2.3</b> 모 분산의 검정</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="분산분석.html"><a href="분산분석.html"><i class="fa fa-check"></i><b>12</b> 분산분석</a></li>
+<li class="chapter" data-level="13" data-path="상관분석.html"><a href="상관분석.html"><i class="fa fa-check"></i><b>13</b> 상관분석</a></li>
+<li class="chapter" data-level="14" data-path="선형회귀분석.html"><a href="선형회귀분석.html"><i class="fa fa-check"></i><b>14</b> 선형회귀분석</a></li>
+<li class="chapter" data-level="15" data-path="요인분석과-신뢰도.html"><a href="요인분석과-신뢰도.html"><i class="fa fa-check"></i><b>15</b> 요인분석과 신뢰도</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">통계와 분석</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="추정과-가설-검정" class="section level1 hasAnchor" number="11">
+<h1><span class="header-section-number">Chapter 11</span> 추정과 가설 검정<a href="추정과-가설-검정.html#추정과-가설-검정" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="추정" class="section level2 hasAnchor" number="11.1">
+<h2><span class="header-section-number">11.1</span> 추정<a href="추정과-가설-검정.html#추정" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>추정</strong> estimation 은 표본 통계량에서 모집단의 모수를 계산해내는 과정을 말합니다. 점 추정과 구간 추정이 있습니다. 이때 해당 통계량의 표집 분포를 이용하고 그 과정을 <strong>통계적 추론</strong> statistical inference 이라고 합니다. 추정 외에 가설검정도 통계적 추론에 속합니다.</p>
+<p>추정, 통계적 추론</p>
+<div id="점-추정" class="section level3 hasAnchor" number="11.1.1">
+<h3><span class="header-section-number">11.1.1</span> 점 추정<a href="추정과-가설-검정.html#점-추정" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>점 추정</strong> point estimation 은 표본에서 모수의 값을 추정하는 것을 말하며 평균, 분산, 비율 등이 있습니다. 점 추정에 사용하는 값을 <strong>점 추정값</strong> point estimator 또는 그냥 <strong>추정값</strong> estimator 으로 부릅니다. 좋은 점 추정은 아래의 속성을 갖습니다.</p>
+<ol style="list-style-type: decimal">
+<li>일치 consistent: 표본 크기가 커지면 추정값이 더 정확해진다</li>
+<li>불편 unbiased: 표집 분포의 기대값이 모수와 같다.</li>
+<li>불편최소분산 most efficient: 표집 분포의 분산이 가장 작다. 즉 표본과 표본 사이의 측정값 차이가 가장 적다.</li>
+</ol>
+<p>점 추정의 방법이 위의 기준을 잘 충족하는지 여부는 모집단의 분포에 따릅니다. 모집단 분포가 정규분포에 가까우면 평균이 좋은 추정값이지만 한쪽으로 심하게 기울었다면 skewed 중간값이 좋은 추정값입니다.</p>
+<p>점 추정, 점 추정값, 추정값</p>
+<div id="모-평균의-점-추정" class="section level4 hasAnchor" number="11.1.1.1">
+<h4><span class="header-section-number">11.1.1.1</span> 모 평균의 점 추정<a href="추정과-가설-검정.html#모-평균의-점-추정" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>모 평균 추정값은 표본 평균을 가장 많이 사용합니다.</p>
+<p><span class="math display">\[ \bar X = \frac{X_1+X_2+ ... +X_n}{n}=\frac{1}{n}\sum_{i=1}^{n} X_i \]</span></p>
+</div>
+<div id="모-분산의-점-추정" class="section level4 hasAnchor" number="11.1.1.2">
+<h4><span class="header-section-number">11.1.1.2</span> 모 분산의 점 추정<a href="추정과-가설-검정.html#모-분산의-점-추정" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>모 분산 추정값은 표본 분산을 가장 많이 사용합니다.</p>
+<p><span class="math display">\[ S^{2} = \frac{\sum_{i=1}^{n}(X_i-\bar X)^{2}}{n-1}  \]</span></p>
+</div>
+<div id="모-비율의-점-추정" class="section level4 hasAnchor" number="11.1.1.3">
+<h4><span class="header-section-number">11.1.1.3</span> 모 비율의 점 추정<a href="추정과-가설-검정.html#모-비율의-점-추정" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>비율은 모집단에서 어떤 속성을 갖는 요소의 비율을 말합니다. 남녀 비율, 특정 후보의 지지율, 실업률, 합격률 등등이 있습니다. 모집단의 변수가 1과 0의 값만을 갖는다고 할 때 그 평균과 같습니다.</p>
+<p><span class="math display">\[ p = \frac{K}{n}, \; \; K는 표본에서 해당 속성을 갖는 갯수 \]</span></p>
+</div>
+</div>
+<div id="구간-추정" class="section level3 hasAnchor" number="11.1.2">
+<h3><span class="header-section-number">11.1.2</span> 구간 추정<a href="추정과-가설-검정.html#구간-추정" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>구간 추정</strong> interval estimation 은 모수의 추정을 구간으로 하는 것입니다. 이때 구간을 <strong>신뢰구간</strong> confidence interval 이라고 하는데 구간이 모수를 포함할 확률에 따라 달라지며 이때 확률을 <strong>신뢰수준</strong> confidence level 이라고 합니다. 90%, 99% 등도 있으나 보통 95%를 많이 사용합니다. 95% 신뢰수준의 의미는, 만일 표본을 100개 뽑아서 평균의 신뢰구간을 모두 계산한다면 그 중에 95개의 신뢰구간이 모평균을 포함할 가능성을 말합니다.</p>
+<p>일단 계산이 된 특정한 신뢰구간은 확률을 말할 수 없습니다. 따라서 계산된 신뢰구간이 모 평균을 포함하고 있을 가능성이 95%라고 말할 수 없습니다.</p>
+<p>구간 추정, 신뢰구간, 신뢰수준</p>
+<div id="모-평균의-구간-추정" class="section level4 hasAnchor" number="11.1.2.1">
+<h4><span class="header-section-number">11.1.2.1</span> 모 평균의 구간 추정<a href="추정과-가설-검정.html#모-평균의-구간-추정" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li>모집단이 정규 분포고 모 분산을 알 때</li>
+</ul>
+<p><span class="math display">\[  \bar X \sim N(\mu, \frac{\sigma^{2}}{n}) ,  \; \; Z=\frac{\bar X-\mu}{\frac{\sigma}{\sqrt{n}}} \sim N(0,1) \]</span> 여기서 <span class="math inline">\(Z\)</span>는 <span class="math inline">\(\bar X\)</span> 를 표준화시키면 표준정규분포를 한다는 것을 의미합니다.</p>
+<p>신뢰수준이 <span class="math inline">\(c\)</span> 라면 <span class="math inline">\(\alpha=1-c\)</span> (즉 신뢰수준이 95%라면 $= 0.05)</p>
+<p><span class="math display">\[ P(\bar X - z_{\alpha/2}\frac {\sigma}{\sqrt {n}} \leq \mu \leq \bar X + z_{\alpha/2}\frac {\sigma}{\sqrt {n}}) = 1-\alpha \]</span></p>
+<p>여기서 <span class="math inline">\(z_{\alpha/2}\)</span>는 <span class="math inline">\({\alpha/2}\)</span>에 대응하는 z값을 말합니다.</p>
+<p>모집단이 비정규 분포를 해도 표본 크기가 30이 넘으면 중심극한정리에 의해 표집분포는 정규분포와 유사하므로 위의 공식을 사용합니다.</p>
+<div class="figure">
+<img src="images/conf-interv-z-two.png" alt="" />
+<p class="caption">Z값과 신뢰구간</p>
+</div>
+<div class="figure">
+<img src="images/if-conf-95.png" alt="" />
+<p class="caption">신뢰도가 95%라면</p>
+</div>
+<ul>
+<li>모 분산을 모르지만 표본 크기가 클 때</li>
+</ul>
+<p>표본의 크기가 크면 중심극한정리에 따라 평균의 표집분포는 정규분포에 근접합니다.</p>
+<p><span class="math display">\[  \bar X \sim N(\mu, \frac{\sigma^{2}}{n}) \]</span></p>
+<p>문제는 모분산을 모르는 것인데 표본 분산을 모 분산으로 대체해서 계산합니다.</p>
+<p><span class="math display">\[ S^{2} = \frac{\sum_{i=1}^{n}(X_i-\bar X)^{2}}{n-1}  \]</span></p>
+<p>따라서 모 분산을 알 때의 공식을, 아래처럼 <span class="math inline">\(\sigma^{2}\)</span> 을 <span class="math inline">\(S^{2}\)</span> 로 대체하여, 사용할 수 있습니다.</p>
+<p><span class="math display">\[ P(\bar X - z_{\alpha/2}\frac {S}{\sqrt {n}} \leq \mu \leq \bar X + z_{\alpha/2}\frac {S}{\sqrt {n}}) = 1-\alpha \]</span></p>
+<ul>
+<li>모 분산을 모르고 표본 크기가 작을 때</li>
+</ul>
+<p>이 경우에는 적어도 모집단이 정규분포를 한다는 가정이 필요합니다. 그 가정에서 t 분포를 사용합니다.</p>
+<p><span class="math display">\[ X \sim N(\mu, \sigma^{2}) \]</span></p>
+<p><span class="math display">\[ T=\frac{\bar X-\mu}{\frac{S}{\sqrt{n}}} \sim T(n-1) \]</span></p>
+<p>아래의 공식을 사용하여 계산합니다. z값을 이용하는 것과 공식은 동일하지만 t값을 사용합니다.</p>
+<p><span class="math display">\[ P(\bar X - t_{\alpha/2}\frac {S}{\sqrt {n}} \leq \mu \leq \bar X + t_{\alpha/2}\frac {S}{\sqrt {n}}) = 1-\alpha \]</span></p>
+</div>
+<div id="두-모집단-평균-차이의-구간-추정" class="section level4 hasAnchor" number="11.1.2.2">
+<h4><span class="header-section-number">11.1.2.2</span> 두 모집단 평균 차이의 구간 추정<a href="추정과-가설-검정.html#두-모집단-평균-차이의-구간-추정" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>위의 모집단 평균의 구간 추정과 동일한 근거로 계산합니다.</p>
+<ul>
+<li>두 모집단이 독립인 정규분포를 하고 모분산이 알려진 경우</li>
+</ul>
+<p><span class="math display">\[ P( \; (\bar X-\bar Y) - z_{\alpha/2} \sqrt{\frac{\sigma_1^{2}}{n_1}+\frac{\sigma_2^{2}}{n_2}} \leq \mu_1-\mu_2 \leq (\bar X - \bar Y) + z_{\alpha/2} \sqrt{\frac{\sigma_1^{2}}{n_1}+\frac{\sigma_2^{2}}{n_2}} \; ) = 1-\alpha   \]</span></p>
+<ul>
+<li>두 모분산을 모르지만 표본 크기가 클 때</li>
+</ul>
+<p><span class="math display">\[ P( \; (\bar X-\bar Y) - z_{\alpha/2} \sqrt{\frac{S_1^{2}}{n_1}+\frac{S_2^{2}}{n_2}} \leq \mu_1-\mu_2 \leq (\bar X - \bar Y) + z_{\alpha/2} \sqrt{\frac{S_1^{2}}{n_1}+\frac{S_2^{2}}{n_2}} \; ) = 1-\alpha   \]</span></p>
+<ul>
+<li>모분산을 모르고 표본 크기도 작을 때</li>
+</ul>
+<p>두 모집단이 독립이고 정규분포라는 가정이 필요하고 더불어 두 모분산이 같다는 가정도 필요합니다.</p>
+<p>두 모분산이 같으므로 두 모집단을 합쳐서 분산을 계산합니다. 이것을 <strong>합동추정량</strong> pooled estimator 이라고 합니다. 두 모집단에서 표본 { $ X_1, X_2, …, X_n $} 와 { $ Y_1, Y_2, … , Y_n $ }가 추출해서 합동추정량을 계산하면,</p>
+<p><span class="math display">\[ S_{p}^{2} = \frac {\sum _{i=1}^{n_1}(X_i-\bar X)^{2}+ \sum _{i=1}^{n_2}(Y_i-\bar Y)^{2}}{n_1+n_2 -2} = \frac {(n_1-1) S_1^{2}+(n_2-1) S_2^{2}}{n_1+n_2 -2} \]</span></p>
+<p>합동분산을 계산하는 이유는, 표본 크기가 작으므로 개별 분산을 사용하면 t 분포는 오차의 범위가 커진다는 겁니다. 합동분산을 계산하면 분산에 사용하는 n의 크기가 커지므로 오차의 범위가 줄어듭니다. 분산을 계산할 때 평균을 빼주므로 (예, <span class="math inline">\(X_i-\bar X\)</span>) 평균이 달라도 문제가 없습니다. 분산이 같다는 가정만 충족하면 됩니다.</p>
+<p><span class="math display">\[ P( \; (\bar X-\bar Y) - t_{\alpha/2} (n_1+n_2-2) S_p \sqrt{\frac{1}{n_1}+\frac{1}{n_2}} \leq \mu_1-\mu_2 \leq (\bar X - \bar Y) + t_{\alpha/2} (n_1+n_2-2) S_p \sqrt{\frac{1}{n_1}+\frac{1}{n_2}} \; )= 1-\alpha   \]</span></p>
+<ul>
+<li>두 표본이 독립적이 아니며 쌍을 이룰 때.</li>
+</ul>
+<p>두 확률표본이 독립적이 아니며 서로 대응을 하는 값일 때 두 모평균 차이에 대한 신뢰구간은 사실상 그 쌍의 차이에 대한 단일 표본의 신뢰구간과 같습니다.</p>
+<p>예를 들면, 영어 점수와 수학 점수 차이에 대한 두 모평균의 차이의 신뢰구간을 구한다고 합니다. 두 점수는 (85, 78) (72, 68) 처럼 한 학생이 두 점수를 가지고 있으므로 쌍을 이룹니다. 그리고 한 과목을 잘 하는 학생이 다른 과목도 잘 하는 경향이 있으므로 두 변수가 독립적이 아닙니다. (85, 78) (72, 68) 는 차이만 보면 7 (85-78), 4 (72-68) 입니다. 그래서 차이라는 단일 변수의 평균의 신뢰구간을 구하면 됩니다.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">영어</th>
+<th align="center">수학</th>
+<th align="center">차이</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">85</td>
+<td align="center">78</td>
+<td align="center">7</td>
+</tr>
+<tr class="even">
+<td align="center">72</td>
+<td align="center">68</td>
+<td align="center">4</td>
+</tr>
+<tr class="odd">
+<td align="center">…</td>
+<td align="center">…</td>
+<td align="center">…</td>
+</tr>
+<tr class="even">
+<td align="center">평균</td>
+<td align="center">평균</td>
+<td align="center">평균</td>
+</tr>
+<tr class="odd">
+<td align="center">75</td>
+<td align="center">71</td>
+<td align="center">6</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="검정" class="section level2 hasAnchor" number="11.2">
+<h2><span class="header-section-number">11.2</span> 검정<a href="추정과-가설-검정.html#검정" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="가설-검정" class="section level3 hasAnchor" number="11.2.1">
+<h3><span class="header-section-number">11.2.1</span> 가설 검정<a href="추정과-가설-검정.html#가설-검정" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>가설</strong> hypothesis 은 이론이 되기 전의 어떤 주장을 말합니다. 가설이 증명되면, 즉 검정을 통과하면 이론이 됩니다. 예를 들어, “지구는 둥글다”라는 주장이 있은데 예전에는 가설이었습니다. 갈릴레오가 이 가설을 주장해서 큰 곤란을 겪었지요. 그러나 점차 여러 증거들이 발견되고 이제는 우주에서 둥근 지구를 관찰하기까지 하니까 “지구는 둥글다”는 주장이 검정되어 확고한 이론이 되었습니다.</p>
+<p>모집단에 대한 아직 검정되지 않는 주장을 <strong>통계적 가설</strong> statistical hypothesis 이라고 합니다. 통계적 가설은 표본조사를 통해서 검정하는데 이 과정에서 표집분포와 확률이론을 사용합니다. 따라서 추론적 통계에 속합니다. 이때 통계적 유의미 여부의 검정 대상이 되는 것을 <strong>귀무가설</strong> null hypothesis 이라 하며, 주로 ‘차이가 없다’ 또는 ‘효과가 없다’는 내용의 가설입니다. 귀무가설의 반대 주장이 대립가설입니다. <strong>대립가설</strong> alternative hypothesis 은 그 자체를 검정하지 않고 귀무가설의 검정 결과에 따라 결정됩니다. 대립가설은 귀무가설의 반대이므로 주로 ’차이가 있다’ 또는 ’효과가 있다’는 내용입니다.</p>
+<p>가설 검정의 절차는 아래와 같습니다. 첫째 것이 일반적이지만, 다른 의견들도 있습니다. 여기는 두 개만 예로 듭니다.</p>
+<ul>
+<li><strong>첫째</strong></li>
+</ul>
+<ol style="list-style-type: decimal">
+<li><p>귀무가설 <span class="math inline">\(H_0\)</span>와 대립가설 <span class="math inline">\(H_A\)</span>을 설정한다</p></li>
+<li><p>유의수준 <span class="math inline">\(\alpha\)</span> 을 설정한다</p></li>
+<li><p>적절한 검정 통계량을 선정하고 임계값을 설정한다</p></li>
+<li><p>통계량과 p값을 계산한다</p></li>
+<li><p>결과를 해석하고 결론 짓는다</p></li>
+</ol>
+<ul>
+<li><strong>둘째</strong></li>
+</ul>
+<ol style="list-style-type: decimal">
+<li><p>가정을 살펴보고 가설을 설정한다</p></li>
+<li><p>검정 통계량을 계산한다</p></li>
+<li><p>p 값을 결정한다</p></li>
+<li><p>결정을 내린다</p></li>
+<li><p>현실에 적절한 결론을 작성한다</p></li>
+</ol>
+<div id="귀무가설과-대립가설" class="section level4 hasAnchor" number="11.2.1.1">
+<h4><span class="header-section-number">11.2.1.1</span> 귀무가설과 대립가설<a href="추정과-가설-검정.html#귀무가설과-대립가설" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>앞서 말한 바와 같이, <strong>통계적 유의 검정</strong> statistical significance test 의 직접 대상이 되는 가설이 귀무가설입니다. 귀무가설은 대개 차이가 없다, 효과가 없다 등의 내용을 가집니다. 귀무가설의 예를 들면, ‘남자와 여자의 언어 능력의 차이가 없다’ ‘마스트는 바이러스 감염에 효과가 없다’ ‘수학성적과 영어성적은 상관관계가 없다’ 등이 있습니다. 대립가설은 귀무가설의 반대 주장입니다. 예를 들어, ’마스크는 바이러스 감염 방지에 효과가 없다’라는 귀무가설의 대립가설은 ’마스크는 바이러스 감염 방지에 효과가 있다’입니다. 따라서 귀무가설 검정의 결과에 따라 대립가설의 채택 여부가 결정됩니다. 귀무가설이 기각되면, 대립가설이 선택되고, 귀무가설이 채택되면 대립가설이 선택되지 않습니다.</p>
+<p>사회과학 분야에서 연구자들이 주장하고자 하는 가설은 대개 대립가설입니다. 사회과학자는 통상 과거의 연구를 토대로 ‘차이가있다’ ‘효과가 있다’ ‘연관이 있다’ 등의 가설을 내세웁니다. 예를 들어, ’남자와 여자는 미디어 이용 시간에 차이가 있다’는 가설을 내세운다면 그건 대립가설입니다. 그것에 상응하는 ’남자와 여자는 미디어 이용 사간에 차이가 없다’는 귀무가설을 세우고 귀무가설의 통계적 유의미를 검정합니다.</p>
+<p>통계적 유의수준의 검정에는 두 가지가 있습니다. <strong>양측 검정</strong> two-sided test 과 <strong>단측 검정</strong> one-sided test 이 있는데 단측 검정은 다시 <strong>우측 검정</strong> right-sided test 과 <strong>좌측 검정</strong> left-sided test 으로 나누어집니다. 예를 들어 보죠. ‘모집단 평균이 85’라는 귀무가설이 있다고 할 때, 대립가설은 ’85와 다르다’, ‘85보다 작다’, ‘85보다 크다’, 세 가지가 가능합니다.</p>
+<ul>
+<li><span class="math inline">\(H_0\)</span>: <span class="math inline">\(\mu= 85\)</span>, <span class="math inline">\(H_A\)</span>: <span class="math inline">\(\mu \ne 85\)</span> 양측검정</li>
+<li><span class="math inline">\(H_0\)</span>: <span class="math inline">\(\mu= 85\)</span>, <span class="math inline">\(H_A\)</span>: <span class="math inline">\(\mu \lt 85\)</span> 좌측검정</li>
+<li><span class="math inline">\(H_0\)</span>: <span class="math inline">\(\mu= 85\)</span>, <span class="math inline">\(H_A\)</span>: <span class="math inline">\(\mu \gt 85\)</span> 우측검정</li>
+</ul>
+<p>귀무가설을 검정하는 수준이 <strong>유의 수준</strong> significance level 입니다. 유의 수준에 따라 그에 대응하는 <strong>임곗값</strong> critical value 이 결정됩니다. <strong>검정 통계량</strong> test statistics 이 임계값을 넘으면 귀무가설은 기각되고 대립가설이 채택됩니다. 예를 들어, 유의수준 <span class="math inline">\(\alpha=0.05\)</span> 면 양측검정에서 그에 대응하는 <span class="math inline">\(Z\)</span>의 임곗값은 -1.96과 1.96입니다.</p>
+<div class="figure">
+<img src="images/hypo-two-sided.png" alt="" />
+<p class="caption">양측검정</p>
+</div>
+<div class="figure">
+<img src="images/hypo-left-sided.png" alt="" />
+<p class="caption">단측검정: 좌측검정</p>
+</div>
+</div>
+<div id="종-오류와-2종-오류" class="section level4 hasAnchor" number="11.2.1.2">
+<h4><span class="header-section-number">11.2.1.2</span> 1종 오류와 2종 오류<a href="추정과-가설-검정.html#종-오류와-2종-오류" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>가설 검정의 결과에 나타나는 오류는 두 가지가 있습니다. <strong>제1종 오류</strong> type I error 는 귀무가설이 참인데 그걸 기각하고 대립가설을 선택하는 것입니다. 이것이 발생할 확률은 유의수준 <span class="math inline">\(\alpha\)</span> 과 같습니다. 왜냐하면 우리가 검정에 사용하는 분포는 귀무가설이 참이라고 가정할 때의 분포이기 때문입니다. <strong>제2종 오류</strong> type II error 는 귀무가설이 거짓인데 그걸 채택하고 대립가설을 기각하는 것입니다. 이것이 발생할 확률을 <span class="math inline">\(\beta\)</span> 라고 합니다. <span class="math inline">\(\beta\)</span> 는 알기 어렵습니다. 귀무가설이 거짓이라는 것을 알아도 참값이 얼마인지 모르므로 (예를 들어, 모 평균이 얼마인지 모르므로) 분포를 특정할 수 없기 때문입니다.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">실제사실</th>
+<th align="center"><span class="math inline">\(H_0\)</span> 채택</th>
+<th align="center"><span class="math inline">\(H_A\)</span> 채택</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(H_0\)</span> 참</td>
+<td align="center"><span class="math inline">\(1-\alpha\)</span></td>
+<td align="center"><span class="math inline">\(\alpha\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(H_A\)</span> 참</td>
+<td align="center"><span class="math inline">\(\beta\)</span></td>
+<td align="center"><span class="math inline">\(1-\beta\)</span></td>
+</tr>
+</tbody>
+</table>
+<div class="figure">
+<img src="images/type-I-error.png" alt="" />
+<p class="caption">제1종 오류</p>
+</div>
+<div class="figure">
+<img src="images/type-II-error.png" alt="" />
+<p class="caption">제2종 오류</p>
+</div>
+</div>
+</div>
+<div id="모-평균의-검정" class="section level3 hasAnchor" number="11.2.2">
+<h3><span class="header-section-number">11.2.2</span> 모 평균의 검정<a href="추정과-가설-검정.html#모-평균의-검정" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="단일-모집단에-대한-검정" class="section level4 hasAnchor" number="11.2.2.1">
+<h4><span class="header-section-number">11.2.2.1</span> 단일 모집단에 대한 검정<a href="추정과-가설-검정.html#단일-모집단에-대한-검정" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li><strong>정규 모집단이고 분산을 알 때</strong></li>
+</ul>
+<p>이미 아는 모집단의 평균이 맞는지 표본조사의 의한 표본 평균을 이용하여 검정합니다. 정규 모집단이므로 표본 평균도 정규 분포를 한다는 가정을 합니다. 표집분포가 정규이므로 검정통계량은 Z값입니다.</p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(H_0\)</span>: <span class="math inline">\(\mu=\mu_0\)</span>, <span class="math inline">\(H_A\)</span>: <span class="math inline">\(\mu \ne \mu_0\)</span>,</li>
+</ol>
+<p>또는 <span class="math inline">\(H_0\)</span>: <span class="math inline">\(\mu \le \mu_0\)</span>, <span class="math inline">\(H_A\)</span>: <span class="math inline">\(\mu \gt \mu_0\)</span>,</p>
+<p>또는 <span class="math inline">\(H_0\)</span>: <span class="math inline">\(\mu \ge \mu_0\)</span>, <span class="math inline">\(H_A\)</span>: <span class="math inline">\(\mu \lt \mu_0\)</span></p>
+<ol start="2" style="list-style-type: decimal">
+<li><p>유의수준 <span class="math inline">\(\alpha\)</span>을 결정한다</p></li>
+<li><p>표본에서 평균 <span class="math inline">\(\bar x\)</span>을 계산한다</p></li>
+<li><p>평균에 대응하는 검정통계량 <span class="math inline">\(z\)</span>값을 계산한다 <span class="math inline">\(z=\frac{\bar x-\mu_0}{\sigma/\sqrt{n}}\)</span></p></li>
+<li><p>임계값과 비교하여 기각과 채택을 결정한다</p></li>
+</ol>
+<ul>
+<li><strong>모 분산을 모르고 표본의 크기가 클 때</strong></li>
+</ul>
+<p>위와 동일하고, 모분산 대신에 표본 분산을 사용합니다. <span class="math inline">\(S^{2}=\frac{1}{n-1}\sum(X_i-\bar X)^{2}\)</span></p>
+<ul>
+<li><strong>모 분산을 모르고 표본의 크기가 작을 때</strong></li>
+</ul>
+<p>모집단이 정규분포를 한다면, 위와 동일한 과정을 거치되 <span class="math inline">\(Z\)</span>값 대신에 <span class="math inline">\(T\)</span>값을 사용합니다. <span class="math inline">\(T=\frac{\bar x-\mu_0}{S/\sqrt{n}}\)</span> 자유도는 <span class="math inline">\(n-1\)</span> 입니다.</p>
+</div>
+<div id="두-모집단의-평균-차이에-대한-검정" class="section level4 hasAnchor" number="11.2.2.2">
+<h4><span class="header-section-number">11.2.2.2</span> 두 모집단의 평균 차이에 대한 검정<a href="추정과-가설-검정.html#두-모집단의-평균-차이에-대한-검정" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li><strong>독립적인 정규 모집단이고 분산을 알 때</strong></li>
+</ul>
+<p>두 모집단의 평균이 같은지 표본조사의 의한 표본 평균을 이용하여 검정합니다. 정규 모집단이므로 표본 평균도 정규 분포를 한다는 가정을 합니다. 표집분포가 정규이므로 검정통계량은 Z값입니다.</p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(H_0\)</span>: <span class="math inline">\(\mu_1=\mu_2\)</span> 또는 <span class="math inline">\(\mu_1-\mu_2=0\)</span>, <span class="math inline">\(H_A\)</span>: <span class="math inline">\(\mu_1 \ne \mu_2\)</span> 또는 <span class="math inline">\(\mu_1-\mu_2 \ne 0\)</span></li>
+<li>유의수준 <span class="math inline">\(\alpha\)</span>을 결정한다</li>
+<li>표본에서 평균 차이를 <span class="math inline">\(\bar x_1-\bar x_2\)</span>을 계산한다</li>
+<li>평균에 대응하는 검정통계량 <span class="math inline">\(z\)</span>값을 계산한다 <span class="math inline">\(z=\frac{(\bar x_1-\bar x_2)-(\mu_1-\mu_2)}{\sqrt{\sigma_1^{2}/n_1+\sigma_2^{2}/n_2}}\)</span></li>
+<li>임계값과 비교하여 기각과 채택을 결정한다</li>
+</ol>
+<ul>
+<li><strong>모 분산을 모르고 표본의 크기가 클 때</strong></li>
+</ul>
+<p>위와 동일하고, 모분산 대신에 표본 분산을 사용합니다. <span class="math inline">\(S^{2}=\frac{1}{n-1}\sum(X_i-\bar X)^{2}\)</span></p>
+<ul>
+<li><strong>모 분산을 모르고 표본의 크기가 작을 때</strong></li>
+</ul>
+<p>모집단이 정규분포를 한다면, 위와 동일한 과정을 거치되 <span class="math inline">\(Z\)</span>값 대신에 <span class="math inline">\(T\)</span>값을 사용합니다.
+<span class="math display">\[T=\frac{\bar X_1-\bar X_2}{S_p\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}} \; \sim t(n_1+n_2-2)\]</span></p>
+<p>여기서 <span class="math inline">\(S_p\)</span>는 합동추정량입니다.
+<span class="math display">\[ S_{p}^{2} = \frac {(n_1-1) S_1^{2}+(n_2-1) S_2^{2}}{n_1+n_2 -2} \]</span></p>
+</div>
+<div id="쌍을-이룬-두-모평균-차이의-검정" class="section level4 hasAnchor" number="11.2.2.3">
+<h4><span class="header-section-number">11.2.2.3</span> 쌍을 이룬 두 모평균 차이의 검정<a href="추정과-가설-검정.html#쌍을-이룬-두-모평균-차이의-검정" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>쌍을 이룬 두 모평균 차이의 검정은 사실 쌍의 차이의 평균이 0인가를 검정하는 것과 같습니다. 따라서 두 모집단이 아니라 한 모집단에 대한 검정입니다. 따라서 절차는 단일 모집단에 대한 검정을 따릅니다.</p>
+<p><span class="math inline">\(H_0\)</span>: <span class="math inline">\(\mu_1=\mu_2\)</span> 또는 <span class="math inline">\(\mu_1-\mu_2=0\)</span>, <span class="math inline">\(H_A\)</span>: <span class="math inline">\(\mu_1 \ne \mu_2\)</span> 또는 <span class="math inline">\(\mu_1-\mu_2 \ne 0\)</span></p>
+<p>각 쌍의 차이를 {<span class="math inline">\(D_1, D_2, ... , D_n\)</span>}이라고 하고 그것이 분산이 <span class="math inline">\(\sigma^{2}\)</span> 인 정규 모집단에서 추출한 확률 표본이라고 합니다.</p>
+<p><span class="math display">\[\bar D = \frac{\sum_{i=1}^{n} D_i}{n}\]</span></p>
+<p><span class="math display">\[S_D^{2}=\frac{\sum_{i=1}^{n} (D_i-\bar D)^{2}}{n-1}\]</span></p>
+<p>귀무가설이 사실이라면 차이의 평균은 0이므로</p>
+<p><span class="math display">\[T=\frac{\bar D}{S_D/\sqrt{n}} \; \sim t(n-1)\]</span></p>
+</div>
+</div>
+<div id="모-분산의-검정" class="section level3 hasAnchor" number="11.2.3">
+<h3><span class="header-section-number">11.2.3</span> 모 분산의 검정<a href="추정과-가설-검정.html#모-분산의-검정" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="단일-모집단에-대한-검정-1" class="section level4 hasAnchor" number="11.2.3.1">
+<h4><span class="header-section-number">11.2.3.1</span> 단일 모집단에 대한 검정<a href="추정과-가설-검정.html#단일-모집단에-대한-검정-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><span class="math inline">\(H_0\)</span>가 제시한 모 분산에 대해서 표본 분산을 이용하여 검정을 하는 방법입니다. 모 분산에 대한 검정통계량은 <span class="math inline">\(\chi^{2}\)</span> 며, 계산하는 법은 아래와 같습니다. 비율을 이용해서 양측검정과 단측검정을 모두 할 수 있습니다.</p>
+<p><span class="math display">\[\chi^{2}= \frac{(n-1)S^{2}}{\sigma_0^{2}} \sim \chi_{n-1}^{2}\]</span></p>
+<ol style="list-style-type: decimal">
+<li><p><span class="math inline">\(H_0\)</span>: <span class="math inline">\(\sigma^{2}=\sigma^{2}_0\)</span>, <span class="math inline">\(H_A\)</span>: <span class="math inline">\(\sigma^{2} \ne \sigma^{2}_0\)</span></p></li>
+<li><p>유의수준 <span class="math inline">\(\alpha\)</span>을 결정한다</p></li>
+<li><p>표본에서 카이제곱 <span class="math inline">\(\chi^{2}\)</span>을 계산한다. 자유도는 <span class="math inline">\(n-1\)</span>.</p></li>
+<li><p>임계값과 비교하여 기각과 채택을 결정한다</p></li>
+</ol>
+<div class="figure">
+<img src="images/chisq-two-sided.png" alt="" />
+<p class="caption">분산의 가설검정: 단일 모집단</p>
+</div>
+</div>
+<div id="두-모집단에-대한-검정" class="section level4 hasAnchor" number="11.2.3.2">
+<h4><span class="header-section-number">11.2.3.2</span> 두 모집단에 대한 검정<a href="추정과-가설-검정.html#두-모집단에-대한-검정" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>두 모집단 분산의 차이는 비율로 검정합니다. 확률변수인 두 분산의 비율은 F 분포를 따르므로 F 값을 검정통계량으로 사용합니다. <span class="math inline">\(H_0\)</span>의 가정인 <span class="math inline">\(\sigma_1^{2}=\sigma_2^{2}\)</span> 를 적용하면 아래 공식이 도출됩니다. 그것를 이용해서 검정통게량을 계산합니다. 비율을 이용해서 양측검정과 단측검정을 모두 할 수 있습니다.</p>
+<p>두 모집단 분산의 차이에 대한 검정통계량</p>
+<p><span class="math display">\[ F=\frac{S_1^{2}}{S_2^{2}} \sim F(n_1-1, n_2-1) \]</span></p>
+<ul>
+<li><strong>가설 검정의 절차</strong></li>
+</ul>
+<ol style="list-style-type: decimal">
+<li><p><span class="math inline">\(H_0\)</span>: <span class="math inline">\(\sigma^{2}=\sigma^{2}_0\)</span>, <span class="math inline">\(H_A\)</span>: <span class="math inline">\(\sigma^{2} \ne \sigma^{2}_0\)</span></p></li>
+<li><p>유의수준 <span class="math inline">\(\alpha\)</span>을 결정한다</p></li>
+<li><p>표본에서 F값을 계산한다. 자유도는 <span class="math inline">\((n_1-1,\;n_2-1)\)</span></p></li>
+<li><p>임계값과 비교하여 기각과 채택을 결정한다</p></li>
+</ol>
+
+</div>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="범주형-자료분석.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="분산분석.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/추정과가설검정.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

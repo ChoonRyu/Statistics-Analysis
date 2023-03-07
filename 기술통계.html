@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 5 기술통계 | 통계와 분석</title>
+  <meta name="description" content="<p>통계와 분석의 강의 노트.
+HTML 아웃풋 포맷은 bookdown::gitbook,
+_output.yml 파일에 적었다.</p>" />
+  <meta name="generator" content="bookdown 0.32 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 5 기술통계 | 통계와 분석" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>통계와 분석의 강의 노트.
+HTML 아웃풋 포맷은 bookdown::gitbook,
+_output.yml 파일에 적었다.</p>" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 기술통계 | 통계와 분석" />
+  
+  <meta name="twitter:description" content="<p>통계와 분석의 강의 노트.
+HTML 아웃풋 포맷은 bookdown::gitbook,
+_output.yml 파일에 적었다.</p>" />
+  
+
+<meta name="author" content="류춘렬" />
+
+
+<meta name="date" content="2023-03-05" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="데이터의-변환-요약-분석.html"/>
+<link rel="next" href="확률분포와-표집분포.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Statistics and Analysis</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>안내</a></li>
+<li class="chapter" data-level="1" data-path="강의-소개.html"><a href="강의-소개.html"><i class="fa fa-check"></i><b>1</b> 강의 소개</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="강의-소개.html"><a href="강의-소개.html#r의-세상으로"><i class="fa fa-check"></i><b>1.1</b> R의 세상으로</a></li>
+<li class="chapter" data-level="1.2" data-path="강의-소개.html"><a href="강의-소개.html#사전-지식"><i class="fa fa-check"></i><b>1.2</b> 사전 지식</a></li>
+<li class="chapter" data-level="1.3" data-path="강의-소개.html"><a href="강의-소개.html#균형"><i class="fa fa-check"></i><b>1.3</b> 균형</a></li>
+<li class="chapter" data-level="1.4" data-path="강의-소개.html"><a href="강의-소개.html#보고서와-문서-작성"><i class="fa fa-check"></i><b>1.4</b> 보고서와 문서 작성</a></li>
+<li class="chapter" data-level="1.5" data-path="강의-소개.html"><a href="강의-소개.html#강의의-구조-세-부분"><i class="fa fa-check"></i><b>1.5</b> 강의의 구조: 세 부분</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="통계의-기초-개념.html"><a href="통계의-기초-개념.html"><i class="fa fa-check"></i><b>2</b> 통계의 기초 개념</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="통계의-기초-개념.html"><a href="통계의-기초-개념.html#모집단과-표본"><i class="fa fa-check"></i><b>2.1</b> 모집단과 표본</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="통계의-기초-개념.html"><a href="통계의-기초-개념.html#모집단과-표본의-개념"><i class="fa fa-check"></i><b>2.1.1</b> 모집단과 표본의 개념</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="통계의-기초-개념.html"><a href="통계의-기초-개념.html#기술통계학과-추론통계학"><i class="fa fa-check"></i><b>2.2</b> 기술통계학과 추론통계학</a></li>
+<li class="chapter" data-level="2.3" data-path="통계의-기초-개념.html"><a href="통계의-기초-개념.html#측정-척도"><i class="fa fa-check"></i><b>2.3</b> 측정 척도</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="통계의-기초-개념.html"><a href="통계의-기초-개념.html#명목척도"><i class="fa fa-check"></i><b>2.3.1</b> 명목척도</a></li>
+<li class="chapter" data-level="2.3.2" data-path="통계의-기초-개념.html"><a href="통계의-기초-개념.html#서열-척도"><i class="fa fa-check"></i><b>2.3.2</b> 서열 척도</a></li>
+<li class="chapter" data-level="2.3.3" data-path="통계의-기초-개념.html"><a href="통계의-기초-개념.html#등간-척도"><i class="fa fa-check"></i><b>2.3.3</b> 등간 척도</a></li>
+<li class="chapter" data-level="2.3.4" data-path="통계의-기초-개념.html"><a href="통계의-기초-개념.html#비율-척도"><i class="fa fa-check"></i><b>2.3.4</b> 비율 척도</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="통계의-기초-개념.html"><a href="통계의-기초-개념.html#변수"><i class="fa fa-check"></i><b>2.4</b> 변수</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="통계의-기초-개념.html"><a href="통계의-기초-개념.html#정량-변수와-정성-변수"><i class="fa fa-check"></i><b>2.4.1</b> 정량 변수와 정성 변수</a></li>
+<li class="chapter" data-level="2.4.2" data-path="통계의-기초-개념.html"><a href="통계의-기초-개념.html#이산변수와-연속변수"><i class="fa fa-check"></i><b>2.4.2</b> 이산변수와 연속변수</a></li>
+<li class="chapter" data-level="2.4.3" data-path="통계의-기초-개념.html"><a href="통계의-기초-개념.html#확률-변수"><i class="fa fa-check"></i><b>2.4.3</b> 확률 변수</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="통계의-기초-개념.html"><a href="통계의-기초-개념.html#인과관계와-변수"><i class="fa fa-check"></i><b>2.5</b> 인과관계와 변수</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="통계의-기초-개념.html"><a href="통계의-기초-개념.html#독립변수와-종속변수"><i class="fa fa-check"></i><b>2.5.1</b> 독립변수와 종속변수</a></li>
+<li class="chapter" data-level="2.5.2" data-path="통계의-기초-개념.html"><a href="통계의-기초-개념.html#매개변수와-조절변수"><i class="fa fa-check"></i><b>2.5.2</b> 매개변수와 조절변수</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="기본.html"><a href="기본.html"><i class="fa fa-check"></i><b>3</b> 기본</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="기본.html"><a href="기본.html#r과-rstudio-설치"><i class="fa fa-check"></i><b>3.1</b> R과 RStudio 설치</a></li>
+<li class="chapter" data-level="3.2" data-path="기본.html"><a href="기본.html#rstudio"><i class="fa fa-check"></i><b>3.2</b> RStudio</a></li>
+<li class="chapter" data-level="3.3" data-path="기본.html"><a href="기본.html#r-코드-실행"><i class="fa fa-check"></i><b>3.3</b> R 코드 실행</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="기본.html"><a href="기본.html#r-스크립트"><i class="fa fa-check"></i><b>3.3.1</b> R 스크립트</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="기본.html"><a href="기본.html#변수와-함수"><i class="fa fa-check"></i><b>3.4</b> 변수와 함수</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="기본.html"><a href="기본.html#데이터-저장"><i class="fa fa-check"></i><b>3.4.1</b> 데이터 저장</a></li>
+<li class="chapter" data-level="3.4.2" data-path="기본.html"><a href="기본.html#변수-이름을-만들기"><i class="fa fa-check"></i><b>3.4.2</b> 변수 이름을 만들기</a></li>
+<li class="chapter" data-level="3.4.3" data-path="기본.html"><a href="기본.html#벡터와-데이터-프레임"><i class="fa fa-check"></i><b>3.4.3</b> 벡터와 데이터 프레임</a></li>
+<li class="chapter" data-level="3.4.4" data-path="기본.html"><a href="기본.html#함수-functions"><i class="fa fa-check"></i><b>3.4.4</b> 함수 functions</a></li>
+<li class="chapter" data-level="3.4.5" data-path="기본.html"><a href="기본.html#수학-연산"><i class="fa fa-check"></i><b>3.4.5</b> 수학 연산</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="기본.html"><a href="기본.html#패키지"><i class="fa fa-check"></i><b>3.5</b> 패키지</a></li>
+<li class="chapter" data-level="3.6" data-path="기본.html"><a href="기본.html#기술적-통계"><i class="fa fa-check"></i><b>3.6</b> 기술적 통계</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="기본.html"><a href="기본.html#숫자형-자료-numerical"><i class="fa fa-check"></i><b>3.6.1</b> 숫자형 자료 numerical</a></li>
+<li class="chapter" data-level="3.6.2" data-path="기본.html"><a href="기본.html#범주형-자료-categorical"><i class="fa fa-check"></i><b>3.6.2</b> 범주형 자료 categorical</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="기본.html"><a href="기본.html#숫자형-자료의-그래프"><i class="fa fa-check"></i><b>3.7</b> 숫자형 자료의 그래프</a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="기본.html"><a href="기본.html#그래프-plot"><i class="fa fa-check"></i><b>3.7.1</b> 그래프 plot</a></li>
+<li class="chapter" data-level="3.7.2" data-path="기본.html"><a href="기본.html#색깔-모양-축의-이름표"><i class="fa fa-check"></i><b>3.7.2</b> 색깔, 모양, 축의 이름표</a></li>
+<li class="chapter" data-level="3.7.3" data-path="기본.html"><a href="기본.html#축의-한계와-크기"><i class="fa fa-check"></i><b>3.7.3</b> 축의 한계와 크기</a></li>
+<li class="chapter" data-level="3.7.4" data-path="기본.html"><a href="기본.html#집단-비교하기"><i class="fa fa-check"></i><b>3.7.4</b> 집단 비교하기</a></li>
+<li class="chapter" data-level="3.7.5" data-path="기본.html"><a href="기본.html#박스플롯-boxplots"><i class="fa fa-check"></i><b>3.7.5</b> 박스플롯 boxplots</a></li>
+<li class="chapter" data-level="3.7.6" data-path="기본.html"><a href="기본.html#히스토그램"><i class="fa fa-check"></i><b>3.7.6</b> 히스토그램</a></li>
+</ul></li>
+<li class="chapter" data-level="3.8" data-path="기본.html"><a href="기본.html#범주형-데이터-그래프"><i class="fa fa-check"></i><b>3.8</b> 범주형 데이터 그래프</a>
+<ul>
+<li class="chapter" data-level="3.8.1" data-path="기본.html"><a href="기본.html#막대-그래프"><i class="fa fa-check"></i><b>3.8.1</b> 막대 그래프</a></li>
+</ul></li>
+<li class="chapter" data-level="3.9" data-path="기본.html"><a href="기본.html#그래프-저장하기"><i class="fa fa-check"></i><b>3.9</b> 그래프 저장하기</a></li>
+<li class="chapter" data-level="3.10" data-path="기본.html"><a href="기본.html#문제-해결하기"><i class="fa fa-check"></i><b>3.10</b> 문제 해결하기</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html"><i class="fa fa-check"></i><b>4</b> 데이터의 변환, 요약, 분석</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#데이터-프레임과-데이터-종류"><i class="fa fa-check"></i><b>4.1</b> 데이터 프레임과 데이터 종류</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#종류와-구조"><i class="fa fa-check"></i><b>4.1.1</b> 종류와 구조</a></li>
+<li class="chapter" data-level="4.1.2" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#테이블-종류"><i class="fa fa-check"></i><b>4.1.2</b> 테이블 종류</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#데이터프레임-안의-벡터"><i class="fa fa-check"></i><b>4.2</b> 데이터프레임 안의 벡터</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#벡터와-요소에-접근하기"><i class="fa fa-check"></i><b>4.2.1</b> 벡터와 요소에 접근하기</a></li>
+<li class="chapter" data-level="4.2.2" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#기호-사용"><i class="fa fa-check"></i><b>4.2.2</b> “$” 기호 사용</a></li>
+<li class="chapter" data-level="4.2.3" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#조건-사용하기"><i class="fa fa-check"></i><b>4.2.3</b> 조건 사용하기</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#데이터-가져오기"><i class="fa fa-check"></i><b>4.3</b> 데이터 가져오기</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#csv-파일-가져오기"><i class="fa fa-check"></i><b>4.3.1</b> csv 파일 가져오기</a></li>
+<li class="chapter" data-level="4.3.2" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#엑셀-파일-가져오기"><i class="fa fa-check"></i><b>4.3.2</b> 엑셀 파일 가져오기</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#데이터의-저장과-내보내기"><i class="fa fa-check"></i><b>4.4</b> 데이터의 저장과 내보내기</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#데이터를-내보내기"><i class="fa fa-check"></i><b>4.4.1</b> 데이터를 내보내기</a></li>
+<li class="chapter" data-level="4.4.2" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#r-데이터의-저장과-불러오기"><i class="fa fa-check"></i><b>4.4.2</b> R 데이터의 저장과 불러오기</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#rstudio-프로젝트"><i class="fa fa-check"></i><b>4.5</b> RStudio 프로젝트</a></li>
+<li class="chapter" data-level="4.6" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#t-검정-실행하기"><i class="fa fa-check"></i><b>4.6</b> t 검정 실행하기</a></li>
+<li class="chapter" data-level="4.7" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#선형-회귀분석-모델"><i class="fa fa-check"></i><b>4.7</b> 선형 회귀분석 모델</a></li>
+<li class="chapter" data-level="4.8" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#집단-별로-요약하기"><i class="fa fa-check"></i><b>4.8</b> 집단 별로 요약하기</a></li>
+<li class="chapter" data-level="4.9" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#파이프를-이용하기"><i class="fa fa-check"></i><b>4.9</b> %&gt;% 파이프를 이용하기</a>
+<ul>
+<li class="chapter" data-level="4.9.1" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#파이프"><i class="fa fa-check"></i><b>4.9.1</b> 파이프</a></li>
+</ul></li>
+<li class="chapter" data-level="4.10" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#두-개의-r-base-and-tidyverse"><i class="fa fa-check"></i><b>4.10</b> 두 개의 R: Base and tidyverse</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="기술통계.html"><a href="기술통계.html"><i class="fa fa-check"></i><b>5</b> 기술통계</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="기술통계.html"><a href="기술통계.html#빈도분포"><i class="fa fa-check"></i><b>5.1</b> 빈도분포</a></li>
+<li class="chapter" data-level="5.2" data-path="기술통계.html"><a href="기술통계.html#집중화-경향치"><i class="fa fa-check"></i><b>5.2</b> 집중화 경향치</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="기술통계.html"><a href="기술통계.html#평균"><i class="fa fa-check"></i><b>5.2.1</b> 평균</a></li>
+<li class="chapter" data-level="5.2.2" data-path="기술통계.html"><a href="기술통계.html#중앙값"><i class="fa fa-check"></i><b>5.2.2</b> 중앙값</a></li>
+<li class="chapter" data-level="5.2.3" data-path="기술통계.html"><a href="기술통계.html#최빈값"><i class="fa fa-check"></i><b>5.2.3</b> 최빈값</a></li>
+<li class="chapter" data-level="5.2.4" data-path="기술통계.html"><a href="기술통계.html#집중경향치의-비교"><i class="fa fa-check"></i><b>5.2.4</b> 집중경향치의 비교</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="기술통계.html"><a href="기술통계.html#분포와-분산도"><i class="fa fa-check"></i><b>5.3</b> 분포와 분산도</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="기술통계.html"><a href="기술통계.html#범위"><i class="fa fa-check"></i><b>5.3.1</b> 범위</a></li>
+<li class="chapter" data-level="5.3.2" data-path="기술통계.html"><a href="기술통계.html#표준편차와-분산"><i class="fa fa-check"></i><b>5.3.2</b> 표준편차와 분산</a></li>
+<li class="chapter" data-level="5.3.3" data-path="기술통계.html"><a href="기술통계.html#사분위편차"><i class="fa fa-check"></i><b>5.3.3</b> 사분위편차</a></li>
+<li class="chapter" data-level="5.3.4" data-path="기술통계.html"><a href="기술통계.html#변동계수와-사분위분산계수"><i class="fa fa-check"></i><b>5.3.4</b> 변동계수와 사분위분산계수</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="기술통계.html"><a href="기술통계.html#z값과-분포의-표준화"><i class="fa fa-check"></i><b>5.4</b> Z값과 분포의 표준화</a></li>
+<li class="chapter" data-level="5.5" data-path="기술통계.html"><a href="기술통계.html#비대칭도"><i class="fa fa-check"></i><b>5.5</b> 비대칭도</a></li>
+<li class="chapter" data-level="5.6" data-path="기술통계.html"><a href="기술통계.html#교차-분석"><i class="fa fa-check"></i><b>5.6</b> 교차 분석</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="기술통계.html"><a href="기술통계.html#범주형-자료의-빈도-분석"><i class="fa fa-check"></i><b>5.6.1</b> 범주형 자료의 빈도 분석</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="확률분포와-표집분포.html"><a href="확률분포와-표집분포.html"><i class="fa fa-check"></i><b>6</b> 확률분포와 표집분포</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="확률분포와-표집분포.html"><a href="확률분포와-표집분포.html#확률분포"><i class="fa fa-check"></i><b>6.1</b> 확률분포</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="확률분포와-표집분포.html"><a href="확률분포와-표집분포.html#확률"><i class="fa fa-check"></i><b>6.1.1</b> 확률</a></li>
+<li class="chapter" data-level="6.1.2" data-path="확률분포와-표집분포.html"><a href="확률분포와-표집분포.html#확률변수"><i class="fa fa-check"></i><b>6.1.2</b> 확률변수</a></li>
+<li class="chapter" data-level="6.1.3" data-path="확률분포와-표집분포.html"><a href="확률분포와-표집분포.html#이항확률분포"><i class="fa fa-check"></i><b>6.1.3</b> 이항확률분포</a></li>
+<li class="chapter" data-level="6.1.4" data-path="확률분포와-표집분포.html"><a href="확률분포와-표집분포.html#확률함수와-확률분포"><i class="fa fa-check"></i><b>6.1.4</b> 확률함수와 확률분포</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="확률분포와-표집분포.html"><a href="확률분포와-표집분포.html#확률분포의-종류"><i class="fa fa-check"></i><b>6.2</b> 확률분포의 종류</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="확률분포와-표집분포.html"><a href="확률분포와-표집분포.html#정규분포"><i class="fa fa-check"></i><b>6.2.1</b> 정규분포</a></li>
+<li class="chapter" data-level="6.2.2" data-path="확률분포와-표집분포.html"><a href="확률분포와-표집분포.html#t-분포"><i class="fa fa-check"></i><b>6.2.2</b> t 분포</a></li>
+<li class="chapter" data-level="6.2.3" data-path="확률분포와-표집분포.html"><a href="확률분포와-표집분포.html#카이제곱분포"><i class="fa fa-check"></i><b>6.2.3</b> 카이제곱분포</a></li>
+<li class="chapter" data-level="6.2.4" data-path="확률분포와-표집분포.html"><a href="확률분포와-표집분포.html#f-분포"><i class="fa fa-check"></i><b>6.2.4</b> F 분포</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="확률분포와-표집분포.html"><a href="확률분포와-표집분포.html#표집분포"><i class="fa fa-check"></i><b>6.3</b> 표집분포</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="확률분포와-표집분포.html"><a href="확률분포와-표집분포.html#중심극한-정리"><i class="fa fa-check"></i><b>6.3.1</b> 중심극한 정리</a></li>
+<li class="chapter" data-level="6.3.2" data-path="확률분포와-표집분포.html"><a href="확률분포와-표집분포.html#평균의-표집분포-한-모집단"><i class="fa fa-check"></i><b>6.3.2</b> 평균의 표집분포: 한 모집단</a></li>
+<li class="chapter" data-level="6.3.3" data-path="확률분포와-표집분포.html"><a href="확률분포와-표집분포.html#평균-차이의-표집분포-두-모집단"><i class="fa fa-check"></i><b>6.3.3</b> 평균 차이의 표집분포: 두 모집단</a></li>
+<li class="chapter" data-level="6.3.4" data-path="확률분포와-표집분포.html"><a href="확률분포와-표집분포.html#분산의-표집분포-한-모집단"><i class="fa fa-check"></i><b>6.3.4</b> 분산의 표집분포: 한 모집단</a></li>
+<li class="chapter" data-level="6.3.5" data-path="확률분포와-표집분포.html"><a href="확률분포와-표집분포.html#분산의-표집분포-두-모집단"><i class="fa fa-check"></i><b>6.3.5</b> 분산의 표집분포: 두 모집단</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="탐색적-데이터-분석.html"><a href="탐색적-데이터-분석.html"><i class="fa fa-check"></i><b>7</b> 탐색적 데이터 분석</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="탐색적-데이터-분석.html"><a href="탐색적-데이터-분석.html#r-markdown으로-보고서-작성"><i class="fa fa-check"></i><b>7.1</b> R Markdown으로 보고서 작성</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="탐색적-데이터-분석.html"><a href="탐색적-데이터-분석.html#시작하기"><i class="fa fa-check"></i><b>7.1.1</b> 시작하기</a></li>
+<li class="chapter" data-level="7.1.2" data-path="탐색적-데이터-분석.html"><a href="탐색적-데이터-분석.html#텍스트-포맷"><i class="fa fa-check"></i><b>7.1.2</b> 텍스트 포맷</a></li>
+<li class="chapter" data-level="7.1.3" data-path="탐색적-데이터-분석.html"><a href="탐색적-데이터-분석.html#리스트-표-그림"><i class="fa fa-check"></i><b>7.1.3</b> 리스트, 표, 그림</a></li>
+<li class="chapter" data-level="7.1.4" data-path="탐색적-데이터-분석.html"><a href="탐색적-데이터-분석.html#코드-청크"><i class="fa fa-check"></i><b>7.1.4</b> 코드 청크</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="탐색적-데이터-분석.html"><a href="탐색적-데이터-분석.html#ggplot2-그래프를-보기-좋게"><i class="fa fa-check"></i><b>7.2</b> ggplot2 그래프를 보기 좋게</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="탐색적-데이터-분석.html"><a href="탐색적-데이터-분석.html#테마-이용"><i class="fa fa-check"></i><b>7.2.1</b> 테마 이용</a></li>
+<li class="chapter" data-level="7.2.2" data-path="탐색적-데이터-분석.html"><a href="탐색적-데이터-분석.html#칼라-팔레트"><i class="fa fa-check"></i><b>7.2.2</b> 칼라 팔레트</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="탐색적-데이터-분석.html"><a href="탐색적-데이터-분석.html#테마-맞춤"><i class="fa fa-check"></i><b>7.3</b> 4.2.3 테마 맞춤</a></li>
+<li class="chapter" data-level="7.4" data-path="탐색적-데이터-분석.html"><a href="탐색적-데이터-분석.html#극단값과-결측값"><i class="fa fa-check"></i><b>7.4</b> 극단값과 결측값</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="탐색적-데이터-분석.html"><a href="탐색적-데이터-분석.html#극단값-탐지"><i class="fa fa-check"></i><b>7.4.1</b> 극단값 탐지</a></li>
+<li class="chapter" data-level="7.4.2" data-path="탐색적-데이터-분석.html"><a href="탐색적-데이터-분석.html#극단값에-라벨-붙이기"><i class="fa fa-check"></i><b>7.4.2</b> 극단값에 라벨 붙이기</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="탐색적-데이터-분석.html"><a href="탐색적-데이터-분석.html#산포도-그래프의-추세"><i class="fa fa-check"></i><b>7.5</b> 산포도 그래프의 추세</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="티검정.html"><a href="티검정.html"><i class="fa fa-check"></i><b>8</b> 티검정</a></li>
+<li class="chapter" data-level="9" data-path="범주형-자료분석.html"><a href="범주형-자료분석.html"><i class="fa fa-check"></i><b>9</b> 범주형 자료분석</a></li>
+<li class="chapter" data-level="10" data-path="추정과-가설-검정.html"><a href="추정과-가설-검정.html"><i class="fa fa-check"></i><b>10</b> 추정과 가설 검정</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="추정과-가설-검정.html"><a href="추정과-가설-검정.html#추정"><i class="fa fa-check"></i><b>10.1</b> 추정</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="추정과-가설-검정.html"><a href="추정과-가설-검정.html#점-추정"><i class="fa fa-check"></i><b>10.1.1</b> 점 추정</a></li>
+<li class="chapter" data-level="10.1.2" data-path="추정과-가설-검정.html"><a href="추정과-가설-검정.html#구간-추정"><i class="fa fa-check"></i><b>10.1.2</b> 구간 추정</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="추정과-가설-검정.html"><a href="추정과-가설-검정.html#검정"><i class="fa fa-check"></i><b>10.2</b> 검정</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="추정과-가설-검정.html"><a href="추정과-가설-검정.html#가설-검정"><i class="fa fa-check"></i><b>10.2.1</b> 가설 검정</a></li>
+<li class="chapter" data-level="10.2.2" data-path="추정과-가설-검정.html"><a href="추정과-가설-검정.html#모-평균의-검정"><i class="fa fa-check"></i><b>10.2.2</b> 모 평균의 검정</a></li>
+<li class="chapter" data-level="10.2.3" data-path="추정과-가설-검정.html"><a href="추정과-가설-검정.html#모-분산의-검정"><i class="fa fa-check"></i><b>10.2.3</b> 모 분산의 검정</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="분산분석.html"><a href="분산분석.html"><i class="fa fa-check"></i><b>11</b> 분산분석</a></li>
+<li class="chapter" data-level="12" data-path="상관분석.html"><a href="상관분석.html"><i class="fa fa-check"></i><b>12</b> 상관분석</a></li>
+<li class="chapter" data-level="13" data-path="선형회귀분석.html"><a href="선형회귀분석.html"><i class="fa fa-check"></i><b>13</b> 선형회귀분석</a></li>
+<li class="chapter" data-level="14" data-path="요인분석과-신뢰도.html"><a href="요인분석과-신뢰도.html"><i class="fa fa-check"></i><b>14</b> 요인분석과 신뢰도</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">통계와 분석</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="기술통계" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">Chapter 5</span> 기술통계<a href="기술통계.html#기술통계" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="빈도분포" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> 빈도분포<a href="기술통계.html#빈도분포" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>빈도</strong> frequency 는 측정 단위의 숫자, 관찰의 숫자, 혹은 사례의 숫자를 말한다. 만일 사람 20명의 키를 측정했다면 관찰 빈도는 20입니다. 키가 170cm인 사람이 15명이면 키 170cm의 값에 해당하는 빈도는 15가 됩니다. 빈도를 나타내는 데 <strong>도수</strong>라는 용어도 많이 사용됩니다. 빈도와 도수, 빈도분포와 도수분포는 같은 뜻입니다. <strong>상대빈도</strong> relative frequency 는 해당 빈도를 전체 빈도로 나눈 것입니다. 만일 전체 10명에서 여자가 4명, 남자가 6명이라면 여자의 상대빈도는 40% 또는 0.4, 남자는 60% 또는 0.6입니다.</p>
+<p><strong>빈도분포</strong> frequency distribution 는 측정된 점수를 크기 순서대로 체계화해서 측정 척도에 맞도록 범주화한 것입다. 예를 들어, 측정한 키가 각각 159, 161, 162,168 171, 173, 175, 177, 182, 183이라면 아래 표와 같이 보기 좋게 범주화해서 정리합니다. 이러한 표를 <strong>빈도분포표</strong>라고 합니다.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">키 x</th>
+<th align="center">빈도 <span class="math inline">\(f\)</span></th>
+<th align="center">상대빈도</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">151-160cm</td>
+<td align="center">1</td>
+<td align="center">0.1</td>
+</tr>
+<tr class="even">
+<td align="center">161-170cm</td>
+<td align="center">3</td>
+<td align="center">0.3</td>
+</tr>
+<tr class="odd">
+<td align="center">171-180cm</td>
+<td align="center">4</td>
+<td align="center">0.4</td>
+</tr>
+<tr class="even">
+<td align="center">181-190cm</td>
+<td align="center">2</td>
+<td align="center">0.2</td>
+</tr>
+</tbody>
+</table>
+<p>빈도분포에서 총합은 x값과 그 값의 빈도를 곱해서 모두 더하면 됩니다.</p>
+<p><span class="math display">\[총합 = \sum xf\]</span></p>
+<p>참고로 위의 수식을 표현하는 R Markdonw 방법은,</p>
+<div class="sourceCode" id="cb238"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb238-1"><a href="기술통계.html#cb238-1" aria-hidden="true" tabindex="-1"></a>$$총합 = \sum xf$$</span></code></pre></div>
+<p>위의 빈도분포표처럼 수치가 범주화해서 정리되어 있다면 중간 값을 취해서 빈도를 곱합니다. ’a-b cm’가 계급 구간이라면,</p>
+<p><span class="math display">\[총합 = \sum \frac{(b-a)}{2}f\]</span></p>
+<p>중앙을 중심으로 서로 닯은 꼴인 분포를 <strong>대칭 분포</strong>라고 하고, 중앙을 중심으로 서로 다른 것을 <strong>비대칭 분포</strong>라고 합니다. 분포의 양끝은 대개 좁고 길게 늘어지게 마련인데 그것을 <strong>꼬리</strong> tail 라고 부릅니다. 꼬리가 오른쪽이 더 길면 정적 비대칭이고, 왼쪽이 더 길게 늘어지면 부적 비대칭입니다.</p>
+<p>빈도, 도수, 상대빈도, 빈도분포표, 대칭분포, 비대칭분포, 꼬리</p>
+</div>
+<div id="집중화-경향치" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> 집중화 경향치<a href="기술통계.html#집중화-경향치" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>기술 통계의 목적 중 하나는 집단을 대표하는 값을 산출하는 것이다. 평균이 가장 흔하게 이런 목적으로 쓰입니다. 평균처럼 집단의 속성을 나타내는 대표성을 가지는 값을 <strong>집중경향치</strong> central tendency (or measure of central tendency) 라고 합니다. 평균, 중앙값, 최빈값 등이 자주 사용되는 집중화 경향치입니다.</p>
+<div id="평균" class="section level3 hasAnchor" number="5.2.1">
+<h3><span class="header-section-number">5.2.1</span> 평균<a href="기술통계.html#평균" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>평균</strong> average 은 <strong>산술평균</strong> arithmatic mean 이라고 부르기도 합니다. 모든 측정값의 합을 측정값의 갯수로 나눈 값입니다. 집중화경향치로 가장 많이 사용합니다. 계산법은 아래와 같습니다. 위는 모집단의 평균이고 아래는 표본의 평균이지요. 방법은 둘이 동일합니다.</p>
+<p><span class="math display">\[ \mu = \frac{1}{N}\sum_{i=1}^{N}x_i = (\frac{1}{N})(x_1 + x_2 + x_3 + ... +x_N)\]</span></p>
+<p><span class="math display">\[ \bar x = \frac{1}{n}\sum_{i=1}^{n}x_i = (\frac{1}{n})(x_1 + x_2 + x_3 + ... +x_n)\]</span></p>
+<p>참고: 총합인 <span class="math inline">\(\sum x\)</span> 를 <span class="math inline">\(\frac{1}{n}\)</span> 로 곱한 것은 총합 <span class="math inline">\(\sum x\)</span> 를 <span class="math inline">\(n\)</span> 로 나눈 것과 마찬가지입니다.</p>
+<p><span class="math display">\[\frac{1}{n}\sum x = \frac{\sum x}{n}\]</span></p>
+<p><strong>가중평균</strong> weighted average 은 이미 평균이 산출된 여러 집단을 합친 전체 집단의 평균을 계산할 때 사용합니다. 예를 들어, 한국대학의 남자 키 평균과 여자 키 평균이 있을 때 그 둘을 더해서 2로 나눈다고 전체 평균이 되지 않습니다. 남자 수와 여자 수가 다르기 때문에 그것을 고려해야 합니다.</p>
+<p><span class="math display">\[\bar x_w = \frac{\sum_{i=1}^{k}w_i\bar x_i}{\sum_{i=1}^{k}w_i}\]</span></p>
+<p>여기에서 <span class="math inline">\(k\)</span>: 평균의 수, <span class="math inline">\(\bar x_i\)</span>: <span class="math inline">\(i\)</span> 번째 평균, <span class="math inline">\(w_i\)</span>: <span class="math inline">\(i\)</span> 번째 평균의 가중치.</p>
+<p>만일 남자 평균이 175cm고 수는 100명, 여자 평균이 165cm고 수는 150명이라면 남자 평균 가중치는 100, 여자 평균 가중치는 150입니다. 따라서</p>
+<p><span class="math display">\[ 가중평균 \bar x_w = \frac{(100*175) + (150*165)}{100 + 150}\]</span></p>
+<p>참고로 위의 R Markdown 수식을 표현하는 방법은,</p>
+<div class="sourceCode" id="cb239"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb239-1"><a href="기술통계.html#cb239-1" aria-hidden="true" tabindex="-1"></a>$$ 가중평균 \bar x_w = \frac{(100*175) + (150*165)}{100 + 150}$$</span>
+<span id="cb239-2"><a href="기술통계.html#cb239-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb239-3"><a href="기술통계.html#cb239-3" aria-hidden="true" tabindex="-1"></a>\bar x, \bar x_w, \frac{}{}</span></code></pre></div>
+</div>
+<div id="중앙값" class="section level3 hasAnchor" number="5.2.2">
+<h3><span class="header-section-number">5.2.2</span> 중앙값<a href="기술통계.html#중앙값" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>중앙값</strong> median 은 분포를 정확하게 반으로 나누는 측정값을 말합니다. 즉 측정값들을 크기 순서로 늘어놓았을 때 가운데 오는 값이 중앙값입니다. 측정값의 수가 홀수라면 가운데 값이 중앙값입니다. 즉 측정값이 1, 2, 2, 4, 5, 이렇게 다섯이라면 세번째의 2가 중앙값입니다. 짝수라면 가운데 값이 두 개가 될 수도 있어요. 즉 측정값이 1, 2, 2, 4, 5, 6, 이렇게 여섯이라면 세번째의 2와 네번째의 4가 달라서 곤란합니다. 이럴 때 두 수의 평균을 중앙값으로 합니다. 여기서는 <span class="math inline">\(\frac{2+4}{2} = 3\)</span> 이므로 3이 중앙값입니다.</p>
+<p><strong>극단값</strong>은 대부분의 값에서 멀리 떨어진 예외적인 값들을 말합니다. 평균이 극단값의 영향을 크게 받는 경우에 평균보다 중앙값이 더 대표성을 갖게 됩니다. 또 비대칭분포가 심할 경우에도 역시 중앙값이 대표성이 평균보다 높습니다. 일반적으로 한 국가의 개인소득에서 부유한 극소수가 평균 소득을 높이게 되므로 국가의 개인소득은 평균보다 중앙값으로 대표하는 게 적절합니다.</p>
+<p>위의 빈도분포의 빈도분포표에서 중앙값은 얼마일까요?</p>
+</div>
+<div id="최빈값" class="section level3 hasAnchor" number="5.2.3">
+<h3><span class="header-section-number">5.2.3</span> 최빈값<a href="기술통계.html#최빈값" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>분포에서 빈도가 가장 높은 값이 <strong>최빈값</strong> mode 입니다. 빈도 분포표가 계급구간으로 구성된 경우 빈도가 가장 높은 구간값을 최빈값으로 합니다. 예를 들어, 측정값이 1, 1, 2, 3, 3, 3, 4, 5, 6, 6, 6, 6, 6, 이렇다면 6이 5개로 가장 많으니 최빈값은 6입니다. 최빈값은 그 특성상 여러 개가 있을 수 있습니다. 최빈값은 명목척도를 대표할 때 자주 사용합니다. 예를 들어, “옷 색깔에서 파란색을 선택한 사람이 가장 많았다”는 표현은 명목척도에서 최빈값의 대표성을 이용한 것입니다. 사람의 수명을 말할 때도 평균 수명보다 유용합니다. 신생아의 상대적 사망율이 높아서 평균이 왜곡되기 때문입니다. 사망 나이의 최빈값을 택하는 것이 성인의 사망나이를 추정할 때 효율적입니다. 또 이산변수일 때도 소수점 아래를 말하기 어려울 때 유용합니다. 주택을 말할 때 3.6 채보다는 4채가 더 익숙합니다.</p>
+</div>
+<div id="집중경향치의-비교" class="section level3 hasAnchor" number="5.2.4">
+<h3><span class="header-section-number">5.2.4</span> 집중경향치의 비교<a href="기술통계.html#집중경향치의-비교" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>빈도분포가 대칭적이면 집중경향치는 평균, 중앙값, 최빈값이 상당히 동일합니다. 이때는 평균이 대표성이 가장 높습니다. 그러나 비대칭분포일 때는 세 집중경향치가 차이가 있습니다. 극단적인 비대칭분포일 때 중앙값은 극단값의 영향을 잘 받지 않기 때문에 중앙값의 대표성이 더 우수합니다. 최빈값은 명목척도나 대략적인 경향을 알아보려 할 때 좋습니다.</p>
+<div class="figure">
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Comparison_mean_median_mode.svg/768px-Comparison_mean_median_mode.svg.png" alt="" />
+<p class="caption">위키피디아의 집중경향치 비교</p>
+</div>
+<p><a href="https://en.wikipedia.org/wiki/Mode_(statistics)#/media/File:Visualisation_mode_median_mean.svg"><strong>위키피디아의 여기</strong></a> 도 클릭해서 참고로 보면 좋습니다.</p>
+</div>
+</div>
+<div id="분포와-분산도" class="section level2 hasAnchor" number="5.3">
+<h2><span class="header-section-number">5.3</span> 분포와 분산도<a href="기술통계.html#분포와-분산도" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>집중경향치는 전체 측정값을 대표하는 값으로 대체로 측정값의 중심을 나타냅니다. 측정값이 어떤 형태로 분포되어 있는가 하는 것은 또 다른 방법이 필요합니다. 측정값이 넓게 또는 좁게 퍼져 있는 정도를 나타내는 게 <strong>분산도</strong> dispersion, variability, scatter 다. 분산도를 보여주는 방법은 범위, 표준편차, 분산, 사분위편차 등이 있습니다.</p>
+<p>분산도</p>
+<div id="범위" class="section level3 hasAnchor" number="5.3.1">
+<h3><span class="header-section-number">5.3.1</span> 범위<a href="기술통계.html#범위" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>범위</strong> range 는 측정값에서 <strong>최대값</strong> maximum 과 <strong>최소값</strong> minimum 의 차이를 말합니다. 극단값이 있는 경우에 범위가 크기 증가하므로 적절한 방법이 되지 못합니다. 극단값이 아니라도 최소값과 최대값의 단 두 개 값이 크기를 좌우하므로 바람직하지 않습니다.</p>
+<p>범위, 최대값, 최소값</p>
+</div>
+<div id="표준편차와-분산" class="section level3 hasAnchor" number="5.3.2">
+<h3><span class="header-section-number">5.3.2</span> 표준편차와 분산<a href="기술통계.html#표준편차와-분산" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>표준편차</strong> standard deviation 는 분산도를 나타내는 가장 대표적인 방법입니다. 측정값들이 평균에서 멀리 흩어진 정도를 알려줍니다. 표준편차는 분산의 제곱근입니다. <strong>분산</strong> variance 은 측정값과 평균의 차이를 제곱해서 모두 합한 것을 총 빈도로 나눈 것입니다. 측정값과 평균의 편차를 그대로 더하지 않고 제곱해서 더 한 이유는 편차가 + 와 - 이 섞여 있므로 총합이 언제나 0가 되기 때문입니다. 편차의 절대값을 다 더해서 평균을 낸 <strong>평균편차</strong> mean deviation 라는 방법도 있으나 통계에서 거의 사용하지 않습니다. 평균과 표준편차는 자료를 가장 흔하게 대표하는 두 방법입니다. 자료의 중심과 흩어진 정도를 각각 알려줍니다.</p>
+<p><span class="math inline">\(\sigma\)</span>: 모집단 표준편차, <span class="math inline">\(N\)</span>: 모집단 측정값의 빈도, <span class="math inline">\(\mu\)</span>: 모집단 측정값의 평균</p>
+<p><span class="math display">\[ 모집단 분산 \sigma^{2} = \frac{1}{N}\sum_{i=1}^{N} (x_i-\mu)^{2} = \frac{\sum_{i=1}^{N} (x_i-\mu)^{2}}{N}\]</span></p>
+<p><span class="math display">\[ 모집단 표준편차 \sigma =\sqrt{\frac{1}{N}\sum_{i=1}^{N} (x_i-\mu)^{2}}=\sqrt{\frac{\sum_{i=1}^{N} (x_i-\mu)^{2}}{N}}\]</span></p>
+<p><span class="math inline">\(s\)</span>: 표본 표준편차, <span class="math inline">\(n\)</span>: 표본 측정값의 빈도, <span class="math inline">\(\bar x\)</span>: 표본 측정값의 평균</p>
+<p>참고: 위 계산식의 R Markdown 표현</p>
+<pre class="(verbatim)"><code>$$ 모집단 분산 \sigma^{2} = \frac{1}{N} \sum_{i=1}^{N} (x_i-\mu)^{2} = \frac{\sum_{i=1}^{N} (x_i-\mu)^{2}}{N}$$
+
+$$ 모집단 표준편차 \sigma =\sqrt{\frac{1}{N} \sum_{i=1}^{N} (x_i-\mu)^{2}}=\sqrt{\frac{\sum_{i=1}^{N} (x_i-\mu)^{2}}{N}}$$
+
+$$, \sigma, \sigma^{}, \frac{}{}, \sum_{}^{}, \sum, \mu, ^{}, \sqrt{}, \bar x, x_i
+문장 안에서는 양쪽에 $ 하나씩, 별도의 줄 가운데에 놓으려면 맨앞과 맨뒤에에 각각 $$
+$n$, $n-1$</code></pre>
+<p><span class="math display">\[ 표본 분산 s^{2} =\frac{1}{n-1}\sum_{i=1}^{n} (x_i-\bar x)^{2}=\sqrt{\frac{\sum_{i=1}^{n} (x_i-\bar x)^{2}}{n-1}}\]</span></p>
+<p><span class="math display">\[ 표본 표준편차 s =\sqrt{\frac{1}{n-1}\sum_{i=1}^{n} (x_i-\bar x)^{2}}=\sqrt{\frac{\sum_{i=1}^{n} (x_i-\bar x)^{2}}{n-1}}\]</span></p>
+<p>표준편차와 분산은 모집단을 위한 공식과 표본을 위한 공식이 다릅니다. 이것은 표본의 표준편차가 모집단의 표준편차를 추론하려는 방법인데, 똑같이 측정값의 빈도로 나누면 추론에서 왜곡이 생기기 때문입니다. 표본 크기가 작을수록 왜곡이 크고 표본 크기가 커질수록 왜곡이 작아지는데 이걸 보정해서 정확하게 추론하는 방법이 <span class="math inline">\(n\)</span> 대신에 <span class="math inline">\(n-1\)</span> 로 나누는겁니다. 나중에 확률 부분에서 다시 논의합니다.</p>
+<p>표본의 표준편차를 계산할 때 사용한 <span class="math inline">\(n-1\)</span> 을 <strong>자유도</strong> degree of freedom 라고 합니다. 계산 과정에서 평균과의 편차를 산출하는 데, 이때 모평균을 사용해야 이론적으로 맞습니다. 왜냐하면 표본의 표준편차를 구하는 이유가 모표준편차를 추정하려는 것이므로 모평균을 넣어야 하는 겁니다. 하지만 우리는 모평균을 모르므로 표본평균을 대신 사용했습니다. 평균을 대신 사용하는 순간 자유도가 하나 줄어들어서 <span class="math inline">\(n\)</span>이 아닌 <span class="math inline">\(n-1\)</span> 이 됩니다. 예를 들어, a, b, c 세 수의 평균이 5 라고 합시다. a=4, b=5 라면 c는 반드시 6이 되어야 합니다. a=3, b=9 라면 c는 반드시 3이 되어야 합니다. 이처럼 평균이 정해져도 두 수는 자유롭게 값을 정하지만 마지막 하나는 일정한 값을 가져야하므로 자유가 없는 겁니다. 그래서 모평균 대신에 표본평균을 이용하는 순간 자유도가 <span class="math inline">\(n-1\)</span> 이 되었습니다.</p>
+<p>표준편차, 분산, 평균편차, 자유도</p>
+</div>
+<div id="사분위편차" class="section level3 hasAnchor" number="5.3.3">
+<h3><span class="header-section-number">5.3.3</span> 사분위편차<a href="기술통계.html#사분위편차" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>측정값을 큰 순서대로 늘어놓았을 때 측정값들이 사등분되는 즉 각각25%, 50%, 75% 되는 위치의 측정값을 <strong>사분위수</strong> quartile 라고 합니다. 25% 위치를 <strong>제1사분위</strong> <span class="math inline">\(Q_1\)</span>, 50% 위치를 <strong>제2사분위</strong> <span class="math inline">\(Q_2\)</span>, 75% 위치를 <strong>제3사분위</strong> <span class="math inline">\(Q_3\)</span> 라고 합니다. 제2사분위를 중위수라고 부르기도 합니다. 제1사분위와 제3사분위의 차이를 2로 나눈 값이 <strong>사분위편차</strong> quantile deviation 입니다. 2로 나누지 않은 값을 <strong>사분위범위</strong> interquantile range 라고 구분합니다. 사분위편차는 양끝에 존재하는 극단값을 배제하므로 예외적인 사례의 영향을 더 받는 게 장점입니다. 그러나 빈도가 25보다 적다면 다소 불안하므로 적정한 빈도가 되는 게 바람직합니다.</p>
+<p>사분위편차: <span class="math inline">\(Q = \frac{Q_3-Q_1}{2}\)</span>, 사분위범위: <span class="math inline">\(IRQ = Q_3-Q_1\)</span></p>
+<p>사분위수, 제1사분위, 제2사분위, 제3사분위, 사분위편차, 사분위범위</p>
+</div>
+<div id="변동계수와-사분위분산계수" class="section level3 hasAnchor" number="5.3.4">
+<h3><span class="header-section-number">5.3.4</span> 변동계수와 사분위분산계수<a href="기술통계.html#변동계수와-사분위분산계수" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>변동계수</strong> coefficient of variation 는 표준편차를 평균으로 나눈 것입니다. <strong>상대 표준편차</strong> relative standard deviation 라고도 합니다. 표준편차는 크기가 측정단위에 영향을 받습니다. 그래서 측정 단위가 다른 자료를 비교할 때 변동계수를 사용하지요. 변동계수는 0이 의미를 가지는 비율척도에만 사용해야 합니다. 등간척도에 사용하면 왜곡된 결과가 나올 가능성이 높으므로 사용하지 않습니다.</p>
+<p><span class="math display">\[ CV = \frac{\sigma}{\mu} =&gt; \frac{s}{\bar x}\]</span></p>
+<p>그래서 <strong>사분위분산게수</strong> quantile coefficient of dispersion 를 더 선호하기도 압니다. 사분위분산계수는 극단값에 영향을 덜 받는 장점도 있습니다.</p>
+<p>$ QCD = $$</p>
+<p>변동계수, 상대표준편차, 사분위분산계수</p>
+</div>
+</div>
+<div id="z값과-분포의-표준화" class="section level2 hasAnchor" number="5.4">
+<h2><span class="header-section-number">5.4</span> Z값과 분포의 표준화<a href="기술통계.html#z값과-분포의-표준화" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>측정 단위가 다른 자료를 비교하기는 어렵고, 평균과 표준편차가 다를 때 역시 자료를 비교하기가 곤란합니다. 이럴 때 표준화한 측정값을 사용하면 여러 자료를 비교하는 것이 가능해집니다. 그래서 z값은 여러 곳에서 유용하게 사용합니다. 예를 들어, 중간시험과 기말시험의 평균과 표준편차가 다르다면 성적이 공정하지 못할지 모릅니다. 상대적으로 중간고사를 잘 본 학생이 유리하거나 아니면 역으로 기말고사를 잘 본 학생이 유리해지기 때문입니다. 이럴 때 중간시험 점수와 기말시험 점수를 각각 z값으로 표준화해서 둘을 합산한다면 그냥 합산해서 처리하는 것보다 더 공정한 절차가 될 수 있습니다.</p>
+<p>측정값들이 <strong>정규분포</strong>를 한다고 가정할 때, 말하자면 아주 많은 측정값들이 존재한다고 가정할 때, 우리는 z값을 이용하여 어떤 측정값이 상위 혹은 하위 몇 %에 속하는 위치에 있는지 추정할 수 있습니다. 평균이나 표준편차는 전체 측정값을 대상으로 산출하지만 x값은 하나의 측정값을 대상으로 계산합니다. z값은 측정값에서 평균을 빼고 표준편차로 나누면 됩니다. 따라서 z값은 측정값과 평균의 편차를 표준편차와 상대적 크기로 계산합니다.</p>
+<p>z값은 공식에 의해서 표준화되었기 때문에 언제나 평균은0이고 표준편차는 1입니다. 아래는 측정값을 표준화한 Z값으로 변환하는 공식입니다.</p>
+<p><span class="math display">\[ 모집단에서 Z = \frac{X - \mu}{\sigma} \]</span></p>
+<p><span class="math display">\[ 표본에서 z = \frac{x - \bar x}{s} \]</span></p>
+</div>
+<div id="비대칭도" class="section level2 hasAnchor" number="5.5">
+<h2><span class="header-section-number">5.5</span> 비대칭도<a href="기술통계.html#비대칭도" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>비대칭도</strong> skewness 는 분포가 한쪽으로 치우친 정도를 나타내는 수치입니다. <strong>피어슨 비대칭계수</strong> Pearson’s coefficient of skewness 가 그 하나입니다. 0일 때 완전 대칭분포고 음이나 양의 값이면 한쪽으로 치우친 비대칭분포입닏다. 아래는 계산 공식입니다.</p>
+<p><span class="math display">\[ 피어슨 비대칭계수 S_k = \frac{3(\bar x-M_d)}{s} : M_d; 중앙값\]</span></p>
+<p>비대칭도, 피어슨 비대칭계수</p>
+</div>
+<div id="교차-분석" class="section level2 hasAnchor" number="5.6">
+<h2><span class="header-section-number">5.6</span> 교차 분석<a href="기술통계.html#교차-분석" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="범주형-자료의-빈도-분석" class="section level3 hasAnchor" number="5.6.1">
+<h3><span class="header-section-number">5.6.1</span> 범주형 자료의 빈도 분석<a href="기술통계.html#범주형-자료의-빈도-분석" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="데이터의-변환-요약-분석.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="확률분포와-표집분포.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/기술통계.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

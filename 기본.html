@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 기본 | 통계와 분석</title>
+  <meta name="description" content="<p>통계와 분석의 강의 노트.
+HTML 아웃풋 포맷은 bookdown::gitbook,
+_output.yml 파일에 적었다.</p>" />
+  <meta name="generator" content="bookdown 0.32 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 기본 | 통계와 분석" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>통계와 분석의 강의 노트.
+HTML 아웃풋 포맷은 bookdown::gitbook,
+_output.yml 파일에 적었다.</p>" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 기본 | 통계와 분석" />
+  
+  <meta name="twitter:description" content="<p>통계와 분석의 강의 노트.
+HTML 아웃풋 포맷은 bookdown::gitbook,
+_output.yml 파일에 적었다.</p>" />
+  
+
+<meta name="author" content="류춘렬" />
+
+
+<meta name="date" content="2023-03-05" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="통계의-기초-개념.html"/>
+<link rel="next" href="데이터의-변환-요약-분석.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Statistics and Analysis</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>안내</a></li>
+<li class="chapter" data-level="1" data-path="강의-소개.html"><a href="강의-소개.html"><i class="fa fa-check"></i><b>1</b> 강의 소개</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="강의-소개.html"><a href="강의-소개.html#r의-세상으로"><i class="fa fa-check"></i><b>1.1</b> R의 세상으로</a></li>
+<li class="chapter" data-level="1.2" data-path="강의-소개.html"><a href="강의-소개.html#사전-지식"><i class="fa fa-check"></i><b>1.2</b> 사전 지식</a></li>
+<li class="chapter" data-level="1.3" data-path="강의-소개.html"><a href="강의-소개.html#균형"><i class="fa fa-check"></i><b>1.3</b> 균형</a></li>
+<li class="chapter" data-level="1.4" data-path="강의-소개.html"><a href="강의-소개.html#보고서와-문서-작성"><i class="fa fa-check"></i><b>1.4</b> 보고서와 문서 작성</a></li>
+<li class="chapter" data-level="1.5" data-path="강의-소개.html"><a href="강의-소개.html#강의의-구조-세-부분"><i class="fa fa-check"></i><b>1.5</b> 강의의 구조: 세 부분</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="통계의-기초-개념.html"><a href="통계의-기초-개념.html"><i class="fa fa-check"></i><b>2</b> 통계의 기초 개념</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="통계의-기초-개념.html"><a href="통계의-기초-개념.html#모집단과-표본"><i class="fa fa-check"></i><b>2.1</b> 모집단과 표본</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="통계의-기초-개념.html"><a href="통계의-기초-개념.html#모집단과-표본의-개념"><i class="fa fa-check"></i><b>2.1.1</b> 모집단과 표본의 개념</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="통계의-기초-개념.html"><a href="통계의-기초-개념.html#기술통계학과-추론통계학"><i class="fa fa-check"></i><b>2.2</b> 기술통계학과 추론통계학</a></li>
+<li class="chapter" data-level="2.3" data-path="통계의-기초-개념.html"><a href="통계의-기초-개념.html#측정-척도"><i class="fa fa-check"></i><b>2.3</b> 측정 척도</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="통계의-기초-개념.html"><a href="통계의-기초-개념.html#명목척도"><i class="fa fa-check"></i><b>2.3.1</b> 명목척도</a></li>
+<li class="chapter" data-level="2.3.2" data-path="통계의-기초-개념.html"><a href="통계의-기초-개념.html#서열-척도"><i class="fa fa-check"></i><b>2.3.2</b> 서열 척도</a></li>
+<li class="chapter" data-level="2.3.3" data-path="통계의-기초-개념.html"><a href="통계의-기초-개념.html#등간-척도"><i class="fa fa-check"></i><b>2.3.3</b> 등간 척도</a></li>
+<li class="chapter" data-level="2.3.4" data-path="통계의-기초-개념.html"><a href="통계의-기초-개념.html#비율-척도"><i class="fa fa-check"></i><b>2.3.4</b> 비율 척도</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="통계의-기초-개념.html"><a href="통계의-기초-개념.html#변수"><i class="fa fa-check"></i><b>2.4</b> 변수</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="통계의-기초-개념.html"><a href="통계의-기초-개념.html#정량-변수와-정성-변수"><i class="fa fa-check"></i><b>2.4.1</b> 정량 변수와 정성 변수</a></li>
+<li class="chapter" data-level="2.4.2" data-path="통계의-기초-개념.html"><a href="통계의-기초-개념.html#이산변수와-연속변수"><i class="fa fa-check"></i><b>2.4.2</b> 이산변수와 연속변수</a></li>
+<li class="chapter" data-level="2.4.3" data-path="통계의-기초-개념.html"><a href="통계의-기초-개념.html#확률-변수"><i class="fa fa-check"></i><b>2.4.3</b> 확률 변수</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="통계의-기초-개념.html"><a href="통계의-기초-개념.html#인과관계와-변수"><i class="fa fa-check"></i><b>2.5</b> 인과관계와 변수</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="통계의-기초-개념.html"><a href="통계의-기초-개념.html#독립변수와-종속변수"><i class="fa fa-check"></i><b>2.5.1</b> 독립변수와 종속변수</a></li>
+<li class="chapter" data-level="2.5.2" data-path="통계의-기초-개념.html"><a href="통계의-기초-개념.html#매개변수와-조절변수"><i class="fa fa-check"></i><b>2.5.2</b> 매개변수와 조절변수</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="기본.html"><a href="기본.html"><i class="fa fa-check"></i><b>3</b> 기본</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="기본.html"><a href="기본.html#r과-rstudio-설치"><i class="fa fa-check"></i><b>3.1</b> R과 RStudio 설치</a></li>
+<li class="chapter" data-level="3.2" data-path="기본.html"><a href="기본.html#rstudio"><i class="fa fa-check"></i><b>3.2</b> RStudio</a></li>
+<li class="chapter" data-level="3.3" data-path="기본.html"><a href="기본.html#r-코드-실행"><i class="fa fa-check"></i><b>3.3</b> R 코드 실행</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="기본.html"><a href="기본.html#r-스크립트"><i class="fa fa-check"></i><b>3.3.1</b> R 스크립트</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="기본.html"><a href="기본.html#변수와-함수"><i class="fa fa-check"></i><b>3.4</b> 변수와 함수</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="기본.html"><a href="기본.html#데이터-저장"><i class="fa fa-check"></i><b>3.4.1</b> 데이터 저장</a></li>
+<li class="chapter" data-level="3.4.2" data-path="기본.html"><a href="기본.html#변수-이름을-만들기"><i class="fa fa-check"></i><b>3.4.2</b> 변수 이름을 만들기</a></li>
+<li class="chapter" data-level="3.4.3" data-path="기본.html"><a href="기본.html#벡터와-데이터-프레임"><i class="fa fa-check"></i><b>3.4.3</b> 벡터와 데이터 프레임</a></li>
+<li class="chapter" data-level="3.4.4" data-path="기본.html"><a href="기본.html#함수-functions"><i class="fa fa-check"></i><b>3.4.4</b> 함수 functions</a></li>
+<li class="chapter" data-level="3.4.5" data-path="기본.html"><a href="기본.html#수학-연산"><i class="fa fa-check"></i><b>3.4.5</b> 수학 연산</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="기본.html"><a href="기본.html#패키지"><i class="fa fa-check"></i><b>3.5</b> 패키지</a></li>
+<li class="chapter" data-level="3.6" data-path="기본.html"><a href="기본.html#기술적-통계"><i class="fa fa-check"></i><b>3.6</b> 기술적 통계</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="기본.html"><a href="기본.html#숫자형-자료-numerical"><i class="fa fa-check"></i><b>3.6.1</b> 숫자형 자료 numerical</a></li>
+<li class="chapter" data-level="3.6.2" data-path="기본.html"><a href="기본.html#범주형-자료-categorical"><i class="fa fa-check"></i><b>3.6.2</b> 범주형 자료 categorical</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="기본.html"><a href="기본.html#숫자형-자료의-그래프"><i class="fa fa-check"></i><b>3.7</b> 숫자형 자료의 그래프</a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="기본.html"><a href="기본.html#그래프-plot"><i class="fa fa-check"></i><b>3.7.1</b> 그래프 plot</a></li>
+<li class="chapter" data-level="3.7.2" data-path="기본.html"><a href="기본.html#색깔-모양-축의-이름표"><i class="fa fa-check"></i><b>3.7.2</b> 색깔, 모양, 축의 이름표</a></li>
+<li class="chapter" data-level="3.7.3" data-path="기본.html"><a href="기본.html#축의-한계와-크기"><i class="fa fa-check"></i><b>3.7.3</b> 축의 한계와 크기</a></li>
+<li class="chapter" data-level="3.7.4" data-path="기본.html"><a href="기본.html#집단-비교하기"><i class="fa fa-check"></i><b>3.7.4</b> 집단 비교하기</a></li>
+<li class="chapter" data-level="3.7.5" data-path="기본.html"><a href="기본.html#박스플롯-boxplots"><i class="fa fa-check"></i><b>3.7.5</b> 박스플롯 boxplots</a></li>
+<li class="chapter" data-level="3.7.6" data-path="기본.html"><a href="기본.html#히스토그램"><i class="fa fa-check"></i><b>3.7.6</b> 히스토그램</a></li>
+</ul></li>
+<li class="chapter" data-level="3.8" data-path="기본.html"><a href="기본.html#범주형-데이터-그래프"><i class="fa fa-check"></i><b>3.8</b> 범주형 데이터 그래프</a>
+<ul>
+<li class="chapter" data-level="3.8.1" data-path="기본.html"><a href="기본.html#막대-그래프"><i class="fa fa-check"></i><b>3.8.1</b> 막대 그래프</a></li>
+</ul></li>
+<li class="chapter" data-level="3.9" data-path="기본.html"><a href="기본.html#그래프-저장하기"><i class="fa fa-check"></i><b>3.9</b> 그래프 저장하기</a></li>
+<li class="chapter" data-level="3.10" data-path="기본.html"><a href="기본.html#문제-해결하기"><i class="fa fa-check"></i><b>3.10</b> 문제 해결하기</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html"><i class="fa fa-check"></i><b>4</b> 데이터의 변환, 요약, 분석</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#데이터-프레임과-데이터-종류"><i class="fa fa-check"></i><b>4.1</b> 데이터 프레임과 데이터 종류</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#종류와-구조"><i class="fa fa-check"></i><b>4.1.1</b> 종류와 구조</a></li>
+<li class="chapter" data-level="4.1.2" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#테이블-종류"><i class="fa fa-check"></i><b>4.1.2</b> 테이블 종류</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#데이터프레임-안의-벡터"><i class="fa fa-check"></i><b>4.2</b> 데이터프레임 안의 벡터</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#벡터와-요소에-접근하기"><i class="fa fa-check"></i><b>4.2.1</b> 벡터와 요소에 접근하기</a></li>
+<li class="chapter" data-level="4.2.2" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#기호-사용"><i class="fa fa-check"></i><b>4.2.2</b> “$” 기호 사용</a></li>
+<li class="chapter" data-level="4.2.3" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#조건-사용하기"><i class="fa fa-check"></i><b>4.2.3</b> 조건 사용하기</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#데이터-가져오기"><i class="fa fa-check"></i><b>4.3</b> 데이터 가져오기</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#csv-파일-가져오기"><i class="fa fa-check"></i><b>4.3.1</b> csv 파일 가져오기</a></li>
+<li class="chapter" data-level="4.3.2" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#엑셀-파일-가져오기"><i class="fa fa-check"></i><b>4.3.2</b> 엑셀 파일 가져오기</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#데이터의-저장과-내보내기"><i class="fa fa-check"></i><b>4.4</b> 데이터의 저장과 내보내기</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#데이터를-내보내기"><i class="fa fa-check"></i><b>4.4.1</b> 데이터를 내보내기</a></li>
+<li class="chapter" data-level="4.4.2" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#r-데이터의-저장과-불러오기"><i class="fa fa-check"></i><b>4.4.2</b> R 데이터의 저장과 불러오기</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#rstudio-프로젝트"><i class="fa fa-check"></i><b>4.5</b> RStudio 프로젝트</a></li>
+<li class="chapter" data-level="4.6" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#t-검정-실행하기"><i class="fa fa-check"></i><b>4.6</b> t 검정 실행하기</a></li>
+<li class="chapter" data-level="4.7" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#선형-회귀분석-모델"><i class="fa fa-check"></i><b>4.7</b> 선형 회귀분석 모델</a></li>
+<li class="chapter" data-level="4.8" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#집단-별로-요약하기"><i class="fa fa-check"></i><b>4.8</b> 집단 별로 요약하기</a></li>
+<li class="chapter" data-level="4.9" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#파이프를-이용하기"><i class="fa fa-check"></i><b>4.9</b> %&gt;% 파이프를 이용하기</a>
+<ul>
+<li class="chapter" data-level="4.9.1" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#파이프"><i class="fa fa-check"></i><b>4.9.1</b> 파이프</a></li>
+</ul></li>
+<li class="chapter" data-level="4.10" data-path="데이터의-변환-요약-분석.html"><a href="데이터의-변환-요약-분석.html#두-개의-r-base-and-tidyverse"><i class="fa fa-check"></i><b>4.10</b> 두 개의 R: Base and tidyverse</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="기술통계.html"><a href="기술통계.html"><i class="fa fa-check"></i><b>5</b> 기술통계</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="기술통계.html"><a href="기술통계.html#빈도분포"><i class="fa fa-check"></i><b>5.1</b> 빈도분포</a></li>
+<li class="chapter" data-level="5.2" data-path="기술통계.html"><a href="기술통계.html#집중화-경향치"><i class="fa fa-check"></i><b>5.2</b> 집중화 경향치</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="기술통계.html"><a href="기술통계.html#평균"><i class="fa fa-check"></i><b>5.2.1</b> 평균</a></li>
+<li class="chapter" data-level="5.2.2" data-path="기술통계.html"><a href="기술통계.html#중앙값"><i class="fa fa-check"></i><b>5.2.2</b> 중앙값</a></li>
+<li class="chapter" data-level="5.2.3" data-path="기술통계.html"><a href="기술통계.html#최빈값"><i class="fa fa-check"></i><b>5.2.3</b> 최빈값</a></li>
+<li class="chapter" data-level="5.2.4" data-path="기술통계.html"><a href="기술통계.html#집중경향치의-비교"><i class="fa fa-check"></i><b>5.2.4</b> 집중경향치의 비교</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="기술통계.html"><a href="기술통계.html#분포와-분산도"><i class="fa fa-check"></i><b>5.3</b> 분포와 분산도</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="기술통계.html"><a href="기술통계.html#범위"><i class="fa fa-check"></i><b>5.3.1</b> 범위</a></li>
+<li class="chapter" data-level="5.3.2" data-path="기술통계.html"><a href="기술통계.html#표준편차와-분산"><i class="fa fa-check"></i><b>5.3.2</b> 표준편차와 분산</a></li>
+<li class="chapter" data-level="5.3.3" data-path="기술통계.html"><a href="기술통계.html#사분위편차"><i class="fa fa-check"></i><b>5.3.3</b> 사분위편차</a></li>
+<li class="chapter" data-level="5.3.4" data-path="기술통계.html"><a href="기술통계.html#변동계수와-사분위분산계수"><i class="fa fa-check"></i><b>5.3.4</b> 변동계수와 사분위분산계수</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="기술통계.html"><a href="기술통계.html#z값과-분포의-표준화"><i class="fa fa-check"></i><b>5.4</b> Z값과 분포의 표준화</a></li>
+<li class="chapter" data-level="5.5" data-path="기술통계.html"><a href="기술통계.html#비대칭도"><i class="fa fa-check"></i><b>5.5</b> 비대칭도</a></li>
+<li class="chapter" data-level="5.6" data-path="기술통계.html"><a href="기술통계.html#교차-분석"><i class="fa fa-check"></i><b>5.6</b> 교차 분석</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="기술통계.html"><a href="기술통계.html#범주형-자료의-빈도-분석"><i class="fa fa-check"></i><b>5.6.1</b> 범주형 자료의 빈도 분석</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="확률분포와-표집분포.html"><a href="확률분포와-표집분포.html"><i class="fa fa-check"></i><b>6</b> 확률분포와 표집분포</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="확률분포와-표집분포.html"><a href="확률분포와-표집분포.html#확률분포"><i class="fa fa-check"></i><b>6.1</b> 확률분포</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="확률분포와-표집분포.html"><a href="확률분포와-표집분포.html#확률"><i class="fa fa-check"></i><b>6.1.1</b> 확률</a></li>
+<li class="chapter" data-level="6.1.2" data-path="확률분포와-표집분포.html"><a href="확률분포와-표집분포.html#확률변수"><i class="fa fa-check"></i><b>6.1.2</b> 확률변수</a></li>
+<li class="chapter" data-level="6.1.3" data-path="확률분포와-표집분포.html"><a href="확률분포와-표집분포.html#이항확률분포"><i class="fa fa-check"></i><b>6.1.3</b> 이항확률분포</a></li>
+<li class="chapter" data-level="6.1.4" data-path="확률분포와-표집분포.html"><a href="확률분포와-표집분포.html#확률함수와-확률분포"><i class="fa fa-check"></i><b>6.1.4</b> 확률함수와 확률분포</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="확률분포와-표집분포.html"><a href="확률분포와-표집분포.html#확률분포의-종류"><i class="fa fa-check"></i><b>6.2</b> 확률분포의 종류</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="확률분포와-표집분포.html"><a href="확률분포와-표집분포.html#정규분포"><i class="fa fa-check"></i><b>6.2.1</b> 정규분포</a></li>
+<li class="chapter" data-level="6.2.2" data-path="확률분포와-표집분포.html"><a href="확률분포와-표집분포.html#t-분포"><i class="fa fa-check"></i><b>6.2.2</b> t 분포</a></li>
+<li class="chapter" data-level="6.2.3" data-path="확률분포와-표집분포.html"><a href="확률분포와-표집분포.html#카이제곱분포"><i class="fa fa-check"></i><b>6.2.3</b> 카이제곱분포</a></li>
+<li class="chapter" data-level="6.2.4" data-path="확률분포와-표집분포.html"><a href="확률분포와-표집분포.html#f-분포"><i class="fa fa-check"></i><b>6.2.4</b> F 분포</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="확률분포와-표집분포.html"><a href="확률분포와-표집분포.html#표집분포"><i class="fa fa-check"></i><b>6.3</b> 표집분포</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="확률분포와-표집분포.html"><a href="확률분포와-표집분포.html#중심극한-정리"><i class="fa fa-check"></i><b>6.3.1</b> 중심극한 정리</a></li>
+<li class="chapter" data-level="6.3.2" data-path="확률분포와-표집분포.html"><a href="확률분포와-표집분포.html#평균의-표집분포-한-모집단"><i class="fa fa-check"></i><b>6.3.2</b> 평균의 표집분포: 한 모집단</a></li>
+<li class="chapter" data-level="6.3.3" data-path="확률분포와-표집분포.html"><a href="확률분포와-표집분포.html#평균-차이의-표집분포-두-모집단"><i class="fa fa-check"></i><b>6.3.3</b> 평균 차이의 표집분포: 두 모집단</a></li>
+<li class="chapter" data-level="6.3.4" data-path="확률분포와-표집분포.html"><a href="확률분포와-표집분포.html#분산의-표집분포-한-모집단"><i class="fa fa-check"></i><b>6.3.4</b> 분산의 표집분포: 한 모집단</a></li>
+<li class="chapter" data-level="6.3.5" data-path="확률분포와-표집분포.html"><a href="확률분포와-표집분포.html#분산의-표집분포-두-모집단"><i class="fa fa-check"></i><b>6.3.5</b> 분산의 표집분포: 두 모집단</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="탐색적-데이터-분석.html"><a href="탐색적-데이터-분석.html"><i class="fa fa-check"></i><b>7</b> 탐색적 데이터 분석</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="탐색적-데이터-분석.html"><a href="탐색적-데이터-분석.html#r-markdown으로-보고서-작성"><i class="fa fa-check"></i><b>7.1</b> R Markdown으로 보고서 작성</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="탐색적-데이터-분석.html"><a href="탐색적-데이터-분석.html#시작하기"><i class="fa fa-check"></i><b>7.1.1</b> 시작하기</a></li>
+<li class="chapter" data-level="7.1.2" data-path="탐색적-데이터-분석.html"><a href="탐색적-데이터-분석.html#텍스트-포맷"><i class="fa fa-check"></i><b>7.1.2</b> 텍스트 포맷</a></li>
+<li class="chapter" data-level="7.1.3" data-path="탐색적-데이터-분석.html"><a href="탐색적-데이터-분석.html#리스트-표-그림"><i class="fa fa-check"></i><b>7.1.3</b> 리스트, 표, 그림</a></li>
+<li class="chapter" data-level="7.1.4" data-path="탐색적-데이터-분석.html"><a href="탐색적-데이터-분석.html#코드-청크"><i class="fa fa-check"></i><b>7.1.4</b> 코드 청크</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="탐색적-데이터-분석.html"><a href="탐색적-데이터-분석.html#ggplot2-그래프를-보기-좋게"><i class="fa fa-check"></i><b>7.2</b> ggplot2 그래프를 보기 좋게</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="탐색적-데이터-분석.html"><a href="탐색적-데이터-분석.html#테마-이용"><i class="fa fa-check"></i><b>7.2.1</b> 테마 이용</a></li>
+<li class="chapter" data-level="7.2.2" data-path="탐색적-데이터-분석.html"><a href="탐색적-데이터-분석.html#칼라-팔레트"><i class="fa fa-check"></i><b>7.2.2</b> 칼라 팔레트</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="탐색적-데이터-분석.html"><a href="탐색적-데이터-분석.html#테마-맞춤"><i class="fa fa-check"></i><b>7.3</b> 4.2.3 테마 맞춤</a></li>
+<li class="chapter" data-level="7.4" data-path="탐색적-데이터-분석.html"><a href="탐색적-데이터-분석.html#극단값과-결측값"><i class="fa fa-check"></i><b>7.4</b> 극단값과 결측값</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="탐색적-데이터-분석.html"><a href="탐색적-데이터-분석.html#극단값-탐지"><i class="fa fa-check"></i><b>7.4.1</b> 극단값 탐지</a></li>
+<li class="chapter" data-level="7.4.2" data-path="탐색적-데이터-분석.html"><a href="탐색적-데이터-분석.html#극단값에-라벨-붙이기"><i class="fa fa-check"></i><b>7.4.2</b> 극단값에 라벨 붙이기</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="탐색적-데이터-분석.html"><a href="탐색적-데이터-분석.html#산포도-그래프의-추세"><i class="fa fa-check"></i><b>7.5</b> 산포도 그래프의 추세</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="티검정.html"><a href="티검정.html"><i class="fa fa-check"></i><b>8</b> 티검정</a></li>
+<li class="chapter" data-level="9" data-path="범주형-자료분석.html"><a href="범주형-자료분석.html"><i class="fa fa-check"></i><b>9</b> 범주형 자료분석</a></li>
+<li class="chapter" data-level="10" data-path="추정과-가설-검정.html"><a href="추정과-가설-검정.html"><i class="fa fa-check"></i><b>10</b> 추정과 가설 검정</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="추정과-가설-검정.html"><a href="추정과-가설-검정.html#추정"><i class="fa fa-check"></i><b>10.1</b> 추정</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="추정과-가설-검정.html"><a href="추정과-가설-검정.html#점-추정"><i class="fa fa-check"></i><b>10.1.1</b> 점 추정</a></li>
+<li class="chapter" data-level="10.1.2" data-path="추정과-가설-검정.html"><a href="추정과-가설-검정.html#구간-추정"><i class="fa fa-check"></i><b>10.1.2</b> 구간 추정</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="추정과-가설-검정.html"><a href="추정과-가설-검정.html#검정"><i class="fa fa-check"></i><b>10.2</b> 검정</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="추정과-가설-검정.html"><a href="추정과-가설-검정.html#가설-검정"><i class="fa fa-check"></i><b>10.2.1</b> 가설 검정</a></li>
+<li class="chapter" data-level="10.2.2" data-path="추정과-가설-검정.html"><a href="추정과-가설-검정.html#모-평균의-검정"><i class="fa fa-check"></i><b>10.2.2</b> 모 평균의 검정</a></li>
+<li class="chapter" data-level="10.2.3" data-path="추정과-가설-검정.html"><a href="추정과-가설-검정.html#모-분산의-검정"><i class="fa fa-check"></i><b>10.2.3</b> 모 분산의 검정</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="분산분석.html"><a href="분산분석.html"><i class="fa fa-check"></i><b>11</b> 분산분석</a></li>
+<li class="chapter" data-level="12" data-path="상관분석.html"><a href="상관분석.html"><i class="fa fa-check"></i><b>12</b> 상관분석</a></li>
+<li class="chapter" data-level="13" data-path="선형회귀분석.html"><a href="선형회귀분석.html"><i class="fa fa-check"></i><b>13</b> 선형회귀분석</a></li>
+<li class="chapter" data-level="14" data-path="요인분석과-신뢰도.html"><a href="요인분석과-신뢰도.html"><i class="fa fa-check"></i><b>14</b> 요인분석과 신뢰도</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">통계와 분석</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="기본" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Chapter 3</span> 기본<a href="기본.html#기본" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>R과 RStudio를 설치하고 운영하는 걸 배울 거에요. 이 장을 마치면 이걸 할 수 있어요.</p>
+<ul>
+<li><p>R 실행 파일을 (*.R) 만든다.</p></li>
+<li><p>R 데이터를 저장한다.</p></li>
+<li><p>R 함수를 이용해서 데이터를 분석한다.</p></li>
+<li><p>R에 패키지를 추가한다.</p></li>
+<li><p>기술적 통계를 (평균, 중앙값 등) 다룬다.</p></li>
+<li><p>수학 계산을 한다.</p></li>
+<li><p>멋진 그래프를 다양한 기법으로 그린다.</p></li>
+</ul>
+<div id="r과-rstudio-설치" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> R과 RStudio 설치<a href="기본.html#r과-rstudio-설치" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>먼저 아래의 사이트에서 R을 다운해서 설치하세요.</p>
+<p><a href="https://cran.r-project.org/mirrors.html" class="uri">https://cran.r-project.org/mirrors.html</a></p>
+<p>그 다음에 아래 사이트에서 R Studio를 다운해서 설치하세요.</p>
+<p><a href="https://rstudio.com/products/rstudio/download/#download" class="uri">https://rstudio.com/products/rstudio/download/#download</a></p>
+<p>가능하면 가장 최신의 버전으로 설치하는 게 좋아요.</p>
+</div>
+<div id="rstudio" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> RStudio<a href="기본.html#rstudio" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>RStudio는 R을 편하게 사용하려고 만든 거니까 우리는 RStudio를 사용하게 될 겁니다. RStudio를 실행하면 화면이 나타납니다.</p>
+<p>처음에 실행하면 패널이 세 개만 있을 거에요. 하지만 4 패널을 금방 생성해서 사용할 거니까 패널이 네 개라고 보는 게 좋아요.</p>
+<ul>
+<li><p>환경 패널: 여기 데이터 목록이 나올 거에요.</p></li>
+<li><p>파일, 그래프, 도움, 패키지 패널: 그 말대로 그것들이 나올 거에요.</p></li>
+<li><p>콘솔 패널: 여기가 R 코드가 실행되고 결과와 메시지가 나오는 곳이에요.</p></li>
+<li><p>실행파일 script 패널: 여기가 실행파일을 만들고 수정하는 곳이에요.</p></li>
+</ul>
+<p>RStudio를 종료할 때 워크스페이스를 (.RData) 저장할 거냐고 묻는 경우가 있는데 안 하는 게 좋아요. 자칫하면 혼란이 생기거든요. R 실행파일만 저장하고 다음에 그걸 다시 실행하면 됩니다. 물론 R 실행파일이나(<em>*</em>.R) RMarkdown 파일은 (.Rmd) 잊지 말고 저장해야죠.</p>
+</div>
+<div id="r-코드-실행" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> R 코드 실행<a href="기본.html#r-코드-실행" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>R 코드는 R에게 명령을 실행하라는 지시문입니다. 코드문으로 이루어진 파일이 R 실행파일인데 이름 뒤에 .R이 붙어요. 데이터를 다루고 분석하는 일을 코드를 통해서 지시하는 겁니다. 대개 코드는 한 줄에 하나의 지시문을 적어요.</p>
+<p>바로 아래에 나타난 코드 뭉치를 코드 청크라고 부릅니다. Markdown에서는 코드 청크를 넣고 그걸 바로 실행해서 결과를 문서 안에 포함하는 게 가능합니다. 아래의 코드를 콘솔에 적거나 복사해서 붙이고 엔터를 눌러서 실행해 보세요.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="기본.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">+</span><span class="dv">1</span></span></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<p>코드 뭉치는 한 줄도 되지만 대개 여러 줄로 구성되는 게 보통입니다.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="기본.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">*</span><span class="dv">2</span></span></code></pre></div>
+<pre><code>## [1] 4</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="기본.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">+</span><span class="dv">2</span><span class="sc">*</span><span class="dv">3-5</span></span></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<p>R 코드를 콘솔에 넣고 엔터키를 치면 그 코드를 실행하고 결과를 되줍니다.</p>
+<div id="r-스크립트" class="section level3 hasAnchor" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> R 스크립트<a href="기본.html#r-스크립트" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>콘솔 안에서 일할 때, 윗 화살표 ↑를 사용하면 바로 전에 사용한 코드를 다시 불러 올 수 있습니다. 그러나 그것보다 스크립트 패널을 사용하는 게 더 효율적입니다. R 스크립트 파일은 편집하고 즉석에서 실행하고 수정할 수 있어서 훨씬 효율적이에요.</p>
+<p>스크립트 파일을 새로 만들려면, Ctrl+Shift+N을 누르거나 메뉴에서 <em>File &gt; New File &gt; R Script</em>를 선택하면 됩니다.스크립트 패널에 새 스크립트 파일을 열고 아래를 넣어 보세요.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="기본.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">+</span><span class="dv">1</span></span></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="기본.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">*</span><span class="dv">2</span></span></code></pre></div>
+<pre><code>## [1] 4</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="기본.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">+</span><span class="dv">2</span><span class="sc">*</span><span class="dv">3-5</span></span></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="기본.html#cb13-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span><span class="sc">+</span><span class="dv">2</span>)<span class="sc">*</span><span class="dv">3-5</span></span></code></pre></div>
+<pre><code>## [1] 4</code></pre>
+<p>스크립트 패널에서는 콘솔 패널과 달리, 엔터키를 누르면 코드를 실행하는 게 아니라 줄을 바꿉니다. 이것은 스크립트 패널은 스크립트 파일의 편집이 주요 목적이기 때문입니다. 스크립트 패널에서 실행하려면 아래처럼 합니다.</p>
+<ul>
+<li><p>소스 Source 버튼을 클릭한다.</p></li>
+<li><p>Ctrl+Shift+Enter를 친다.</p></li>
+<li><p>Ctrl+Alt+Enter를 치면, 실행을 하지만 코드를 되보여주거나 결과를 보여주지 않는다.</p></li>
+</ul>
+<p>그냥 Run 버튼을 클릭하면 커서가 있는 줄의 코드가 실행합니다. 만일 그 전에 마우스로 선택된 블럭이 있으면 그 선택 블럭이 실행합니다. Run 버튼 대신에 Ctrl+Enter를 쳐도 됩니다.</p>
+</div>
+</div>
+<div id="변수와-함수" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> 변수와 함수<a href="기본.html#변수와-함수" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="데이터-저장" class="section level3 hasAnchor" number="3.4.1">
+<h3><span class="header-section-number">3.4.1</span> 데이터 저장<a href="기본.html#데이터-저장" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>아래처럼 변수 x 에 숫자를 부여합니다. 이때 자판의 왼꺾쇠와&lt; 하이폰을 - 빈칸없이 &lt;- 사용합니다. 이게 실행되면 x라는 변수가 생기고 동시에 그 x 변수는 4의 값을 갖게 됩니다.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="기본.html#cb15-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">4</span></span></code></pre></div>
+<p>이걸 실행하면 아래처럼 나타납니다.</p>
+<p>[1]가 의미하는 건 곧 배울 겁니다. 변수 x를 만들었으니 아래처럼 사용하면 됩니다.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="기본.html#cb16-1" aria-hidden="true" tabindex="-1"></a>x <span class="sc">+</span> <span class="dv">1</span></span></code></pre></div>
+<pre><code>## [1] 5</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="기본.html#cb18-1" aria-hidden="true" tabindex="-1"></a>x <span class="sc">+</span> x</span></code></pre></div>
+<pre><code>## [1] 8</code></pre>
+<p>변수를 만들 때 아래처럼 수식을 사용해도 되고 다른 변수를 넣어도 됩니다. 기호와 숫자 사이에 빈칸은 있어도 되고 없어도 됩니다. 보통 빈칸을 넣습니다.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="기본.html#cb20-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">+</span> <span class="dv">3</span> <span class="sc">+</span> <span class="dv">4</span></span></code></pre></div>
+<p>좀 드물게 사용하지만, 화살표 방향이 달라도 됩니다.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="기본.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">+</span> <span class="dv">2</span> <span class="ot">-&gt;</span> y</span></code></pre></div>
+</div>
+<div id="변수-이름을-만들기" class="section level3 hasAnchor" number="3.4.2">
+<h3><span class="header-section-number">3.4.2</span> 변수 이름을 만들기<a href="기본.html#변수-이름을-만들기" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>간단하게 만들기. 각각 y, z, x 변수를 만듭시다.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="기본.html#cb22-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb22-2"><a href="기본.html#cb22-2" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb22-3"><a href="기본.html#cb22-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> y <span class="sc">-</span> z</span></code></pre></div>
+<p>또는 알아보기 쉽게 만들기. 각각 소득, 세금, 세후 소득 등 세 변수를 만듭시다.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="기본.html#cb23-1" aria-hidden="true" tabindex="-1"></a>소득 <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb23-2"><a href="기본.html#cb23-2" aria-hidden="true" tabindex="-1"></a>세금 <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb23-3"><a href="기본.html#cb23-3" aria-hidden="true" tabindex="-1"></a>세후_소득 <span class="ot">&lt;-</span> 소득 <span class="sc">-</span> 세금</span></code></pre></div>
+<p>잘 되었는지 변수 <code>세후_소득</code>을 실행해봅니다. 80이 나오면 맞게 된 겁니다.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="기본.html#cb24-1" aria-hidden="true" tabindex="-1"></a>세후_소득</span></code></pre></div>
+<pre><code>## [1] 80</code></pre>
+<p>이것도 됩니다.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="기본.html#cb26-1" aria-hidden="true" tabindex="-1"></a>세후_소득 <span class="ot">&lt;-</span> 소득 <span class="ot">&lt;-</span> <span class="dv">120</span></span></code></pre></div>
+<p>영어로 변수를 만들 때, R은 대문자와 소문자를 구분해요. 즉 <code>Taxes</code>와 <code>taxes</code>를 다른 변수로 인식합니다.</p>
+<p>변수를 만들 때 -, +, *, :, =, !, $는 사용하지 못합니다. 왜냐하면 이 기호는 실행문에서 사용하기 때문입니다.</p>
+<p>아래는 변수 이름을 만드는 통산적인 방법입니다.</p>
+<ul>
+<li><p>_ 기호 이용, snake_case, household_net_income, 가구_소득</p></li>
+<li><p>대소문자 이용, snakeCase, SnakeCase, NetIncome</p></li>
+<li><p>. 기호 이용, period.case, 경기도.가구당.소득</p></li>
+<li><p>그냥 붙이기, householdnetincome, 경기도가구당소득</p></li>
+</ul>
+<p>변수를 만들 때, 설명을 붙이면 나중에 알아보기 편해요. # 기호를 문장 앞에 붙이면 R을 그 문장을 무시합니다.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="기본.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 소득과 세금을 결정한다:</span></span>
+<span id="cb27-2"><a href="기본.html#cb27-2" aria-hidden="true" tabindex="-1"></a>소득 <span class="ot">&lt;-</span> <span class="dv">100</span>  <span class="co"># 소득을 80으로</span></span>
+<span id="cb27-3"><a href="기본.html#cb27-3" aria-hidden="true" tabindex="-1"></a>세금 <span class="ot">&lt;-</span> <span class="dv">20</span>   <span class="co"># 세금을 20으로</span></span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="기본.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 세후소득의 결정:</span></span>
+<span id="cb28-2"><a href="기본.html#cb28-2" aria-hidden="true" tabindex="-1"></a>세후_소득 <span class="ot">&lt;-</span> 소득 <span class="sc">-</span> 세금</span>
+<span id="cb28-3"><a href="기본.html#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 내 돈이야!</span></span></code></pre></div>
+<p>스크립트 패널에서 Ctrl+Shift+C를 누르면 커서가 위치한 줄의 # 기호가 없어지고 생기고 합니다. 즉 그 줄이 실행되고 안 되고를 쉽게 수정하고 다음에 변경할 수 있어요.</p>
+</div>
+<div id="벡터와-데이터-프레임" class="section level3 hasAnchor" number="3.4.3">
+<h3><span class="header-section-number">3.4.3</span> 벡터와 데이터 프레임<a href="기본.html#벡터와-데이터-프레임" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>변수에는 하나의 숫자/값만 넣는 게 아니라 여러 개의 숫자/값을 넣을 수 있어요. 이럴 때 벡터 변수라고 해요. 통상적으로 변수 하나가 여러 사례를 갖게 되니까 벡터 변수가 통상적으로 사용하는 변수와 유사합니다.</p>
+<p>즉 일일이 사람마다 변수로 취급하고 값을 넣어주게 되면 아래처럼 불편합니다.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="기본.html#cb29-1" aria-hidden="true" tabindex="-1"></a>사람1_나이 <span class="ot">&lt;-</span> <span class="dv">28</span></span>
+<span id="cb29-2"><a href="기본.html#cb29-2" aria-hidden="true" tabindex="-1"></a>사람2_나이 <span class="ot">&lt;-</span> <span class="dv">48</span></span>
+<span id="cb29-3"><a href="기본.html#cb29-3" aria-hidden="true" tabindex="-1"></a>사람3_나이 <span class="ot">&lt;-</span> <span class="dv">47</span></span>
+<span id="cb29-4"><a href="기본.html#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ...계속된다</span></span></code></pre></div>
+<p>그래서 변수에 한꺼번에 사례의 변수값을 넣는 게 편하지요. 여러 개 변수값을 갖는 변수를 벡터라고 부릅니다. 벡터를 만드는 함수는 c( )입니다.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="기본.html#cb30-1" aria-hidden="true" tabindex="-1"></a>나이 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">28</span>, <span class="dv">48</span>, <span class="dv">47</span>, <span class="dv">71</span>, <span class="dv">22</span>, <span class="dv">80</span>, <span class="dv">48</span>, <span class="dv">30</span>, <span class="dv">31</span>)</span></code></pre></div>
+<p>벡터 변수에 연산을 하면 각각에 대해서 계산합니다.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="기본.html#cb31-1" aria-hidden="true" tabindex="-1"></a>나이_개월수 <span class="ot">&lt;-</span> 나이 <span class="sc">*</span> <span class="dv">12</span></span>
+<span id="cb31-2"><a href="기본.html#cb31-2" aria-hidden="true" tabindex="-1"></a>나이_개월수</span></code></pre></div>
+<pre><code>## [1] 336 576 564 852 264 960 576 360 372</code></pre>
+<p>변수에 변수값이 여러 개 포함되면 <code>벡터</code>이고, 그런 벡터가 여러 개 있으면 <code>데이터 프레임</code>이 됩니다. 우리가 통계 분석에 사용하는 것은 <code>데이터 프레임</code>입니다. 벡터 테이블 tables of vectors 이라고 부르기도 합니다.</p>
+<p>앞에서 벡터변수 ’나이’는 지정했으니까 벡터변수 ’구매량’을 하나 더 만듭니다.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="기본.html#cb33-1" aria-hidden="true" tabindex="-1"></a>구매량 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">59</span>, <span class="dv">2</span>, <span class="dv">12</span>, <span class="dv">22</span>, <span class="dv">160</span>, <span class="dv">34</span>, <span class="dv">34</span>, <span class="dv">29</span>)</span></code></pre></div>
+<p>두 개의 <code>벡터</code>를 합쳐서 <code>데이터 프레임</code>을 만듭니다.</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="기본.html#cb34-1" aria-hidden="true" tabindex="-1"></a>책가게 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(나이, 구매량)</span></code></pre></div>
+<p>콘솔 패널에 책가게를 쳐서 실행해서 결과를 봅니다. Rmarkdown에서 실행하는 것과 (실제 결과는 같지만) 보이는 output은 약간 다를지 모릅니다. 나이와 구매량은 <code>벡터</code>이고 책가게는 <code>데이터프레임</code>이에요.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="기본.html#cb35-1" aria-hidden="true" tabindex="-1"></a>책가게</span></code></pre></div>
+<pre><code>##   나이 구매량
+## 1   28     20
+## 2   48     59
+## 3   47      2
+## 4   71     12
+## 5   22     22
+## 6   80    160
+## 7   48     34
+## 8   30     34
+## 9   31     29</code></pre>
+<p>나이를 프린트 해 볼까요?</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="기본.html#cb37-1" aria-hidden="true" tabindex="-1"></a>나이</span></code></pre></div>
+<pre><code>## [1] 28 48 47 71 22 80 48 30 31</code></pre>
+<p>긴 벡터를 가진 변수를 만들어 실험해 봅시다. 벡터를 만들 때 변수값 사이에 쉼표를 넣고. 줄을 바꿀 때는 엔터를 칩니다. 자동으로 들여쓰기를 합니다. 줄바꿈한 것은 실행할 때 (콘솔 패널에서) 줄 맨앞에 +가 붙는데 이건 R이 아직 명령이 이어지고 있다는 걸 인식한 겁니다.</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="기본.html#cb39-1" aria-hidden="true" tabindex="-1"></a>거리 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">687</span>, <span class="dv">5076</span>, <span class="dv">7270</span>, <span class="dv">967</span>, <span class="dv">6364</span>, <span class="dv">1683</span>, <span class="dv">9394</span>, <span class="dv">5712</span>, <span class="dv">5206</span>,</span>
+<span id="cb39-2"><a href="기본.html#cb39-2" aria-hidden="true" tabindex="-1"></a>               <span class="dv">4317</span>, <span class="dv">9411</span>, <span class="dv">5625</span>, <span class="dv">9725</span>, <span class="dv">4977</span>, <span class="dv">2730</span>, <span class="dv">5648</span>, <span class="dv">3818</span>, <span class="dv">8241</span>,</span>
+<span id="cb39-3"><a href="기본.html#cb39-3" aria-hidden="true" tabindex="-1"></a>               <span class="dv">5547</span>, <span class="dv">1637</span>, <span class="dv">4428</span>, <span class="dv">8584</span>, <span class="dv">2962</span>, <span class="dv">5729</span>, <span class="dv">5325</span>, <span class="dv">4370</span>, <span class="dv">5989</span>,</span>
+<span id="cb39-4"><a href="기본.html#cb39-4" aria-hidden="true" tabindex="-1"></a>               <span class="dv">9030</span>, <span class="dv">5532</span>, <span class="dv">9623</span>)</span>
+<span id="cb39-5"><a href="기본.html#cb39-5" aria-hidden="true" tabindex="-1"></a>거리</span></code></pre></div>
+<pre><code>##  [1]  687 5076 7270  967 6364 1683 9394 5712 5206 4317 9411 5625 9725 4977 2730
+## [16] 5648 3818 8241 5547 1637 4428 8584 2962 5729 5325 4370 5989 9030 5532 9623</code></pre>
+<p>실행할 때의 콘솔 패널 넓이에 따라서 output이 줄바꿈하는 부분이 달라집니다.</p>
+<p>변수에 값이 하나밖에 없어도 [1]이 앞에 붙는다는 것은 그 변수가 벡터라는 걸 보여줍니다.</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="기본.html#cb41-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb41-2"><a href="기본.html#cb41-2" aria-hidden="true" tabindex="-1"></a>x</span></code></pre></div>
+<pre><code>## [1] 4</code></pre>
+<p>잇단 숫자는 아래처럼 생성합니다.</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="기본.html#cb43-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)</span>
+<span id="cb43-2"><a href="기본.html#cb43-2" aria-hidden="true" tabindex="-1"></a>x</span></code></pre></div>
+<pre><code>## [1] 1 2 3 4 5</code></pre>
+</div>
+<div id="함수-functions" class="section level3 hasAnchor" number="3.4.4">
+<h3><span class="header-section-number">3.4.4</span> 함수 functions<a href="기본.html#함수-functions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>함수는 미리 만들어놓은 지시문의 뭉치를 간단하게 표현한 겁니다. 대개 함수이름(변수이름)의 형태를 가집니다. 아래의 <code>mean</code>은 평균을 계산하는 함수입니다.</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="기본.html#cb45-1" aria-hidden="true" tabindex="-1"></a>나이 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">28</span>, <span class="dv">48</span>, <span class="dv">47</span>, <span class="dv">71</span>, <span class="dv">22</span>, <span class="dv">80</span>, <span class="dv">48</span>, <span class="dv">30</span>, <span class="dv">31</span>)</span>
+<span id="cb45-2"><a href="기본.html#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(나이)</span></code></pre></div>
+<pre><code>## [1] 45</code></pre>
+<p>함수는 여러 개의 변수를 이용하기도 합니다. 아래는 상관계수를 구하는 함수인 <code>cor( )</code>입니다. 함수는 추가로 조건이 붙기도 합니다.</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="기본.html#cb47-1" aria-hidden="true" tabindex="-1"></a>나이 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">28</span>, <span class="dv">48</span>, <span class="dv">47</span>, <span class="dv">71</span>, <span class="dv">22</span>, <span class="dv">80</span>, <span class="dv">48</span>, <span class="dv">30</span>, <span class="dv">31</span>)</span>
+<span id="cb47-2"><a href="기본.html#cb47-2" aria-hidden="true" tabindex="-1"></a>구매량 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">59</span>, <span class="dv">2</span>, <span class="dv">12</span>, <span class="dv">22</span>, <span class="dv">160</span>, <span class="dv">34</span>, <span class="dv">34</span>, <span class="dv">29</span>)</span>
+<span id="cb47-3"><a href="기본.html#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(나이, 구매량, <span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] 0.589402</code></pre>
+<p>변수나 조건이 필요하지 않아도 함수는 ( )를 포함합니다. 예를 들어 현재 시간을 넣어주는 <code>Sys.time( )</code>도 ( )가 필요합니다. 물론 안에는 아무것도 안 넣어요.</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="기본.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.time</span>()</span></code></pre></div>
+<pre><code>## [1] &quot;2023-03-05 19:41:08 KST&quot;</code></pre>
+</div>
+<div id="수학-연산" class="section level3 hasAnchor" number="3.4.5">
+<h3><span class="header-section-number">3.4.5</span> 수학 연산<a href="기본.html#수학-연산" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>사칙 연산에는 +. -, * / 를 사용합니다. 아래에 다른 것들이 있습니다.</p>
+<ul>
+<li><p><code>abs(x)</code>: 절대값 |x|</p></li>
+<li><p><code>sqrt(x)</code> : 제곱근 √x</p></li>
+<li><p><code>log(x)</code> : x 자연로그값 e</p></li>
+<li><p><code>log(x, base = a )</code>: x 로그값 a</p></li>
+<li><p><code>a^x</code> : a의 x 제곱</p></li>
+<li><p><code>exp(x)</code> : e의 x 제곱</p></li>
+<li><p><code>sum(x</code>) : x 가 벡터일 때 x=(x<sub>1</sub>, x<sub>2</sub>, x<sub>3</sub>, …, x<sub>n</sub>) 총합</p></li>
+<li><p><code>prod(x)</code> : x가 벡터일 때 x=(x<sub>1</sub>, x<sub>2</sub>, x<sub>3</sub>, …, x<sub>n</sub>) 모든 걸 곱한 값</p></li>
+<li><p><code>pi</code> : 파이 π 값</p></li>
+<li><p><code>x %% a</code> : x 를 a로 나눈 나머지값</p></li>
+<li><p><code>factorial(x)</code> : x!</p></li>
+<li><p><code>choose(n,k)</code> : 순열 (<sup>n</sup><sub>k</sub>)</p></li>
+</ul>
+</div>
+</div>
+<div id="패키지" class="section level2 hasAnchor" number="3.5">
+<h2><span class="header-section-number">3.5</span> 패키지<a href="기본.html#패키지" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>R은 수많은 함수를 포함해서 수많은 일을 하지만, 그래도 데이터 분석의 모든 것을 다 하지는 못합니다. 그래서 패키지가 필요합니다. 패키지는 R에 포함하는 새로운 함수와 데이터셋의 집합체를 말합니다. 패키지는 통계분석, 그래프 그리기, C++ 코드, 데이터 처리 등 모든 분야에서 새로 개발되어 R에 포함됩니다. R은 20,000개가 넘는 패키지를 포함합니다.</p>
+<p>예를 들어, 그래프 그리기 기능을 확장하는 <code>ggplot2</code>라는 패키지를 설치해서 각종 그래프를 그릴 수 있어요. <code>ggplot2</code> 패키지를 설치하려면 RStudio 메뉴에서 <em>Tools&gt;Install packages</em> 를 선택하거나, RStudio의 오른쪽 아래 파일, 도움 패널 창에 있는 메뉴의 <em>Packages 탭&gt;Install</em> 클릭해서 설치해도 됩니다.</p>
+<p><img src="images/image-663565914.png" /></p>
+<p>콘솔 창에 아래의 코드를 적고 실행해도 됩니다.</p>
+<p><code>install.packages("ggplot2")</code></p>
+<p>설치가 다 되면 아래의 메시지가 나타납니다.</p>
+<p><code>package 'ggplot2' successfully unpacked and MD5 sums checked</code></p>
+<p>설치가 되었다고 바로 사용하지 못해요. 설치한 패키지에 포함한 함수나 데이터셋을 사용하려면, 매번 R을 시작할 때 아래의 함수를 실행해야 합니다. 패키지가 필요한 스크립트 파일은 맨 앞에 <code>library</code> 함수를 포함할 것을 권장합니다.</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="기본.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code></pre></div>
+<p>패키지 활성화는 RStudio 오른쪽 아래 패널 메뉴의 패키지탭을 클릭하고 나타난 패키지 목록에 해당 패키지 이름이 있으면 그 체크 박스를 체크해도 역시 됩니다. 체크하는 순간 콘솔 박스에서 <code>library(패키지 이름)</code>이 실행합니다.</p>
+</div>
+<div id="기술적-통계" class="section level2 hasAnchor" number="3.6">
+<h2><span class="header-section-number">3.6</span> 기술적 통계<a href="기본.html#기술적-통계" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>여기서는 <code>ggplots</code>에 실린 데이터셋 둘을 사용할 거예요..</p>
+<ul>
+<li><p><code>diamands</code> : 다이아몬드 50,000여 개의 가격</p></li>
+<li><p><code>msleep</code> : 포유류 83 종류의 잠 시간</p></li>
+</ul>
+<p>만일 여기서 R을 새로 시작했다면, 먼저 활성화시켜야겠죠</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="기본.html#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code></pre></div>
+<p>분석 전에 먼저 <code>msleep</code> 데이터셋을 살펴봅니다.</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="기본.html#cb53-1" aria-hidden="true" tabindex="-1"></a>msleep</span></code></pre></div>
+<pre><code>## # A tibble: 83 × 11
+##    name         genus vore  order conse…¹ sleep…² sleep…³ sleep…⁴ awake  brainwt
+##    &lt;chr&gt;        &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
+##  1 Cheetah      Acin… carni Carn… lc         12.1    NA    NA      11.9 NA      
+##  2 Owl monkey   Aotus omni  Prim… &lt;NA&gt;       17       1.8  NA       7    0.0155 
+##  3 Mountain be… Aplo… herbi Rode… nt         14.4     2.4  NA       9.6 NA      
+##  4 Greater sho… Blar… omni  Sori… lc         14.9     2.3   0.133   9.1  0.00029
+##  5 Cow          Bos   herbi Arti… domest…     4       0.7   0.667  20    0.423  
+##  6 Three-toed … Brad… herbi Pilo… &lt;NA&gt;       14.4     2.2   0.767   9.6 NA      
+##  7 Northern fu… Call… carni Carn… vu          8.7     1.4   0.383  15.3 NA      
+##  8 Vesper mouse Calo… &lt;NA&gt;  Rode… &lt;NA&gt;        7      NA    NA      17   NA      
+##  9 Dog          Canis carni Carn… domest…    10.1     2.9   0.333  13.9  0.07   
+## 10 Roe deer     Capr… herbi Arti… lc          3      NA    NA      21    0.0982 
+## # … with 73 more rows, 1 more variable: bodywt &lt;dbl&gt;, and abbreviated variable
+## #   names ¹​conservation, ²​sleep_total, ³​sleep_rem, ⁴​sleep_cycle</code></pre>
+<p>처음 10개 열을 보여줄 겁니다. 또 83 x 11 데이터셋 정보를 알려줄 텐데 83개 열에 (83개 사례) 11개 행이 (11개 변수) 있다는 겁니다. 모든 걸 보려면 아래의 함수를 사용합니다.</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="기본.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(msleep)</span></code></pre></div>
+<p>변수값 <code>NA</code>는 결측값입니다. missing value</p>
+<p>아래는 데이터셋에 대한 정보를 알리는 함수입니다.</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="기본.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(msleep)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 11
+##   name  genus vore  order conse…¹ sleep…² sleep…³ sleep…⁴ awake  brainwt  bodywt
+##   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;
+## 1 Chee… Acin… carni Carn… lc         12.1    NA    NA      11.9 NA        50    
+## 2 Owl … Aotus omni  Prim… &lt;NA&gt;       17       1.8  NA       7    0.0155    0.48 
+## 3 Moun… Aplo… herbi Rode… nt         14.4     2.4  NA       9.6 NA         1.35 
+## 4 Grea… Blar… omni  Sori… lc         14.9     2.3   0.133   9.1  0.00029   0.019
+## 5 Cow   Bos   herbi Arti… domest…     4       0.7   0.667  20    0.423   600    
+## 6 Thre… Brad… herbi Pilo… &lt;NA&gt;       14.4     2.2   0.767   9.6 NA         3.85 
+## # … with abbreviated variable names ¹​conservation, ²​sleep_total, ³​sleep_rem,
+## #   ⁴​sleep_cycle</code></pre>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="기본.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(msleep)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 11
+##   name   genus vore  order conse…¹ sleep…² sleep…³ sleep…⁴ awake brainwt  bodywt
+##   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+## 1 Tenrec Tenr… omni  Afro… &lt;NA&gt;       15.6     2.3  NA       8.4  0.0026   0.9  
+## 2 Tree … Tupa… omni  Scan… &lt;NA&gt;        8.9     2.6   0.233  15.1  0.0025   0.104
+## 3 Bottl… Turs… carni Ceta… &lt;NA&gt;        5.2    NA    NA      18.8 NA      173.   
+## 4 Genet  Gene… carni Carn… &lt;NA&gt;        6.3     1.3  NA      17.7  0.0175   2    
+## 5 Arcti… Vulp… carni Carn… &lt;NA&gt;       12.5    NA    NA      11.5  0.0445   3.38 
+## 6 Red f… Vulp… carni Carn… &lt;NA&gt;        9.8     2.4   0.35   14.2  0.0504   4.23 
+## # … with abbreviated variable names ¹​conservation, ²​sleep_total, ³​sleep_rem,
+## #   ⁴​sleep_cycle</code></pre>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="기본.html#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(msleep)</span></code></pre></div>
+<pre><code>## [1] 83 11</code></pre>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="기본.html#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(msleep)</span></code></pre></div>
+<pre><code>## tibble [83 × 11] (S3: tbl_df/tbl/data.frame)
+##  $ name        : chr [1:83] &quot;Cheetah&quot; &quot;Owl monkey&quot; &quot;Mountain beaver&quot; &quot;Greater short-tailed shrew&quot; ...
+##  $ genus       : chr [1:83] &quot;Acinonyx&quot; &quot;Aotus&quot; &quot;Aplodontia&quot; &quot;Blarina&quot; ...
+##  $ vore        : chr [1:83] &quot;carni&quot; &quot;omni&quot; &quot;herbi&quot; &quot;omni&quot; ...
+##  $ order       : chr [1:83] &quot;Carnivora&quot; &quot;Primates&quot; &quot;Rodentia&quot; &quot;Soricomorpha&quot; ...
+##  $ conservation: chr [1:83] &quot;lc&quot; NA &quot;nt&quot; &quot;lc&quot; ...
+##  $ sleep_total : num [1:83] 12.1 17 14.4 14.9 4 14.4 8.7 7 10.1 3 ...
+##  $ sleep_rem   : num [1:83] NA 1.8 2.4 2.3 0.7 2.2 1.4 NA 2.9 NA ...
+##  $ sleep_cycle : num [1:83] NA NA NA 0.133 0.667 ...
+##  $ awake       : num [1:83] 11.9 7 9.6 9.1 20 9.6 15.3 17 13.9 21 ...
+##  $ brainwt     : num [1:83] NA 0.0155 NA 0.00029 0.423 NA NA NA 0.07 0.0982 ...
+##  $ bodywt      : num [1:83] 50 0.48 1.35 0.019 600 ...</code></pre>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="기본.html#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(msleep)</span></code></pre></div>
+<pre><code>##  [1] &quot;name&quot;         &quot;genus&quot;        &quot;vore&quot;         &quot;order&quot;        &quot;conservation&quot;
+##  [6] &quot;sleep_total&quot;  &quot;sleep_rem&quot;    &quot;sleep_cycle&quot;  &quot;awake&quot;        &quot;brainwt&quot;     
+## [11] &quot;bodywt&quot;</code></pre>
+<p><code>head</code> : 앞 열들의 정보를 알립니다.</p>
+<p><code>dim</code> : 열과 행의 숫자를 알립니다.</p>
+<p><code>tail</code> : 뒤 열들의 정보를 알립니다.</p>
+<p><code>str</code> : 변수의 정보를 알립니다. (<code>chr</code>은 문자, <code>num</code>은 숫자, <code>dbl</code>은 소숫점을 가진 숫자)</p>
+<p><code>names</code> : 변수들의 이름으로 구성한 벡터를 되줍니다.</p>
+<p>데이터셋의 자료형태는 티블 <code>tibble</code> 자료형과 데이터프레임 <code>data.frame</code> 자료형이 있습니다. 티블은 데이터 프레임을 우리가 흔히 보는 형태로 바꾸어 준 것입니다. 우리는 데이터를 저장할 때 (즉 엑셀에 넣을 때) 사례는 열로, 변수는 행으로 저장합니다. 이것이 우리가 흔히 보는 데이터 저장 방식으로 티블 <code>tibble</code> 자료형입니다. 위에서 여러 함수들을 이용해서 <code>msleep</code> 정보를 꺼낼 때 맨 위에 나타나는 <code>tibble</code>은 이 데이터셋이 티블 형태라는 걸 알립니다.</p>
+<p>데이터프레임 자료형을 티블 자료형으로 변환하려면 <code>as_tibble( )</code> 함수를 사용하고, 직접 만들려면 <code>tibble( )</code> 함수를 사용합니다. (<code>tibble</code> 패키지를 활성화할 필요가 있을지 몰라요.)</p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="기본.html#cb66-1" aria-hidden="true" tabindex="-1"></a>?msleep</span></code></pre></div>
+<pre><code>## starting httpd help server ... done</code></pre>
+<p>위 코드의 실행 결과는 도움 패널에 나타나며 <code>msleep</code> 데이터셋의 자세한 설명을 알려줍니다.</p>
+<p>아직 <code>msleep</code>은 환경 패널의 변수 목록에 나타나지 않았다는 걸 주목하세요. 목록에 포함하려면 아래 코드를 실행합니다.</p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="기본.html#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(msleep)</span></code></pre></div>
+<p>자, 이제 환경 패널 목록에 나타났습니다.</p>
+<div id="숫자형-자료-numerical" class="section level3 hasAnchor" number="3.6.1">
+<h3><span class="header-section-number">3.6.1</span> 숫자형 자료 numerical<a href="기본.html#숫자형-자료-numerical" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>기술적 통계를 산출하는 간단한 방법은 <code>summary</code> 함수에요. 문자 변수에는 아무 정보도 주지 않고, 숫자 변수에는 여러 정보를 되줍니다.</p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="기본.html#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(msleep)</span></code></pre></div>
+<pre><code>##      name              genus               vore              order          
+##  Length:83          Length:83          Length:83          Length:83         
+##  Class :character   Class :character   Class :character   Class :character  
+##  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+##                                                                             
+##                                                                             
+##                                                                             
+##                                                                             
+##  conservation        sleep_total      sleep_rem      sleep_cycle    
+##  Length:83          Min.   : 1.90   Min.   :0.100   Min.   :0.1167  
+##  Class :character   1st Qu.: 7.85   1st Qu.:0.900   1st Qu.:0.1833  
+##  Mode  :character   Median :10.10   Median :1.500   Median :0.3333  
+##                     Mean   :10.43   Mean   :1.875   Mean   :0.4396  
+##                     3rd Qu.:13.75   3rd Qu.:2.400   3rd Qu.:0.5792  
+##                     Max.   :19.90   Max.   :6.600   Max.   :1.5000  
+##                                     NA&#39;s   :22      NA&#39;s   :51      
+##      awake          brainwt            bodywt        
+##  Min.   : 4.10   Min.   :0.00014   Min.   :   0.005  
+##  1st Qu.:10.25   1st Qu.:0.00290   1st Qu.:   0.174  
+##  Median :13.90   Median :0.01240   Median :   1.670  
+##  Mean   :13.57   Mean   :0.28158   Mean   : 166.136  
+##  3rd Qu.:16.15   3rd Qu.:0.12550   3rd Qu.:  41.750  
+##  Max.   :22.10   Max.   :5.71200   Max.   :6654.000  
+##                  NA&#39;s   :27</code></pre>
+<p>개별 정보를 알고 싶을 때는 아래의 함수를 사용합니다. 개별 변수를 나타내는 방법은 <code>데이터셋이름$변수이름</code> 입니다</p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="기본.html#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(msleep<span class="sc">$</span>sleep_total)      <span class="co"># 평균</span></span></code></pre></div>
+<pre><code>## [1] 10.43373</code></pre>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="기본.html#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(msleep<span class="sc">$</span>sleep_total)    <span class="co"># 중앙값</span></span></code></pre></div>
+<pre><code>## [1] 10.1</code></pre>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="기본.html#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(msleep<span class="sc">$</span>sleep_total)       <span class="co"># 최대값</span></span></code></pre></div>
+<pre><code>## [1] 19.9</code></pre>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="기본.html#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(msleep<span class="sc">$</span>sleep_total)       <span class="co"># 최소값</span></span></code></pre></div>
+<pre><code>## [1] 1.9</code></pre>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="기본.html#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(msleep<span class="sc">$</span>sleep_total)        <span class="co"># 표준편차</span></span></code></pre></div>
+<pre><code>## [1] 4.450357</code></pre>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="기본.html#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(msleep<span class="sc">$</span>sleep_total)       <span class="co"># 분산</span></span></code></pre></div>
+<pre><code>## [1] 19.80568</code></pre>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="기본.html#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(msleep<span class="sc">$</span>sleep_total)  <span class="co"># 사분위값</span></span></code></pre></div>
+<pre><code>##    0%   25%   50%   75%  100% 
+##  1.90  7.85 10.10 13.75 19.90</code></pre>
+<p>하루 8시간 이상 자는 포유 동물의 숫자를 알려면 아래처럼 합니다.</p>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="기본.html#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(msleep<span class="sc">$</span>sleep_total <span class="sc">&gt;</span> <span class="dv">8</span>)   <span class="co"># 빈도 (숫자)</span></span></code></pre></div>
+<pre><code>## [1] 61</code></pre>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="기본.html#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(msleep<span class="sc">$</span>sleep_total <span class="sc">&gt;</span> <span class="dv">8</span>)  <span class="co"># 상대빈도 (비율)</span></span></code></pre></div>
+<pre><code>## [1] 0.7349398</code></pre>
+<p>결측값이 있을 때 조건을 넣어야 해요. 그냥 하면 <code>NA</code>가 나옵니다.</p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="기본.html#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(msleep<span class="sc">$</span>sleep_rem)</span></code></pre></div>
+<pre><code>## [1] NA</code></pre>
+<p>결측값을 무시하라는 조건을 넣으면,</p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="기본.html#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(msleep<span class="sc">$</span>sleep_rem, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## [1] 1.87541</code></pre>
+<p>변수가 두 개 이상이 연관되는 함수의 조건은 <code>use</code>를 써요.</p>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="기본.html#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(msleep<span class="sc">$</span>sleep_total, msleep<span class="sc">$</span>sleep_rem, <span class="at">use =</span> <span class="st">&quot;complete.obs&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] 0.751755</code></pre>
+</div>
+<div id="범주형-자료-categorical" class="section level3 hasAnchor" number="3.6.2">
+<h3><span class="header-section-number">3.6.2</span> 범주형 자료 categorical<a href="기본.html#범주형-자료-categorical" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><code>vore</code>와 <code>conservation</code> 변수는 범주형입니다. 이런 범주형 변수는 평균, 최대값 같은 건 의미가 없어요. 테이블을 만들어 빈도를 보는 게 좋아요. 범주형 변수는 R에서 <em>요인</em>이라고 <em>factors</em> 부르기도 합니다. 테이블을 만드는 함수는 <code>table</code>입니다.</p>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="기본.html#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(msleep<span class="sc">$</span>vore)</span></code></pre></div>
+<pre><code>## 
+##   carni   herbi insecti    omni 
+##      19      32       5      20</code></pre>
+<p>빈도 테이블을 비율/상대빈도로 변환하는 함수는 <code>proportions</code>에요.</p>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="기본.html#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">proportions</span>(<span class="fu">table</span>(msleep<span class="sc">$</span>vore))</span></code></pre></div>
+<pre><code>## 
+##      carni      herbi    insecti       omni 
+## 0.25000000 0.42105263 0.06578947 0.26315789</code></pre>
+<p>교차 테이블을 만드는 데도 <code>table</code> 함수를 사용합니다. margin의 null, 1, 2는 전체, 행, 열 중에 어느 것이 100%인지 선택하는 조건입니다.</p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="기본.html#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 빈도:</span></span>
+<span id="cb99-2"><a href="기본.html#cb99-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(msleep<span class="sc">$</span>vore, msleep<span class="sc">$</span>conservation)</span></code></pre></div>
+<pre><code>##          
+##           cd domesticated en lc nt vu
+##   carni    1            2  1  5  1  4
+##   herbi    1            7  2 10  3  3
+##   insecti  0            0  1  2  0  0
+##   omni     0            1  0  8  0  0</code></pre>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="기본.html#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 비율, margin=1은 행으로 per row:</span></span>
+<span id="cb101-2"><a href="기본.html#cb101-2" aria-hidden="true" tabindex="-1"></a><span class="fu">proportions</span>(<span class="fu">table</span>(msleep<span class="sc">$</span>vore, msleep<span class="sc">$</span>conservation),</span>
+<span id="cb101-3"><a href="기본.html#cb101-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">margin =</span> <span class="dv">1</span>) </span></code></pre></div>
+<pre><code>##          
+##                   cd domesticated         en         lc         nt         vu
+##   carni   0.07142857   0.14285714 0.07142857 0.35714286 0.07142857 0.28571429
+##   herbi   0.03846154   0.26923077 0.07692308 0.38461538 0.11538462 0.11538462
+##   insecti 0.00000000   0.00000000 0.33333333 0.66666667 0.00000000 0.00000000
+##   omni    0.00000000   0.11111111 0.00000000 0.88888889 0.00000000 0.00000000</code></pre>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="기본.html#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 비율, margin=2는 열로 per column: </span></span>
+<span id="cb103-2"><a href="기본.html#cb103-2" aria-hidden="true" tabindex="-1"></a><span class="fu">proportions</span>(<span class="fu">table</span>(msleep<span class="sc">$</span>vore, msleep<span class="sc">$</span>conservation),</span>
+<span id="cb103-3"><a href="기본.html#cb103-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">margin =</span> <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>##          
+##                  cd domesticated        en        lc        nt        vu
+##   carni   0.5000000    0.2000000 0.2500000 0.2000000 0.2500000 0.5714286
+##   herbi   0.5000000    0.7000000 0.5000000 0.4000000 0.7500000 0.4285714
+##   insecti 0.0000000    0.0000000 0.2500000 0.0800000 0.0000000 0.0000000
+##   omni    0.0000000    0.1000000 0.0000000 0.3200000 0.0000000 0.0000000</code></pre>
+</div>
+</div>
+<div id="숫자형-자료의-그래프" class="section level2 hasAnchor" number="3.7">
+<h2><span class="header-section-number">3.7</span> 숫자형 자료의 그래프<a href="기본.html#숫자형-자료의-그래프" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>그래프를 그릴 때 주로 <code>ggplot2</code> 패키지를 사용합니다. 이 패키지는 소위 <em>그래프 문법</em>이란 걸 이용합니다. 그래프 문법은 여러 종류의 그래프를 그릴 때 동일한 논리와 함수를 사용하는 걸 의미합니다.</p>
+<p>그래프 문법의 중요한 삼 요소는 아래와 같아요.</p>
+<ul>
+<li><p>데이터: 데이터 셋의 자료들</p></li>
+<li><p>미학 aesthetics: 그래프의 시각적인 아름다움 (축의 길이나 기호들의 크기 등)</p></li>
+<li><p>지옴 geom : 기하학적 객체 geometric objects</p></li>
+</ul>
+<div id="그래프-plot" class="section level3 hasAnchor" number="3.7.1">
+<h3><span class="header-section-number">3.7.1</span> 그래프 plot<a href="기본.html#그래프-plot" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>그냥 기본 패키지로 그린다면:</p>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="기본.html#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(msleep<span class="sc">$</span>sleep_total, msleep<span class="sc">$</span>sleep_rem)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
+<p>더 멋있게 그린다면</p>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="기본.html#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb106-2"><a href="기본.html#cb106-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(msleep, <span class="fu">aes</span>(<span class="at">x =</span> sleep_total, <span class="at">y =</span> sleep_rem)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
+<pre><code>## Warning: Removed 22 rows containing
+## missing values
+## (`geom_point()`).</code></pre>
+<p><img src="_main_files/figure-html/unnamed-chunk-45-1.png" width="672" /></p>
+<p>여기서 그래프 문법의 삼 요소는 데이터: <code>msleep</code>, 미학: <code>aes</code> 함수<code>(x축, y축</code>), 지옴: <code>geom_point</code>로 각각 나타납니다.</p>
+<p>물론 기본 패키지의 <code>plot</code> 함수로 아래처럼 유사하게 그릴 수 있어요.</p>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="기본.html#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(msleep<span class="sc">$</span>sleep_total, msleep<span class="sc">$</span>sleep_rem, <span class="at">pch =</span> <span class="dv">16</span>)</span>
+<span id="cb108-2"><a href="기본.html#cb108-2" aria-hidden="true" tabindex="-1"></a><span class="fu">grid</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
+<p>그러나 <code>ggplot2</code> 패키지를 사용하면 여러 조건을 주지 않고 쉽게 그리지요. 기본 형식인 <code>ggplot(data, aes) + geom</code> 을 사용하기 때문입니다. 앞의 <code>ggplot</code> 그래프에서 x<code>=</code>과 y<code>=</code>을 생략하고 코드를 만들면 아래와 같아요. 동일한 결과이므로 결과는 생략합니다.</p>
+</div>
+<div id="색깔-모양-축의-이름표" class="section level3 hasAnchor" number="3.7.2">
+<h3><span class="header-section-number">3.7.2</span> 색깔, 모양, 축의 이름표<a href="기본.html#색깔-모양-축의-이름표" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>축 이름표는 앞의 <code>ggplot</code> 코드 뒷부분에 +를 이용해 덧붙이면 됩니다. <code>xlab</code> 과 <code>ylab</code> 함수를 사용합니다.</p>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="기본.html#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(msleep, <span class="fu">aes</span>(sleep_total, sleep_rem)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">&quot;Total sleep time (h)&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-48-1.png" width="672" /></p>
+<p>실행 결과에 결측값에 관한 경고가 나오니까 <code>warning=FALSE</code>를 넣어 안 나오게 합니다. 그걸 적어넣는 게 귀찮으니까 코드 청크 오른쪽 위의 톱니바퀴를 클릭하면 아래처럼 풀다운 메뉴가 나오는데 <code>Show warnings</code>을 두 번 클릭해서 끄고 밑의 <code>apply</code>를 클릭하면 저절로 넣어집니다.</p>
+<p><img src="images/image-1351361537.png" /></p>
+<p>그래프 안의 점에 색깔을 넣는다면 <code>geom_point</code>에서 <code>color="색깔이름"</code>을 사용합니다.</p>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="기본.html#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(msleep, <span class="fu">aes</span>(sleep_total, sleep_rem)) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">colour =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">&quot;Total sleep time (h)&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-49-1.png" width="672" /></p>
+<p>색깔 이름을 찾으려면 콘솔 패널에서 <code>colors( )</code> 함수를 실행하세요. 복사해서 코드에 이름을 넣는 순간 색깔이 나타나니까 어떤 색인지 볼 수 있어요. “#FF5733” 같은 헥사 코드로 넣어도 됩니다.</p>
+<p>위의 숫자형 변수 두 개에 범주형 변수인 <code>vore</code>를 하나 추가해서 그래프를 그릴 수 있어요. 그럴 때 범주형 변수의 범주 네 종류의 색깔을 다르게 하는 색깔 조건을 <code>aes</code>에 넣어야 합니다. 바로 <code>colour = vore</code> 입니다.</p>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="기본.html#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(msleep, <span class="fu">aes</span>(sleep_total, sleep_rem, <span class="at">colour =</span> vore)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">&quot;Total sleep time (h)&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-50-1.png" width="672" /></p>
+<p>숫자형 변수를 추가하고 색깔을 넣으면 어떻게 될까요? 가능할까요?</p>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="기본.html#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(msleep, <span class="fu">aes</span>(sleep_total, sleep_rem, <span class="at">colour =</span> sleep_cycle)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">&quot;Total sleep time (h)&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-51-1.png" width="672" /></p>
+<p>오! 됩니다. 색깔을 달리하지 않고 한 가지 색을 농도의 옅고 짙은 정도로 숫자의 크기를 표시해서 그립니다. 대단하지요?</p>
+<p>색깔 colour= 함수와 동일한 용도와 형식으로 모양 shape=, 크기 size= 등의 함수를 사용합니다.</p>
+</div>
+<div id="축의-한계와-크기" class="section level3 hasAnchor" number="3.7.3">
+<h3><span class="header-section-number">3.7.3</span> 축의 한계와 크기<a href="기본.html#축의-한계와-크기" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>ggplot 함수에 + xlim 과 ylim을 사용합니다. 아래 둘을 비교해봅시다.</p>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="기본.html#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(msleep, <span class="fu">aes</span>(brainwt, sleep_total, <span class="at">colour =</span> vore)) <span class="sc">+</span> </span>
+<span id="cb113-2"><a href="기본.html#cb113-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb113-3"><a href="기본.html#cb113-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">xlab</span>(<span class="st">&quot;Brain weight&quot;</span>) <span class="sc">+</span></span>
+<span id="cb113-4"><a href="기본.html#cb113-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ylab</span>(<span class="st">&quot;Total sleep time&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-52-1.png" width="672" /></p>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="기본.html#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(msleep, <span class="fu">aes</span>(brainwt, sleep_total, <span class="at">colour =</span> vore)) <span class="sc">+</span> </span>
+<span id="cb114-2"><a href="기본.html#cb114-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb114-3"><a href="기본.html#cb114-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">xlab</span>(<span class="st">&quot;Brain weight&quot;</span>) <span class="sc">+</span></span>
+<span id="cb114-4"><a href="기본.html#cb114-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ylab</span>(<span class="st">&quot;Total sleep time&quot;</span>) <span class="sc">+</span></span>
+<span id="cb114-5"><a href="기본.html#cb114-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">xlim</span>(<span class="dv">0</span>, <span class="fl">1.5</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-53-1.png" width="672" /></p>
+<p>둘째 그래프의 x축 한계가 5에서 1.5로 되어 보기가 더 좋지요. 물론 <em>아웃라이어</em> 두 개가 빠져버린 것은 아쉽지만.</p>
+<p>좀 어렵지만, <code>brainwt</code> 변수를 로그로 변환하면 더 좋아집니다. <code>aes</code>함수 안에 <code>log</code> 함수를 넣습니다.</p>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="기본.html#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(msleep, <span class="fu">aes</span>(<span class="fu">log</span>(brainwt), sleep_total, <span class="at">colour =</span> vore)) <span class="sc">+</span> </span>
+<span id="cb115-2"><a href="기본.html#cb115-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb115-3"><a href="기본.html#cb115-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">xlab</span>(<span class="st">&quot;log(Brain weight)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb115-4"><a href="기본.html#cb115-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ylab</span>(<span class="st">&quot;Total sleep time&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-54-1.png" width="672" /></p>
+<p>그런데 <code>로그로 변환한 brainwt</code>변수는 잘 이해가 되지 않으니까 <code>brainwt</code> 변수는 놔두고 그냥 x축을 로그 스케일로 바꾸는 게 더 이해가 잘 될 겁니다. 뒤에 <code>+ scale_x_log10( )</code> 조건을 붙입니다.</p>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="기본.html#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(msleep, <span class="fu">aes</span>(brainwt, sleep_total, <span class="at">colour =</span> vore)) <span class="sc">+</span> </span>
+<span id="cb116-2"><a href="기본.html#cb116-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb116-3"><a href="기본.html#cb116-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">xlab</span>(<span class="st">&quot;Brain weight (logarithmic scale)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb116-4"><a href="기본.html#cb116-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ylab</span>(<span class="st">&quot;Total sleep time&quot;</span>) <span class="sc">+</span></span>
+<span id="cb116-5"><a href="기본.html#cb116-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">scale_x_log10</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-55-1.png" width="672" /></p>
+<p>x축 길이는 로그 스케일이지만 숫자(변수값)는 그대로여서 이해하기가 훨씬 편합니다.</p>
+</div>
+<div id="집단-비교하기" class="section level3 hasAnchor" number="3.7.4">
+<h3><span class="header-section-number">3.7.4</span> 집단 비교하기<a href="기본.html#집단-비교하기" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>집단을 비교하는 그래프를 잘 그리는 방법은 <em>포세팅</em>입니다. facetting 포세팅은 다면체에서 각 면을 나타내는 기하학 기법을 말하는데, 그래프에서는 각 집단 별로 산포도를 각각 그리는 기법을 의미합니다. 예를 들어, 범주형 변수인 <code>vore</code> 는 네 개 범주가 있는데 각 범주 별로 산포도 그래프를 각각 그리는 방법입니다.</p>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="기본.html#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(msleep, <span class="fu">aes</span>(brainwt, sleep_total)) <span class="sc">+</span> </span>
+<span id="cb117-2"><a href="기본.html#cb117-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb117-3"><a href="기본.html#cb117-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">xlab</span>(<span class="st">&quot;Brain weight (logarithmic scale)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb117-4"><a href="기본.html#cb117-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ylab</span>(<span class="st">&quot;Total sleep time&quot;</span>) <span class="sc">+</span></span>
+<span id="cb117-5"><a href="기본.html#cb117-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">scale_x_log10</span>() <span class="sc">+</span></span>
+<span id="cb117-6"><a href="기본.html#cb117-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">facet_wrap</span>(<span class="sc">~</span> vore)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-56-1.png" width="672" /></p>
+</div>
+<div id="박스플롯-boxplots" class="section level3 hasAnchor" number="3.7.5">
+<h3><span class="header-section-number">3.7.5</span> 박스플롯 boxplots<a href="기본.html#박스플롯-boxplots" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>집단을 비교하는 또다른 방법은 박스플롯이다. <code>ggplot2</code> 패키지의 <code>ggplot</code> 함수를 이용합니다. R 기본 패키지는 <code>boxplot</code> 함수를 이용합니다.</p>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="기본.html#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R 기본 패키지:</span></span>
+<span id="cb118-2"><a href="기본.html#cb118-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(sleep_total <span class="sc">~</span> vore, <span class="at">data =</span> msleep)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-57-1.png" width="672" /></p>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="기본.html#cb119-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ggplot2 패키지:</span></span>
+<span id="cb119-2"><a href="기본.html#cb119-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(msleep, <span class="fu">aes</span>(vore, sleep_total)) <span class="sc">+</span></span>
+<span id="cb119-3"><a href="기본.html#cb119-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_boxplot</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-58-1.png" width="672" /></p>
+<p>박스 그래프는 <code>summary</code> 함수가 되주는 수치와 유사한 시각 정보를 줍니다. 여기에 포함하는 건 중앙값, 1사분위, 3사분위, 최소값, 최대값, 아웃라이어 등입니다</p>
+<p>그래프 문법의 삼요소는 데이터: msleep, 미학: aes, 지옴: geom_boxplot 등입니다.</p>
+</div>
+<div id="히스토그램" class="section level3 hasAnchor" number="3.7.6">
+<h3><span class="header-section-number">3.7.6</span> 히스토그램<a href="기본.html#히스토그램" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>서로 붙은 막대그래프를 히스토그램이라고 합니다. R 기본 패키지와 <code>ggplot2</code> 패키지를 비교해봅시다.</p>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="기본.html#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R 기본 패키지:</span></span>
+<span id="cb120-2"><a href="기본.html#cb120-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(msleep<span class="sc">$</span>sleep_total)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-59-1.png" width="672" /></p>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="기본.html#cb121-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ggplot2 패키지: </span></span>
+<span id="cb121-2"><a href="기본.html#cb121-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(msleep, <span class="fu">aes</span>(sleep_total)) <span class="sc">+</span></span>
+<span id="cb121-3"><a href="기본.html#cb121-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_histogram</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-60-1.png" width="672" /></p>
+</div>
+</div>
+<div id="범주형-데이터-그래프" class="section level2 hasAnchor" number="3.8">
+<h2><span class="header-section-number">3.8</span> 범주형 데이터 그래프<a href="기본.html#범주형-데이터-그래프" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>범주형 데이터를 시각화할 때 각 범주별로 빈도를 보여주는 경향이 높습니다. 대개 막대 그래프를 이용합니다.</p>
+<div id="막대-그래프" class="section level3 hasAnchor" number="3.8.1">
+<h3><span class="header-section-number">3.8.1</span> 막대 그래프<a href="기본.html#막대-그래프" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>아래 두 개를 비교해봅시다.</p>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="기본.html#cb122-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R 기본 패키지:</span></span>
+<span id="cb122-2"><a href="기본.html#cb122-2" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">table</span>(msleep<span class="sc">$</span>vore))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-61-1.png" width="672" /></p>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="기본.html#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ggplot2 패키지: </span></span>
+<span id="cb123-2"><a href="기본.html#cb123-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(msleep, <span class="fu">aes</span>(vore)) <span class="sc">+</span></span>
+<span id="cb123-3"><a href="기본.html#cb123-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_bar</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-62-1.png" width="672" /></p>
+</div>
+</div>
+<div id="그래프-저장하기" class="section level2 hasAnchor" number="3.9">
+<h2><span class="header-section-number">3.9</span> 그래프 저장하기<a href="기본.html#그래프-저장하기" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>ggplot2를 이용해서 그래프를 그리면, 그 결과를 R 안에서 저장할 수 있어요. 마치 변수나 데이터셋처럼.</p>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="기본.html#cb124-1" aria-hidden="true" tabindex="-1"></a>myPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(msleep, <span class="fu">aes</span>(sleep_total, sleep_rem)) <span class="sc">+</span></span>
+<span id="cb124-2"><a href="기본.html#cb124-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_point</span>()</span></code></pre></div>
+<p>이제 <code>myPlot</code>라는 이름으로 그래프가 R 안에 저장이 되었어요. 콘솔에 <code>myPlot</code>를 적고 실행하면 Plots 패널에 그래프가 나타날 거에요.</p>
+<p>이렇게 저장하면 뭐가 좋을까요? 다시 그래프를 그릴 필요가 없어요. 이름에 <code>xlab</code>함수만 추가하면 x축 레이블이 바뀌어서 그려질 거에요.</p>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="기본.html#cb125-1" aria-hidden="true" tabindex="-1"></a>myPlot <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">&quot;I forgot to add a label!&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-64-1.png" width="672" /></p>
+<p>이미지 파일로 그래프를 저장할 수 있어요.</p>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="기본.html#cb126-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;filename.pdf&quot;</span>, myPlot, <span class="at">width =</span> <span class="dv">5</span>, <span class="at">height =</span> <span class="dv">5</span>)</span></code></pre></div>
+<pre><code>## Warning: Removed 22 rows containing
+## missing values
+## (`geom_point()`).</code></pre>
+<p>만일 그래프 이름을 넣지 않으면 맨 마지막 <code>ggplot2</code> 그래프를 저장할 거에요. 여기서 단위는 인치니까 만일 단위를 수정하려면 <code>units</code>을 사용하세요. 파일 형태도 jpg, tif, png 등으로 바꿀 수 있어요.</p>
+<p>pdf나 png 함수를 사용해 그래프를 저장할 수 있는데 마지막에 dev.off를 넣어야 해요.</p>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="기본.html#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="st">&quot;filename.pdf&quot;</span>, <span class="at">width =</span> <span class="dv">5</span>, <span class="at">height =</span> <span class="dv">5</span>)</span>
+<span id="cb128-2"><a href="기본.html#cb128-2" aria-hidden="true" tabindex="-1"></a>myPlot</span>
+<span id="cb128-3"><a href="기본.html#cb128-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code></pre></div>
+<pre><code>## png 
+##   2</code></pre>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="기본.html#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="fu">png</span>(<span class="st">&quot;filename.png&quot;</span>, <span class="at">width =</span> <span class="dv">500</span>, <span class="at">height =</span> <span class="dv">500</span>)</span>
+<span id="cb130-2"><a href="기본.html#cb130-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(msleep<span class="sc">$</span>sleep_total, msleep<span class="sc">$</span>sleep_rem)</span>
+<span id="cb130-3"><a href="기본.html#cb130-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code></pre></div>
+<pre><code>## png 
+##   2</code></pre>
+<p>워킹 폴더에서 파일들이 저장이 되었나 확인해보세요. filename.pdf 나 filename.png 파일이 있으면 성공한 거지요. 나중에 실제로 일할 때는 파일 이름을 제대로</p>
+<p>Plots 패널에서 Export 버튼을 클릭해서 저장하지만 코드를 이용해서 저장하는 게 효율적이에요. 왜냐하면 나중에 추가하거나 고치기가 아주 쉽죠.</p>
+</div>
+<div id="문제-해결하기" class="section level2 hasAnchor" number="3.10">
+<h2><span class="header-section-number">3.10</span> 문제 해결하기<a href="기본.html#문제-해결하기" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>코드 실행에 문제가 생기면 두 경우가 가장 많아요. 첫째 스펠링이 틀리거나 둘째 사용한 함수를 포함한 패키지를 설치하지 않거나 활성화하지 않는 것.</p>
+<p>에러가 났을 때 에러 메시지를 주의깊게 읽고 파악하는 게 좋아요. 자꾸 에러 메시지를 읽고 고치다보면 에러 메시지를 파악하는 데에 익숙해질 거에요.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="통계의-기초-개념.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="데이터의-변환-요약-분석.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/알기본.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
