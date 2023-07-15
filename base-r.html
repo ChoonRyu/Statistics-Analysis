@@ -1,0 +1,1392 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.361">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="For the class: Statistics and Analysis with R &amp; Quarto">
+
+<title>통계와 분석 - 3&nbsp; R 기본</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./write-quarto.html" rel="next">
+<link href="./basic-concepts.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./base-r.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">R 기본</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">통계와 분석</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">안내</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">강의 소개</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./basic-concepts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">통계의 기초 개념</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./base-r.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">R 기본</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./write-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Quarto 사용하기</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data-transform.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">데이터의 변환, 요약, 분석</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./descriptive-statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">기술통계</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exploratoy-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">탐색적 데이터 분석</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./probabilistic-distribution.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">확률분포와 표집분포</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./inference-hypothesis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">추정과 가설 검정</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./categorical-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">범주형 자료분석</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./variance-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">분산분석</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./linear-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">선형 회귀분석</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./solutions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">해답</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">참고문헌</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#r과-rstudio-설치" id="toc-r과-rstudio-설치" class="nav-link active" data-scroll-target="#r과-rstudio-설치"><span class="header-section-number">3.1</span> R과 RStudio 설치</a></li>
+  <li><a href="#rstudio" id="toc-rstudio" class="nav-link" data-scroll-target="#rstudio"><span class="header-section-number">3.2</span> RStudio</a></li>
+  <li><a href="#r-코드-실행" id="toc-r-코드-실행" class="nav-link" data-scroll-target="#r-코드-실행"><span class="header-section-number">3.3</span> R 코드 실행</a>
+  <ul class="collapse">
+  <li><a href="#r-스크립트" id="toc-r-스크립트" class="nav-link" data-scroll-target="#r-스크립트"><span class="header-section-number">3.3.1</span> R 스크립트</a></li>
+  </ul></li>
+  <li><a href="#변수와-함수" id="toc-변수와-함수" class="nav-link" data-scroll-target="#변수와-함수"><span class="header-section-number">3.4</span> 변수와 함수</a>
+  <ul class="collapse">
+  <li><a href="#데이터-저장" id="toc-데이터-저장" class="nav-link" data-scroll-target="#데이터-저장"><span class="header-section-number">3.4.1</span> 데이터 저장</a></li>
+  <li><a href="#변수-이름을-만들기" id="toc-변수-이름을-만들기" class="nav-link" data-scroll-target="#변수-이름을-만들기"><span class="header-section-number">3.4.2</span> 변수 이름을 만들기</a></li>
+  <li><a href="#벡터와-데이터-프레임" id="toc-벡터와-데이터-프레임" class="nav-link" data-scroll-target="#벡터와-데이터-프레임"><span class="header-section-number">3.4.3</span> 벡터와 데이터 프레임</a></li>
+  <li><a href="#함수" id="toc-함수" class="nav-link" data-scroll-target="#함수"><span class="header-section-number">3.4.4</span> 함수</a></li>
+  <li><a href="#수학-연산" id="toc-수학-연산" class="nav-link" data-scroll-target="#수학-연산"><span class="header-section-number">3.4.5</span> 수학 연산</a></li>
+  </ul></li>
+  <li><a href="#패키지" id="toc-패키지" class="nav-link" data-scroll-target="#패키지"><span class="header-section-number">3.5</span> 패키지</a></li>
+  <li><a href="#기술적-통계" id="toc-기술적-통계" class="nav-link" data-scroll-target="#기술적-통계"><span class="header-section-number">3.6</span> 기술적 통계</a>
+  <ul class="collapse">
+  <li><a href="#sec-bas-numeric" id="toc-sec-bas-numeric" class="nav-link" data-scroll-target="#sec-bas-numeric"><span class="header-section-number">3.6.1</span> 숫자형 자료</a></li>
+  <li><a href="#sec-bas-cat" id="toc-sec-bas-cat" class="nav-link" data-scroll-target="#sec-bas-cat"><span class="header-section-number">3.6.2</span> 범주형 자료</a></li>
+  </ul></li>
+  <li><a href="#sec-bas-num-plot" id="toc-sec-bas-num-plot" class="nav-link" data-scroll-target="#sec-bas-num-plot"><span class="header-section-number">3.7</span> 숫자형 자료의 그래프</a>
+  <ul class="collapse">
+  <li><a href="#그래프" id="toc-그래프" class="nav-link" data-scroll-target="#그래프"><span class="header-section-number">3.7.1</span> 그래프</a></li>
+  <li><a href="#색깔-모양-축의-이름표" id="toc-색깔-모양-축의-이름표" class="nav-link" data-scroll-target="#색깔-모양-축의-이름표"><span class="header-section-number">3.7.2</span> 색깔, 모양, 축의 이름표</a></li>
+  <li><a href="#축의-한계와-크기" id="toc-축의-한계와-크기" class="nav-link" data-scroll-target="#축의-한계와-크기"><span class="header-section-number">3.7.3</span> 축의 한계와 크기</a></li>
+  <li><a href="#집단-비교하기" id="toc-집단-비교하기" class="nav-link" data-scroll-target="#집단-비교하기"><span class="header-section-number">3.7.4</span> 집단 비교하기</a></li>
+  <li><a href="#박스플롯" id="toc-박스플롯" class="nav-link" data-scroll-target="#박스플롯"><span class="header-section-number">3.7.5</span> 박스플롯</a></li>
+  <li><a href="#히스토그램" id="toc-히스토그램" class="nav-link" data-scroll-target="#히스토그램"><span class="header-section-number">3.7.6</span> 히스토그램</a></li>
+  </ul></li>
+  <li><a href="#범주형-데이터-그래프" id="toc-범주형-데이터-그래프" class="nav-link" data-scroll-target="#범주형-데이터-그래프"><span class="header-section-number">3.8</span> 범주형 데이터 그래프</a>
+  <ul class="collapse">
+  <li><a href="#막대-그래프" id="toc-막대-그래프" class="nav-link" data-scroll-target="#막대-그래프"><span class="header-section-number">3.8.1</span> 막대 그래프</a></li>
+  </ul></li>
+  <li><a href="#그래프-저장하기" id="toc-그래프-저장하기" class="nav-link" data-scroll-target="#그래프-저장하기"><span class="header-section-number">3.9</span> 그래프 저장하기</a></li>
+  <li><a href="#문제-해결하기" id="toc-문제-해결하기" class="nav-link" data-scroll-target="#문제-해결하기"><span class="header-section-number">3.10</span> 문제 해결하기</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="sec-bas" class="quarto-section-identifier"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">R 기본</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>R과 RStudio를 설치하고 운영하는 걸 배울 거에요. 이 장을 마치면 이걸 할 수 있어요.</p>
+<ul>
+<li>R 실행 파일을 (*.R) 만든다.</li>
+<li>R 데이터를 저장한다.</li>
+<li>R 함수를 이용해서 데이터를 분석한다.</li>
+<li>R에 패키지를 추가한다.</li>
+<li>기술적 통계를 (평균, 중앙값 등) 다룬다.</li>
+<li>수학 계산을 한다.</li>
+<li>멋진 그래프를 다양한 기법으로 그린다.</li>
+</ul>
+<section id="r과-rstudio-설치" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="r과-rstudio-설치"><span class="header-section-number">3.1</span> R과 RStudio 설치</h2>
+<p>아래의 사이트에서 R과 R Studio를 다운해서 설치하세요.</p>
+<p><a href="https://posit.co/download/rstudio-desktop/#download" class="uri">https://posit.co/download/rstudio-desktop/#download</a></p>
+<p>가능하면 가장 최신의 버전으로 설치하는 게 좋아요.</p>
+</section>
+<section id="rstudio" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="rstudio"><span class="header-section-number">3.2</span> RStudio</h2>
+<p>R Studio는 R을 편하게 사용하려고 만든 거니까 우리는 R Studio를 사용하게 될 겁니다. R Studio를 실행하면 화면이 나타납니다.</p>
+<p>처음에 실행하면 패널이 세 개만 있을 거에요. 하지만 4 패널을 금방 생성해서 사용할 거니까 패널이 네 개라고 보는 게 좋아요.</p>
+<ul>
+<li>스크립트 패널: 여기가 실행파일(스크립트)을 만들고 수정하는 곳이에요.</li>
+<li>콘솔 패널: 여기가 R 코드가 실행되고 결과와 메시지가 나오는 곳이에요.</li>
+<li>환경 패널: 여기 데이터 목록이 나올 거에요.</li>
+<li>파일, 그래프, 도움, 패키지 패널: 그 말대로 그것들이 나올 거에요.</li>
+</ul>
+<div id="fig-rstudio-4-panels" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="images/rstudio-4-panels.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Figure&nbsp;3.1: RStudio의 4 패널</figcaption>
+</figure>
+</div>
+<p>RStudio를 종료할 때 워크스페이스를 (.RData) 저장할 거냐고 묻는 경우가 있는데 안 하는 게 좋아요. 자칫하면 혼란이 생기거든요. R 실행파일만 저장하고 다음에 그걸 다시 실행하면 됩니다. 물론 R 실행파일이나 (.R) Quarto 파일은 (.qmd) 잊지 말고 저장해야죠.</p>
+</section>
+<section id="r-코드-실행" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="r-코드-실행"><span class="header-section-number">3.3</span> R 코드 실행</h2>
+<p>R 코드는 R에게 명령을 실행하라는 지시문입니다. 코드로 이루어진 파일이 R 실행파일인데 이름 뒤에 .R이 붙어요. 데이터를 다루고 분석하는 일을 코드를 통해서 지시하는 겁니다. 대개 코드는 한 줄에 하나의 지시문을 적어요.</p>
+<p>바로 아래에 나타난 코드 뭉치를 코드 청크라고 부릅니다. Quarto에서는 코드 청크를 본문에 넣고 그걸 바로 실행해서 결과를 문서 안에 포함하는 게 가능하지만 아직 안 배웠으니 콘솔을 사용합니다. 아래의 코드를 콘솔에 적거나 복사해서 붙이고 엔터를 눌러서 실행해 보세요.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">+</span><span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>코드 뭉치는 한 줄도 되지만 대개 여러 줄로 구성되는 게 보통입니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">*</span><span class="dv">2</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">+</span><span class="dv">2</span><span class="sc">*</span><span class="dv">3-5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>R 코드를 콘솔에 넣고 엔터키를 치면 그 코드를 실행하고 결과를 되줍니다. 위의 코드를 복사해서 콘솔에 넣고 엔터를 쳐 실행해보세요.</p>
+<section id="r-스크립트" class="level3" data-number="3.3.1">
+<h3 data-number="3.3.1" class="anchored" data-anchor-id="r-스크립트"><span class="header-section-number">3.3.1</span> R 스크립트</h3>
+<p>콘솔 안에서 일할 때, 자판의 윗 화살표 ↑를 누르면 바로 전에 사용한 코드를 다시 불러 올 수 있습니다. 그러나 그것보다 스크립트 패널을 사용하는 게 더 효율적입니다. R 스크립트 파일은 편집하고 즉석에서 실행하고 수정할 수 있어서 훨씬 효율적이에요.</p>
+<p>스크립트 파일을 새로 만들려면, <code>Ctrl+Shift+N</code>을 누르거나 메뉴에서 <strong>File &gt; New File &gt; R Script</strong>를 선택하면 됩니다. 스크립트 패널에 새 스크립트 파일을 열고 아래를 복사해서 넣어 보세요. 그리고 <code>run</code> 단추를 클릭해서 한 줄씩 실행해 보세요.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">+</span><span class="dv">1</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">*</span><span class="dv">2</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">+</span><span class="dv">2</span><span class="sc">*</span><span class="dv">3-5</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span><span class="sc">+</span><span class="dv">2</span>)<span class="sc">*</span><span class="dv">3-5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>스크립트 패널에서는 콘솔 패널과 달리, 엔터키를 누르면 코드를 실행하는 게 아니라 줄을 바꿉니다. 이것은 스크립트 패널은 스크립트 파일의 편집이 주요 목적이기 때문입니다. 스크립트 패널에서 R 코드를 실행하려면 아래처럼 합니다.</p>
+<ul>
+<li>Ctrl+Shift+Enter를 친다.</li>
+<li>Ctrl+Alt+Enter를 치면, 실행을 하지만 코드를 되보여주거나 결과를 보여주지 않는다.</li>
+<li>(외부파일을 실행하려면, 소스 Source 버튼을 클릭한다.)</li>
+</ul>
+<p>그냥 Run 버튼을 클릭하면 커서가 있는 한 줄의 코드가 실행합니다. 만일 그 전에 마우스로 선택된 블럭이 있으면 그 선택 블럭이 실행합니다. Run 버튼 대신에 <code>Ctrl+Enter</code>를 쳐도 됩니다.</p>
+</section>
+</section>
+<section id="변수와-함수" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="변수와-함수"><span class="header-section-number">3.4</span> 변수와 함수</h2>
+<section id="데이터-저장" class="level3" data-number="3.4.1">
+<h3 data-number="3.4.1" class="anchored" data-anchor-id="데이터-저장"><span class="header-section-number">3.4.1</span> 데이터 저장</h3>
+<p>아래처럼 변수 x 에 숫자를 부여합니다. 이때 자판의 왼꺾쇠 “&lt;”와 하이폰 “-”을 빈칸없이 “&lt;-” 이렇게 사용합니다. 이게 실행되면 x라는 변수가 생기고 동시에 그 x 변수는 4의 값을 갖게 됩니다.”</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>이걸 실행하면 아래처럼 나타납니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>x    <span class="co"># x를 출력에 나타나게 한다</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4</code></pre>
+</div>
+</div>
+<p>[1]가 의미하는 건 곧 배울 겁니다. 변수 x를 만들었으니 아래처럼 사용하면 됩니다. 아래를 복사해서 실행해 보세요.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>x <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>x <span class="sc">+</span> x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>변수를 만들 때 아래처럼 수식을 사용해도 되고 다른 변수를 넣어도 됩니다. 기호와 숫자 사이에 빈칸은 있어도 되고 없어도 됩니다. 보통 빈칸을 넣습니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">+</span> <span class="dv">3</span> <span class="sc">+</span> <span class="dv">4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>좀 드물게 사용하지만, 화살표 방향이 달라도 됩니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">+</span> <span class="dv">2</span> <span class="ot">-&gt;</span> y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="변수-이름을-만들기" class="level3" data-number="3.4.2">
+<h3 data-number="3.4.2" class="anchored" data-anchor-id="변수-이름을-만들기"><span class="header-section-number">3.4.2</span> 변수 이름을 만들기</h3>
+<p>간단하게 만들기. 각각 y, z, x 변수를 만듭시다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> y <span class="sc">-</span> z</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>또는 알아보기 쉽게 만들기. 각각 <code>소득</code>, <code>세금</code>, <code>세후_소득</code> 등 세 변수를 만듭시다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>소득 <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>세금 <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>세후_소득 <span class="ot">&lt;-</span> 소득 <span class="sc">-</span> 세금</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>잘 되었는지 변수 <code>세후_소득</code>을 출력해봅니다. 80이 나오면 맞게 된 겁니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>세후_소득</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 80</code></pre>
+</div>
+</div>
+<p>이것도 됩니다. 실행한 뒤에 환경 패널에서 변수가 제대로 생겼나 봅니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>세후_소득 <span class="ot">&lt;-</span> 소득 <span class="ot">&lt;-</span> <span class="dv">120</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>영어로 변수를 만들 때, R은 대문자와 소문자를 구분해요. 즉 <code>Taxes</code>와 <code>taxes</code>를 다른 변수로 인식합니다.</p>
+<p>변수를 만들 때 -, +, *, :, =, !, $는 사용하지 못합니다. 왜냐하면 이 기호는 실행문에서 사용하기 때문입니다.</p>
+<p>아래는 변수 이름을 만드는 일반적 방법입니다.</p>
+<ul>
+<li>_ 기호 이용; snake_case, household_net_income, 가구_소득</li>
+<li>대소문자 이용; snakeCase, SnakeCase, NetIncome</li>
+<li>. 기호 이용; period.case, 경기도.가구당.소득</li>
+<li>그냥 붙이기; householdnetincome, 경기도가구당소득</li>
+</ul>
+<p>변수를 만들 때, 설명을 붙이면 나중에 알아보기 편해요. # 기호를 문장 앞에 붙이면 R은 그 문장을, 코드가 아닌, 설명으로 인식해서 무시합니다. 코드 오른쪽에 붙이면 그 자리부터 설명으로 인식합니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 소득과 세금을 결정한다</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>소득 <span class="ot">&lt;-</span> <span class="dv">100</span>  <span class="co"># 소득을 100으로</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>세금 <span class="ot">&lt;-</span> <span class="dv">20</span>   <span class="co"># 세금을 20으로</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 세후 소득의 결정</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>세후_소득 <span class="ot">&lt;-</span> 소득 <span class="sc">-</span> 세금</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>스크립트 패널에서 <code>Ctrl+Shift+C</code>를 누르면 커서가 위치한 줄의 # 기호가 없어지고 생기고 합니다. C는 Comment를 뜻합니다. #를 넣어서 그 줄만 실행이 안 되게 할 수 있고, 다음에 #를 빼서 실행하도록 변경할 수 있어요.</p>
+</section>
+<section id="벡터와-데이터-프레임" class="level3" data-number="3.4.3">
+<h3 data-number="3.4.3" class="anchored" data-anchor-id="벡터와-데이터-프레임"><span class="header-section-number">3.4.3</span> 벡터와 데이터 프레임</h3>
+<p>변수에는 하나의 숫자/값만 넣는 게 아니라 여러 개의 숫자/값을 넣을 수 있어요. 이럴 때 벡터 변수라고 해요. 통상적으로 변수 하나가 여러 사례를 갖게 되니까 벡터 변수가 통상적으로 사용하는 변수와 유사합니다.</p>
+<p>즉 일일이 사람마다 변수로 취급하고 값을 넣어주게 되면 아래처럼 불편합니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>사람1_나이 <span class="ot">&lt;-</span> <span class="dv">28</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>사람2_나이 <span class="ot">&lt;-</span> <span class="dv">48</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>사람3_나이 <span class="ot">&lt;-</span> <span class="dv">47</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ...계속된다</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>그래서 변수에 한꺼번에 사례의 변수값을 넣는 게 편하지요. 여러 개 변수값을 갖는 변수를 벡터 변수 또는 그냥 벡터라고 부릅니다. 벡터를 만드는 함수는 c( )입니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>나이 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">28</span>, <span class="dv">48</span>, <span class="dv">47</span>, <span class="dv">71</span>, <span class="dv">22</span>, <span class="dv">80</span>, <span class="dv">48</span>, <span class="dv">30</span>, <span class="dv">31</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>벡터 변수에 연산을 하면 각각에 대해서 계산합니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>나이_개월수 <span class="ot">&lt;-</span> 나이 <span class="sc">*</span> <span class="dv">12</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>나이_개월수</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 336 576 564 852 264 960 576 360 372</code></pre>
+</div>
+</div>
+<p>변수에 변수값이 여러 개 포함되면 <code>벡터</code>이고, 그런 벡터가 여러 개 있으면 <code>데이터 프레임</code>이 됩니다. 우리가 통계 분석에 사용하는 것은 <code>데이터 프레임</code>입니다. 벡터 테이블 tables of vectors 이라고 부르기도 합니다.</p>
+<p>앞에서 벡터변수 ’나이’는 지정했으니까 벡터변수 ’구매량’을 하나 더 만듭니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>구매량 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">59</span>, <span class="dv">2</span>, <span class="dv">12</span>, <span class="dv">22</span>, <span class="dv">160</span>, <span class="dv">34</span>, <span class="dv">34</span>, <span class="dv">29</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>두 개의 <code>벡터</code>를 합쳐서 <code>데이터 프레임</code>을 만듭니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>책가게 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(나이, 구매량)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>콘솔 패널에 책가게를 쳐서 실행해서 결과를 봅니다. Quarto에서 실행하는 것과 (실제 결과는 같지만) 보이는 output은 약간 다를지 모릅니다. 나이와 구매량은 <code>벡터</code>이고 책가게는 <code>데이터프레임</code>이에요.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>책가게</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  나이 구매량
+1   28     20
+2   48     59
+3   47      2
+4   71     12
+5   22     22
+6   80    160
+7   48     34
+8   30     34
+9   31     29</code></pre>
+</div>
+</div>
+<p>나이를 프린트 해 볼까요?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>나이</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 28 48 47 71 22 80 48 30 31</code></pre>
+</div>
+</div>
+<p>긴 벡터를 가진 변수를 만들어 실험해 봅시다. 벡터를 만들 때 변수값 사이에 쉼표를 넣고, 줄을 바꿀 때는 엔터를 칩니다. 자동으로 들여쓰기를 합니다. 줄바꿈한 것은 실행할 때 (콘솔 패널에서) 줄 맨앞에 +가 붙는데 이건 R이 아직 명령이 이어지고 있다는 걸 인식한 겁니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>거리 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">687</span>, <span class="dv">5076</span>, <span class="dv">7270</span>, <span class="dv">967</span>, <span class="dv">6364</span>, <span class="dv">1683</span>, <span class="dv">9394</span>, <span class="dv">5712</span>, <span class="dv">5206</span>,</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>               <span class="dv">4317</span>, <span class="dv">9411</span>, <span class="dv">5625</span>, <span class="dv">9725</span>, <span class="dv">4977</span>, <span class="dv">2730</span>, <span class="dv">5648</span>, <span class="dv">3818</span>, <span class="dv">8241</span>,</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>               <span class="dv">5547</span>, <span class="dv">1637</span>, <span class="dv">4428</span>, <span class="dv">8584</span>, <span class="dv">2962</span>, <span class="dv">5729</span>, <span class="dv">5325</span>, <span class="dv">4370</span>, <span class="dv">5989</span>,</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>               <span class="dv">9030</span>, <span class="dv">5532</span>, <span class="dv">9623</span>)</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>거리</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  687 5076 7270  967 6364 1683 9394 5712 5206 4317 9411 5625 9725 4977 2730
+[16] 5648 3818 8241 5547 1637 4428 8584 2962 5729 5325 4370 5989 9030 5532 9623</code></pre>
+</div>
+</div>
+<p>실행할 때의 콘솔 패널 넓이에 따라서 output이 줄바꿈하는 부분이 달라집니다.</p>
+<p>변수에 값이 하나밖에 없어도 [1]이 앞에 붙는다는 것은 그 변수가 벡터라는 걸 보여줍니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4</code></pre>
+</div>
+</div>
+<p>잇단 숫자는 아래처럼 생성합니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 2 3 4 5</code></pre>
+</div>
+</div>
+</section>
+<section id="함수" class="level3" data-number="3.4.4">
+<h3 data-number="3.4.4" class="anchored" data-anchor-id="함수"><span class="header-section-number">3.4.4</span> 함수</h3>
+<p><strong>함수</strong> functions 는 미리 만들어놓은 지시문의 뭉치를 간단하게 표현한 겁니다. 대개 <code>함수이름(변수이름)</code>의 형태를 가집니다. 아래의 <code>mean</code>은 평균을 계산하는 함수입니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>나이 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">28</span>, <span class="dv">48</span>, <span class="dv">47</span>, <span class="dv">71</span>, <span class="dv">22</span>, <span class="dv">80</span>, <span class="dv">48</span>, <span class="dv">30</span>, <span class="dv">31</span>)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(나이)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 45</code></pre>
+</div>
+</div>
+<p>함수는 여러 개의 변수를 이용하기도 합니다. 아래는 상관계수를 구하는 함수인 <code>cor( )</code>입니다. 함수는 추가로 옵션이 붙기도 합니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>나이 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">28</span>, <span class="dv">48</span>, <span class="dv">47</span>, <span class="dv">71</span>, <span class="dv">22</span>, <span class="dv">80</span>, <span class="dv">48</span>, <span class="dv">30</span>, <span class="dv">31</span>)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>구매량 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">59</span>, <span class="dv">2</span>, <span class="dv">12</span>, <span class="dv">22</span>, <span class="dv">160</span>, <span class="dv">34</span>, <span class="dv">34</span>, <span class="dv">29</span>)</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(나이, 구매량, <span class="at">method =</span> <span class="st">"pearson"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.589402</code></pre>
+</div>
+</div>
+<p>변수나 옵션이 필요하지 않아도 함수는 ( )를 포함합니다. 예를 들어 현재 시간을 넣어주는 <code>Sys.time( )</code>도 ( )가 필요합니다. 물론 안에는 아무것도 안 넣어요.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.time</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2023-07-15 15:50:50 KST"</code></pre>
+</div>
+</div>
+<p>함수는 여러분도 만들어서 사용할 수 있습니다. 그런 걸 <strong>사용자 정의 함수</strong>라고 합니다. <a href="descriptive-statistics.html#exm-make-func-sk">Example&nbsp;<span>6.4</span></a> 예 그 예가 있습니다.</p>
+</section>
+<section id="수학-연산" class="level3" data-number="3.4.5">
+<h3 data-number="3.4.5" class="anchored" data-anchor-id="수학-연산"><span class="header-section-number">3.4.5</span> 수학 연산</h3>
+<p>사칙 연산에는 +, -, *, / 를 사용합니다. 아래에 다른 것들이 있습니다.</p>
+<ul>
+<li><code>abs(x)</code>: 절대값 <span class="math inline">\(|x|\)</span></li>
+<li><code>sqrt(x)</code> : 제곱근 <span class="math inline">\(\sqrt{x}\)</span></li>
+<li><code>log(x)</code> : x 자연로그값 <span class="math inline">\(e\)</span></li>
+<li><code>log(x, base = a )</code>: x 로그값 a</li>
+<li><code>a^x</code> : a의 x 제곱 <span class="math inline">\(a^x\)</span></li>
+<li><code>exp(x)</code> : e의 x 제곱 <span class="math inline">\(e^x\)</span></li>
+<li><code>sum(x)</code> : x 가 벡터일 때 <span class="math inline">\(x=(x_1, x_2, x_3, ..., x_n)\)</span> 총합 <span class="math inline">\(\sum_{i=1}^{n}x_i\)</span></li>
+<li><code>prod(x)</code> : x가 벡터일 때 <span class="math inline">\(x=(x_1, x_2, x_3, ..., x_n)\)</span> 모든 걸 곱한 값 <span class="math inline">\(\prod_{i=1}^{n}x_i\)</span></li>
+<li><code>pi</code> : <span class="math inline">\(\pi\)</span> 값</li>
+<li><code>x %% a</code> : x 를 a로 나눈 나머지값</li>
+<li><code>factorial(x)</code> : x!</li>
+<li><code>choose(n,k)</code> : 순열 <span class="math inline">\({n}\choose{k}\)</span></li>
+</ul>
+</section>
+</section>
+<section id="패키지" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="패키지"><span class="header-section-number">3.5</span> 패키지</h2>
+<p>R은 수많은 함수를 포함해서 수많은 일을 하지만, 그래도 데이터 분석의 모든 것을 다 하지는 못합니다. 그래서 패키지가 필요합니다. 패키지는 R에 포함하는 새로운 함수와 데이터셋의 집합체를 말합니다. 패키지는 통계분석, 그래프 그리기, C++ 코드, 데이터 처리 등 모든 분야에서 새로 개발되어 R에 포함됩니다. R은 20,000개가 넘는 패키지를 포함합니다.</p>
+<p>예를 들어, 그래프 그리기 기능을 확장하는 <code>ggplot2</code>라는 패키지를 설치해서 각종 그래프를 그릴 수 있어요. <code>ggplot2</code> 패키지를 설치하려면 RStudio 메뉴에서 <strong>Tools&gt; Install packages</strong> 를 선택하거나, RStudio의 오른쪽 아래 파일, 도움 패널 창에 있는 메뉴의 <strong>Packages 탭&gt; Install</strong> 클릭해서 설치해도 됩니다.</p>
+<p>콘솔 창에 아래의 코드를 적고 실행해도 됩니다.</p>
+<p>&gt; install.packages(“ggplot2”)</p>
+<p>설치가 다 되면 아래의 메시지가 나타납니다.</p>
+<p><code>package 'ggplot2' successfully unpacked and MD5 sums checked</code></p>
+<p>설치가 되었다고 바로 사용하지 못해요. 설치한 패키지에 포함한 함수나 데이터셋을 사용하려면, 매번 R을 시작할 때 <code>library(패키지_이름)</code> 함수를 실행해서 활성화해야 합니다. 패키지가 필요한 스크립트 파일은 맨 앞에 <code>library</code> 함수를 포함할 것을 권장합니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>패키지 활성화는 R Studio 오른쪽 아래 패널 메뉴의 패키지탭을 클릭하고 나타난 패키지 목록에 해당 패키지 이름이 있으면 그 체크 박스를 체크해도 역시 됩니다. 체크하는 순간 콘솔 박스에서 <code>library(패키지 이름)</code>이 실행합니다.</p>
+</section>
+<section id="기술적-통계" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="기술적-통계"><span class="header-section-number">3.6</span> 기술적 통계</h2>
+<p>여기서는 <code>ggplot2</code> 패키지에 실린 데이터셋 둘을 사용할 거예요.</p>
+<ul>
+<li><code>diamands</code> : 다이아몬드 50,000여 개의 가격</li>
+<li><code>msleep</code> : 포유류 83 종류의 잠 시간</li>
+</ul>
+<p>만일 여기서 R을 새로 시작했다면, 먼저 <code>library</code>를 이용해서 활성화 시켜야겠죠. 설치 안 했으면 먼저 설치를 해야 합니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("ggplot2")</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>분석 전에 먼저 <code>msleep</code> 데이터셋을 살펴봅니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>msleep</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 83 × 11
+   name   genus vore  order conservation sleep_total sleep_rem sleep_cycle awake
+   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;              &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt;
+ 1 Cheet… Acin… carni Carn… lc                  12.1      NA        NA      11.9
+ 2 Owl m… Aotus omni  Prim… &lt;NA&gt;                17         1.8      NA       7  
+ 3 Mount… Aplo… herbi Rode… nt                  14.4       2.4      NA       9.6
+ 4 Great… Blar… omni  Sori… lc                  14.9       2.3       0.133   9.1
+ 5 Cow    Bos   herbi Arti… domesticated         4         0.7       0.667  20  
+ 6 Three… Brad… herbi Pilo… &lt;NA&gt;                14.4       2.2       0.767   9.6
+ 7 North… Call… carni Carn… vu                   8.7       1.4       0.383  15.3
+ 8 Vespe… Calo… &lt;NA&gt;  Rode… &lt;NA&gt;                 7        NA        NA      17  
+ 9 Dog    Canis carni Carn… domesticated        10.1       2.9       0.333  13.9
+10 Roe d… Capr… herbi Arti… lc                   3        NA        NA      21  
+# ℹ 73 more rows
+# ℹ 2 more variables: brainwt &lt;dbl&gt;, bodywt &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>처음 10개 행을 보여줄 겁니다. 또 83 x 11 이라는 데이터셋 정보를 알려줄 텐데 83개 행에 (가로줄: 83개 사례) 11개 열이 (세로줄: 11개 변수) 있다는 겁니다. 모든 걸 보려면 아래의 함수를 사용합니다. <code>View</code>함수를 사용하면서 V가 대문자라는 걸 주의하세요. R 함수와 변수는 영문 대소문자를 구분합니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(msleep)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>변수값 <code>NA</code>는 <strong>결측값</strong> missing value 입니다. 결측값은 잘못 입력한 값이므로 통계에 사용하지 못하는 값입니다.</p>
+<p>아래는 데이터셋에 대한 정보를 알리는 함수입니다. 복사해서 스크립트 패널에 넣고 실행해 보세요.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(msleep)</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(msleep)</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(msleep)</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(msleep)</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(msleep)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li><code>head</code> : 앞 열(세로줄: 변수)들의 정보를 알립니다.</li>
+<li><code>dim</code> : 열과 행(가로줄: 사례)의 숫자를 알립니다.</li>
+<li><code>tail</code> : 뒤 열들의 정보를 알립니다.</li>
+<li><code>str</code> : 변수의 정보를 알립니다. (<code>chr</code>은 문자, <code>num</code>은 숫자, <code>dbl</code>은 소숫점을 가진 숫자)</li>
+<li><code>names</code> : 변수들의 이름으로 구성한 벡터를 되줍니다.</li>
+</ul>
+<p>데이터셋의 자료형태는 티블 <code>tibble</code> 자료형과 데이터프레임 <code>data.frame</code> 자료형이 있습니다. 티블은 데이터 프레임을 우리가 흔히 보는 형태로 바꾸어 준 것입니다. 우리는 데이터를 저장할 때 (즉 엑셀에 넣을 때) 사례는 열로, 변수는 행으로 저장합니다. 이것이 우리가 흔히 보는 데이터 저장 방식으로 티블 <code>tibble</code> 자료형입니다. 위에서 여러 함수들을 이용해서 <code>msleep</code> 정보를 꺼낼 때 맨 위에 나타나는 <code>tibble</code>은 이 데이터셋이 티블 형태라는 걸 알립니다.</p>
+<p>데이터프레임 자료형을 티블 자료형으로 변환하려면 <code>as_tibble( )</code> 함수를 사용하고, 직접 만들려면 <code>tibble( )</code> 함수를 사용합니다. (먼저 <code>tibble</code> 패키지를 활성화할 필요가 있을지 몰라요.)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>?msleep</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>위 코드의 실행 결과는 도움 패널에 나타나며 <code>msleep</code> 데이터셋의 자세한 설명을 알려줍니다. 아직 <code>msleep</code>은 환경 패널 Environment Panel 의 변수 목록에 나타나지 않았다는 걸 주목하세요. 목록에 포함하려면 아래 코드를 실행합니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(msleep)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>자, 이제 환경 패널의 데이터 목록에 나타났습니다. 환경패널의 <code>msleep</code> 왼쪽의 작고 파란 삼각형을 클릭해서 msleep 데이터셋을 펼쳐보면 변수 목록과 속성이 나타납니다.</p>
+<section id="sec-bas-numeric" class="level3" data-number="3.6.1">
+<h3 data-number="3.6.1" class="anchored" data-anchor-id="sec-bas-numeric"><span class="header-section-number">3.6.1</span> 숫자형 자료</h3>
+<p><strong>숫자형 자료</strong> numerical data 의 기술적 통계를 산출하는 간단한 방법은 <code>summary</code> 함수에요. 문자 변수에는 아무 정보도 되주지 않고, 숫자 변수에는 여러 정보를 되줍니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(msleep)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     name              genus               vore              order          
+ Length:83          Length:83          Length:83          Length:83         
+ Class :character   Class :character   Class :character   Class :character  
+ Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+ conservation        sleep_total      sleep_rem      sleep_cycle    
+ Length:83          Min.   : 1.90   Min.   :0.100   Min.   :0.1167  
+ Class :character   1st Qu.: 7.85   1st Qu.:0.900   1st Qu.:0.1833  
+ Mode  :character   Median :10.10   Median :1.500   Median :0.3333  
+                    Mean   :10.43   Mean   :1.875   Mean   :0.4396  
+                    3rd Qu.:13.75   3rd Qu.:2.400   3rd Qu.:0.5792  
+                    Max.   :19.90   Max.   :6.600   Max.   :1.5000  
+                                    NA's   :22      NA's   :51      
+     awake          brainwt            bodywt        
+ Min.   : 4.10   Min.   :0.00014   Min.   :   0.005  
+ 1st Qu.:10.25   1st Qu.:0.00290   1st Qu.:   0.174  
+ Median :13.90   Median :0.01240   Median :   1.670  
+ Mean   :13.57   Mean   :0.28158   Mean   : 166.136  
+ 3rd Qu.:16.15   3rd Qu.:0.12550   3rd Qu.:  41.750  
+ Max.   :22.10   Max.   :5.71200   Max.   :6654.000  
+                 NA's   :27                          </code></pre>
+</div>
+</div>
+<p>개별 정보를 알고 싶을 때는 아래의 함수를 사용합니다. 개별 변수를 나타내는 방법은 <code>데이터셋이름$변수이름</code> 입니다. 아래의 통계에 대한 자세한 것은 <a href="descriptive-statistics.html"><span>6</span></a> <a href="descriptive-statistics.html">장 기술적 통계</a>에서 배울 겁니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(msleep<span class="sc">$</span>sleep_total)      <span class="co"># 평균</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(msleep<span class="sc">$</span>sleep_total)    <span class="co"># 중앙값</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(msleep<span class="sc">$</span>sleep_total)       <span class="co"># 최대값</span></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(msleep<span class="sc">$</span>sleep_total)       <span class="co"># 최소값</span></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(msleep<span class="sc">$</span>sleep_total)        <span class="co"># 표준편차</span></span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(msleep<span class="sc">$</span>sleep_total)       <span class="co"># 분산</span></span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(msleep<span class="sc">$</span>sleep_total)  <span class="co"># 사분위값</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10.43373
+[1] 10.1
+[1] 19.9
+[1] 1.9
+[1] 4.450357
+[1] 19.80568
+   0%   25%   50%   75%  100% 
+ 1.90  7.85 10.10 13.75 19.90 </code></pre>
+</div>
+</div>
+<p>하루 8시간 이상 자는 포유 동물의 빈도나 비율을 알려면 아래처럼 합니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(msleep<span class="sc">$</span>sleep_total <span class="sc">&gt;</span> <span class="dv">8</span>)   <span class="co"># 빈도 (숫자)</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(msleep<span class="sc">$</span>sleep_total <span class="sc">&gt;</span> <span class="dv">8</span>)  <span class="co"># 상대빈도 (비율)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 61
+[1] 0.7349398</code></pre>
+</div>
+</div>
+<p>결측값이 있을 때 옵션을 넣어야 해요. 그냥 하면 <code>NA</code>가 나옵니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(msleep<span class="sc">$</span>sleep_rem)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] NA</code></pre>
+</div>
+</div>
+<p>결측값을 무시하라는 조건을 넣습니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(msleep<span class="sc">$</span>sleep_rem, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.87541</code></pre>
+</div>
+</div>
+<p>변수가 두 개 이상이 연관되는 함수의 결측값 조건은 <code>use</code>를 써요. 아래는 변수 하나라도 결측값이 있으면 그 쌍은 통계에 포함하지 말라는 옵션이에요.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(msleep<span class="sc">$</span>sleep_total, msleep<span class="sc">$</span>sleep_rem, <span class="at">use =</span> <span class="st">"complete.obs"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.751755</code></pre>
+</div>
+</div>
+</section>
+<section id="sec-bas-cat" class="level3" data-number="3.6.2">
+<h3 data-number="3.6.2" class="anchored" data-anchor-id="sec-bas-cat"><span class="header-section-number">3.6.2</span> 범주형 자료</h3>
+<p>범주형 자료 categorical data 의 예입니다. <code>vore</code>와 <code>conservation</code> 변수는 범주형입니다. 이런 범주형 변수는 평균, 최대값 같은 건 의미가 없어요. 테이블을 만들어 빈도를 보는 게 좋아요. 범주형 변수는 R에서 <strong>요인</strong> factor 이라고 부르기도 합니다. 테이블을 만드는 함수는 <code>table</code>입니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(msleep<span class="sc">$</span>vore)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+  carni   herbi insecti    omni 
+     19      32       5      20 </code></pre>
+</div>
+</div>
+<p>빈도 테이블을 비율/상대빈도로 변환하는 함수는 <code>proportions</code>에요.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">proportions</span>(<span class="fu">table</span>(msleep<span class="sc">$</span>vore))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+     carni      herbi    insecti       omni 
+0.25000000 0.42105263 0.06578947 0.26315789 </code></pre>
+</div>
+</div>
+<p>교차 테이블을 만드는 데도 <code>table</code> 함수를 사용합니다. margin의 null, 1, 2는 전체, 행, 열 중에 어느 것이 100%인지 선택하는 조건입니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 빈도</span></span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(msleep<span class="sc">$</span>vore, msleep<span class="sc">$</span>conservation) </span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 비율, margin=1은 행으로 per row:</span></span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a><span class="fu">proportions</span>(<span class="fu">table</span>(msleep<span class="sc">$</span>vore, msleep<span class="sc">$</span>conservation),</span>
+<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">margin =</span> <span class="dv">1</span>) </span>
+<span id="cb63-6"><a href="#cb63-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 비율, margin=2는 열로 per column: </span></span>
+<span id="cb63-7"><a href="#cb63-7" aria-hidden="true" tabindex="-1"></a><span class="fu">proportions</span>(<span class="fu">table</span>(msleep<span class="sc">$</span>vore, msleep<span class="sc">$</span>conservation),</span>
+<span id="cb63-8"><a href="#cb63-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">margin =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="sec-bas-num-plot" class="level2" data-number="3.7">
+<h2 data-number="3.7" class="anchored" data-anchor-id="sec-bas-num-plot"><span class="header-section-number">3.7</span> 숫자형 자료의 그래프</h2>
+<p>주장이나 논리를 펼 때 근거를 제시해야 합니다. 특히 숫자나 통계를 근거로 제시하는 건 최고죠. 그런데 이걸 그림으로 제시하는 것, 특히 한 눈에 확 이해가 되도록 제시하는 것은 근거인 동시에 최상의 논리라고 말할 수 있습니다. 그래서 시각적 그래프는 중요합니다. Financial Times에서 제공한 <a href="https://github.com/Financial-Times/chart-doctor/blob/main/visual-vocabulary/README.md">Visual Vocabulary</a> 를 보면 숫자로 주장하는 시각에 따라 다양한 그래프가 있음을 알게 됩니다.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://github.com/Financial-Times/chart-doctor/blob/main/visual-vocabulary/README.md"><img src="https://github.com/Financial-Times/chart-doctor/raw/main/visual-vocabulary/poster.png" class="img-fluid figure-img" style="width:80.0%" data-align="left"></a></p>
+<figcaption class="figure-caption">FT의 Chart Doctor: Visual Vocabulary</figcaption>
+</figure>
+</div>
+<p>그래프를 그릴 때 주로 <code>ggplot2</code> 패키지를 사용합니다. 이 패키지는 소위 <strong>그래프 문법</strong>이란 걸 이용합니다. 그래프 문법은 여러 종류의 그래프를 그릴 때 동일한 논리와 함수를 사용하는 걸 의미합니다.</p>
+<p>그래프 문법의 중요한 삼 요소는 아래와 같아요.</p>
+<ul>
+<li>데이터: 데이터셋</li>
+<li>미학 aesthetics: 그래프의 시각적인 아름다움 (축의 길이나 기호들의 크기 등)</li>
+<li>기하학 geom : 기하학적 객체 geometric objects</li>
+</ul>
+<section id="그래프" class="level3" data-number="3.7.1">
+<h3 data-number="3.7.1" class="anchored" data-anchor-id="그래프"><span class="header-section-number">3.7.1</span> 그래프</h3>
+<p>그냥 기본 패키지로 그린다면,</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(msleep<span class="sc">$</span>sleep_total, msleep<span class="sc">$</span>sleep_rem)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="base-r_files/figure-html/unnamed-chunk-44-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>더 멋있게 그린다면,</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(msleep, <span class="fu">aes</span>(<span class="at">x =</span> sleep_total, <span class="at">y =</span> sleep_rem)) <span class="sc">+</span> </span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 22 rows containing missing values (`geom_point()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="base-r_files/figure-html/unnamed-chunk-45-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>여기서 그래프 문법의 삼 요소는 데이터: <code>msleep</code>, 미학: <code>aes</code> 함수(x축, y축), 기하학: <code>geom_point</code>로 각각 나타납니다. 물론 기본 패키지의 <code>plot</code> 함수로 아래처럼 유사하게 그릴 수 있어요.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(msleep<span class="sc">$</span>sleep_total, msleep<span class="sc">$</span>sleep_rem, <span class="at">pch =</span> <span class="dv">16</span>)</span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="fu">grid</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="base-r_files/figure-html/unnamed-chunk-46-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>그러나 <code>ggplot2</code> 패키지를 사용하면 여러 조건을 주지 않고 쉽게 그리지요. 기본 형식인 <code>ggplot(data, aes) + geom</code> 을 사용하기 때문입니다. 앞의 <code>ggplot</code> 그래프에서 <code>x=</code>과 <code>y=</code>을 생략하고 코드를 만들면 아래와 같고 결과는 동일합니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(msleep, <span class="fu">aes</span>(sleep_total, sleep_rem)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="색깔-모양-축의-이름표" class="level3" data-number="3.7.2">
+<h3 data-number="3.7.2" class="anchored" data-anchor-id="색깔-모양-축의-이름표"><span class="header-section-number">3.7.2</span> 색깔, 모양, 축의 이름표</h3>
+<p>축 이름표는 앞의 <code>ggplot</code> 코드 뒷부분에 +를 이용해 덧붙이면 됩니다. <code>xlab</code> 과 <code>ylab</code> 함수를 사용합니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(msleep, <span class="fu">aes</span>(sleep_total, sleep_rem)) <span class="sc">+</span> </span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">xlab</span>(<span class="st">"Total sleep time (h)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="base-r_files/figure-html/unnamed-chunk-48-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>실행 결과에 결측값에 관한 경고가 나오니까 <code>#| warning: false</code>를 넣어 안 나오게 합니다.</p>
+<p>그래프 안의 점에 색깔을 넣는다면 <code>geom_point</code>에서 <code>color="색깔이름"</code>을 사용합니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(msleep, <span class="fu">aes</span>(sleep_total, sleep_rem)) <span class="sc">+</span> </span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_point</span>(<span class="at">colour =</span> <span class="st">"blue"</span>) <span class="sc">+</span> </span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">xlab</span>(<span class="st">"Total sleep time (h)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="base-r_files/figure-html/unnamed-chunk-49-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>색깔 이름을 찾으려면 <code>콘솔 패널</code>에서 <code>colors( )</code> 함수를 실행하세요. 복사해서 코드에 이름을 넣는 순간 색깔이 나타나니까 어떤 색인지 볼 수 있어요. “#FF5733” 같은 헥사 코드로 넣어도 됩니다.</p>
+<p>위의 숫자형 변수 두 개에 범주형 변수인 <code>vore</code>를 하나 추가해서 그래프를 그릴 수 있어요. 그럴 때 범주형 변수의 범주 네 종류의 색깔을 다르게 하는 색깔 조건을 <code>aes</code>에 넣어야 합니다. 바로 <code>colour = vore</code> 입니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(msleep, <span class="fu">aes</span>(sleep_total, sleep_rem, <span class="at">colour =</span> vore)) <span class="sc">+</span> </span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">xlab</span>(<span class="st">"Total sleep time (h)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="base-r_files/figure-html/unnamed-chunk-50-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>숫자형 변수를 추가하고 색깔을 넣으면 어떻게 될까요? 가능할까요?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(msleep, <span class="fu">aes</span>(sleep_total, sleep_rem, <span class="at">colour =</span> sleep_cycle)) <span class="sc">+</span> </span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">xlab</span>(<span class="st">"Total sleep time (h)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="base-r_files/figure-html/unnamed-chunk-51-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>오! 됩니다. 색깔을 달리하지 않고 한 가지 색을 농도의 옅고 짙은 정도로 숫자의 크기를 표시해서 그립니다. 대단하지요?</p>
+<p>색깔 <code>colour=</code> 옵션 동일한 용도와 형식으로 모양 <code>shape=</code>, 크기 <code>size=</code> 등의 옵션을 사용합니다.</p>
+</section>
+<section id="축의-한계와-크기" class="level3" data-number="3.7.3">
+<h3 data-number="3.7.3" class="anchored" data-anchor-id="축의-한계와-크기"><span class="header-section-number">3.7.3</span> 축의 한계와 크기</h3>
+<p>ggplot 함수에 + xlim 과 ylim을 사용합니다. 아래 둘을 비교해봅시다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(msleep, <span class="fu">aes</span>(brainwt, sleep_total, <span class="at">colour =</span> vore)) <span class="sc">+</span> </span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">xlab</span>(<span class="st">"Brain weight"</span>) <span class="sc">+</span> </span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ylab</span>(<span class="st">"Total sleep time"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="base-r_files/figure-html/unnamed-chunk-52-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(msleep, <span class="fu">aes</span>(brainwt, sleep_total, <span class="at">colour =</span> vore)) <span class="sc">+</span> </span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">xlab</span>(<span class="st">"Brain weight"</span>) <span class="sc">+</span></span>
+<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ylab</span>(<span class="st">"Total sleep time"</span>) <span class="sc">+</span></span>
+<span id="cb74-5"><a href="#cb74-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">xlim</span>(<span class="dv">0</span>, <span class="fl">1.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="base-r_files/figure-html/unnamed-chunk-53-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>둘째 그래프의 x축 한계가 5에서 1.5로 되어 보기가 더 좋지요. 물론 <strong>아웃라이어/극단값</strong> 두 개가 빠져버린 것은 아쉽지만.</p>
+<p>좀 어렵지만, <code>brainwt</code> 변수를 로그로 변환하면 더 좋아집니다. <code>aes</code>함수 안에 <code>log</code> 함수를 넣습니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(msleep, <span class="fu">aes</span>(<span class="fu">log</span>(brainwt), sleep_total, <span class="at">colour =</span> vore)) <span class="sc">+</span> </span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">xlab</span>(<span class="st">"log(Brain weight)"</span>) <span class="sc">+</span></span>
+<span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ylab</span>(<span class="st">"Total sleep time"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="base-r_files/figure-html/unnamed-chunk-54-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>그런데 로그로 변환한 <code>brainwt</code>변수는 잘 이해가 되지 않으니까 <code>brainwt</code> 변수는 놔두고 그냥 x축을 로그 스케일로 바꾸는 게 더 이해가 잘 될 겁니다. 뒤에 <code>+ scale_x_log10( )</code> 조건을 붙입니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(msleep, <span class="fu">aes</span>(brainwt, sleep_total, <span class="at">colour =</span> vore)) <span class="sc">+</span> </span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">xlab</span>(<span class="st">"Brain weight (logarithmic scale)"</span>) <span class="sc">+</span></span>
+<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ylab</span>(<span class="st">"Total sleep time"</span>) <span class="sc">+</span></span>
+<span id="cb76-5"><a href="#cb76-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">scale_x_log10</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="base-r_files/figure-html/unnamed-chunk-55-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>x축 길이는 로그 스케일이지만 숫자(변수값)는 그대로여서 이해하기가 훨씬 편합니다.</p>
+</section>
+<section id="집단-비교하기" class="level3" data-number="3.7.4">
+<h3 data-number="3.7.4" class="anchored" data-anchor-id="집단-비교하기"><span class="header-section-number">3.7.4</span> 집단 비교하기</h3>
+<p>집단을 비교하는 그래프를 잘 그리는 방법은 <strong>포세팅</strong> facetting 입니다. 포세팅은 다면체에서 각 면을 나타내는 기하학 기법을 말하는데, 그래프에서는 각 집단 별로 산포도를 각각 그리는 기법을 의미합니다. 예를 들어, 범주형 변수인 <code>vore</code> 는 네 개 범주가 있는데 각 범주 별로 산포도 그래프를 각각 그리는 방법입니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(msleep, <span class="fu">aes</span>(brainwt, sleep_total)) <span class="sc">+</span> </span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">xlab</span>(<span class="st">"Brain weight (logarithmic scale)"</span>) <span class="sc">+</span></span>
+<span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ylab</span>(<span class="st">"Total sleep time"</span>) <span class="sc">+</span></span>
+<span id="cb77-5"><a href="#cb77-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">scale_x_log10</span>() <span class="sc">+</span></span>
+<span id="cb77-6"><a href="#cb77-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">facet_wrap</span>(<span class="sc">~</span> vore)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="base-r_files/figure-html/unnamed-chunk-56-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="박스플롯" class="level3" data-number="3.7.5">
+<h3 data-number="3.7.5" class="anchored" data-anchor-id="박스플롯"><span class="header-section-number">3.7.5</span> 박스플롯</h3>
+<p>집단을 비교하는 또다른 방법은 박스플롯 boxplot 입니다. <code>ggplot2</code> 패키지의 <code>ggplot</code> 함수를 이용합니다. R 기본 패키지의 <code>boxplot</code> 함수를 이용해도 좋아요.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R 기본 패키지:</span></span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(sleep_total <span class="sc">~</span> vore, <span class="at">data =</span> msleep)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="base-r_files/figure-html/unnamed-chunk-57-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ggplot2 패키지:</span></span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(msleep, <span class="fu">aes</span>(vore, sleep_total)) <span class="sc">+</span></span>
+<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="base-r_files/figure-html/unnamed-chunk-58-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>박스 그래프는 <code>summary</code> 함수가 되주는 수치와 유사한 시각 정보를 줍니다. 여기에 포함하는 건 중앙값, 1사분위, 3사분위, 최소값, 최대값, 아웃라이어 등입니다</p>
+<p>그래프 문법의 삼요소는 데이터: msleep, 미학: aes, 지옴: geom_boxplot 등입니다.</p>
+</section>
+<section id="히스토그램" class="level3" data-number="3.7.6">
+<h3 data-number="3.7.6" class="anchored" data-anchor-id="히스토그램"><span class="header-section-number">3.7.6</span> 히스토그램</h3>
+<p>서로 붙은 막대그래프를 히스토그램이라고 합니다. R 기본 패키지와 <code>ggplot2</code> 패키지를 비교해봅시다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R 기본 패키지:</span></span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(msleep<span class="sc">$</span>sleep_total)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="base-r_files/figure-html/unnamed-chunk-59-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(msleep, <span class="fu">aes</span>(sleep_total)) <span class="sc">+</span></span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_histogram</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="base-r_files/figure-html/unnamed-chunk-60-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="범주형-데이터-그래프" class="level2" data-number="3.8">
+<h2 data-number="3.8" class="anchored" data-anchor-id="범주형-데이터-그래프"><span class="header-section-number">3.8</span> 범주형 데이터 그래프</h2>
+<p>범주형 데이터를 시각화할 때 각 범주별로 빈도를 보여주는 경향이 높습니다. 대개 막대 그래프를 이용합니다.</p>
+<section id="막대-그래프" class="level3" data-number="3.8.1">
+<h3 data-number="3.8.1" class="anchored" data-anchor-id="막대-그래프"><span class="header-section-number">3.8.1</span> 막대 그래프</h3>
+<p>아래 두 개를 비교해봅시다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R 기본 패키지:</span></span>
+<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">table</span>(msleep<span class="sc">$</span>vore))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="base-r_files/figure-html/unnamed-chunk-61-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ggplot2 패키지: </span></span>
+<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(msleep, <span class="fu">aes</span>(vore)) <span class="sc">+</span></span>
+<span id="cb83-3"><a href="#cb83-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="base-r_files/figure-html/unnamed-chunk-62-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="그래프-저장하기" class="level2" data-number="3.9">
+<h2 data-number="3.9" class="anchored" data-anchor-id="그래프-저장하기"><span class="header-section-number">3.9</span> 그래프 저장하기</h2>
+<p>ggplot2를 이용해서 그래프를 그리면, 그 결과를 R 안에서 저장할 수 있어요. 마치 변수나 데이터셋처럼.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>myPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(msleep, <span class="fu">aes</span>(sleep_total, sleep_rem)) <span class="sc">+</span></span>
+<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>이제 <code>myPlot</code>라는 이름으로 그래프가 R 안에 저장이 되었어요. 콘솔에 <code>myPlot</code>를 적고 실행하면 (엔터 치면) Plots 패널에 그래프가 나타날 거에요.</p>
+<p>이렇게 저장하면 뭐가 좋을까요? 다시 그래프를 그릴 필요가 없어요. 이름에 <code>xlab</code>함수만 추가하면 x축 레이블이 바뀌어서 그려질 거에요.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>myPlot <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">"이건 x 라벨"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="base-r_files/figure-html/unnamed-chunk-64-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>이미지 파일로 그래프를 저장할 수 있어요.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"filename.pdf"</span>, myPlot, <span class="at">width =</span> <span class="dv">5</span>, <span class="at">height =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>만일 그래프 이름을 넣지 않으면 맨 마지막에 생성한 <code>ggplot2</code> 그래프를 저장합니다. 여기서 단위는 인치니까 만일 단위를 바꾸려면 <code>units</code>을 사용하세요. 파일 형태도 jpg, tif, png 등으로 바꿀 수 있어요.</p>
+<p><code>pdf</code>나 <code>png</code> 함수를 사용해 그래프를 저장할 수 있는데 마지막에 <code>dev.off</code>를 넣어야 해요.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="st">"filename.pdf"</span>, <span class="at">width =</span> <span class="dv">5</span>, <span class="at">height =</span> <span class="dv">5</span>)</span>
+<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a>myPlot</span>
+<span id="cb87-3"><a href="#cb87-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="fu">png</span>(<span class="st">"filename.png"</span>, <span class="at">width =</span> <span class="dv">500</span>, <span class="at">height =</span> <span class="dv">500</span>)</span>
+<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(msleep<span class="sc">$</span>sleep_total, msleep<span class="sc">$</span>sleep_rem)</span>
+<span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>워킹 폴더에서 파일들이 저장이 되었나 확인해보세요. <code>filename.pdf</code> 나 <code>filename.png</code> 파일이 있으면 성공한 거지요. 아마도 실제로 일할 때는 파일 이름을 제대로 <code>Plots 패널</code>에서 <code>Export</code> 버튼을 클릭해서 저장하지만, 코드를 이용해서 저장하는 게 효율적이에요. 왜냐하면 나중에 추가하거나 고치기가 아주 쉽죠.</p>
+</section>
+<section id="문제-해결하기" class="level2" data-number="3.10">
+<h2 data-number="3.10" class="anchored" data-anchor-id="문제-해결하기"><span class="header-section-number">3.10</span> 문제 해결하기</h2>
+<p>코드 실행에 문제가 생기면 두 경우가 가장 많아요. 첫째 스펠링이 틀리거나 둘째 사용한 함수를 포함한 패키지를 설치하지 않거나 활성화하지 않는 것.</p>
+<p>에러가 났을 때 에러 메시지를 주의깊게 읽고 파악하는 게 좋아요. 자꾸 에러 메시지를 읽고 고치다보면 에러 메시지를 파악하는 데에 익숙해질 거에요.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./basic-concepts.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">통계의 기초 개념</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./write-quarto.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Quarto 사용하기</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

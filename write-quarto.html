@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.361">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="For the class: Statistics and Analysis with R &amp; Quarto">
+
+<title>통계와 분석 - 4&nbsp; Quarto 사용하기</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./data-transform.html" rel="next">
+<link href="./base-r.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./write-quarto.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Quarto 사용하기</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">통계와 분석</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">안내</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">강의 소개</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./basic-concepts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">통계의 기초 개념</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./base-r.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">R 기본</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./write-quarto.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Quarto 사용하기</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data-transform.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">데이터의 변환, 요약, 분석</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./descriptive-statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">기술통계</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exploratoy-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">탐색적 데이터 분석</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./probabilistic-distribution.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">확률분포와 표집분포</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./inference-hypothesis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">추정과 가설 검정</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./categorical-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">범주형 자료분석</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./variance-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">분산분석</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./linear-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">선형 회귀분석</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./solutions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">해답</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">참고문헌</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#quarto로-보고서-작성" id="toc-quarto로-보고서-작성" class="nav-link active" data-scroll-target="#quarto로-보고서-작성"><span class="header-section-number">4.1</span> Quarto로 보고서 작성</a>
+  <ul class="collapse">
+  <li><a href="#콰르토의-작동-단계" id="toc-콰르토의-작동-단계" class="nav-link" data-scroll-target="#콰르토의-작동-단계"><span class="header-section-number">4.1.1</span> 콰르토의 작동 단계</a></li>
+  <li><a href="#콰르토-시작하기" id="toc-콰르토-시작하기" class="nav-link" data-scroll-target="#콰르토-시작하기"><span class="header-section-number">4.1.2</span> 콰르토 시작하기</a></li>
+  </ul></li>
+  <li><a href="#콰르토-편집-방법" id="toc-콰르토-편집-방법" class="nav-link" data-scroll-target="#콰르토-편집-방법"><span class="header-section-number">4.2</span> 콰르토 편집 방법</a>
+  <ul class="collapse">
+  <li><a href="#본문-내용-줄바꿈" id="toc-본문-내용-줄바꿈" class="nav-link" data-scroll-target="#본문-내용-줄바꿈"><span class="header-section-number">4.2.1</span> 본문 내용, 줄바꿈</a></li>
+  <li><a href="#섹션-제목" id="toc-섹션-제목" class="nav-link" data-scroll-target="#섹션-제목"><span class="header-section-number">4.2.2</span> 섹션 제목</a></li>
+  <li><a href="#코드청크" id="toc-코드청크" class="nav-link" data-scroll-target="#코드청크"><span class="header-section-number">4.2.3</span> 코드청크</a></li>
+  <li><a href="#폰트-스타일" id="toc-폰트-스타일" class="nav-link" data-scroll-target="#폰트-스타일"><span class="header-section-number">4.2.4</span> 폰트 스타일</a></li>
+  <li><a href="#링크-넣기" id="toc-링크-넣기" class="nav-link" data-scroll-target="#링크-넣기"><span class="header-section-number">4.2.5</span> 링크 넣기</a></li>
+  <li><a href="#그림-넣기" id="toc-그림-넣기" class="nav-link" data-scroll-target="#그림-넣기"><span class="header-section-number">4.2.6</span> 그림 넣기</a></li>
+  <li><a href="#인라인-코드-넣기" id="toc-인라인-코드-넣기" class="nav-link" data-scroll-target="#인라인-코드-넣기"><span class="header-section-number">4.2.7</span> 인라인 코드 넣기</a></li>
+  <li><a href="#수식-넣기" id="toc-수식-넣기" class="nav-link" data-scroll-target="#수식-넣기"><span class="header-section-number">4.2.8</span> 수식 넣기</a></li>
+  <li><a href="#수평선-넣기" id="toc-수평선-넣기" class="nav-link" data-scroll-target="#수평선-넣기"><span class="header-section-number">4.2.9</span> 수평선 넣기</a></li>
+  <li><a href="#리스트-표-그림-넣기" id="toc-리스트-표-그림-넣기" class="nav-link" data-scroll-target="#리스트-표-그림-넣기"><span class="header-section-number">4.2.10</span> 리스트, 표, 그림 넣기</a></li>
+  <li><a href="#테이블-넣기" id="toc-테이블-넣기" class="nav-link" data-scroll-target="#테이블-넣기"><span class="header-section-number">4.2.11</span> 테이블 넣기</a></li>
+  <li><a href="#다이아그램-넣기" id="toc-다이아그램-넣기" class="nav-link" data-scroll-target="#다이아그램-넣기"><span class="header-section-number">4.2.12</span> 다이아그램 넣기</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="sec-qrt" class="quarto-section-identifier"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Quarto 사용하기</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="quarto로-보고서-작성" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="quarto로-보고서-작성"><span class="header-section-number">4.1</span> Quarto로 보고서 작성</h2>
+<p>마크업 Markup 이라는 컴퓨터 언어가 있습니다. 컴퓨터 언어지만 워드프로세서 기능을 하므로 일반 컴퓨터 언어와 달리 사용하기가 매우 쉽습니다. 그걸 쉽게 개선한 언어가 마크다운 Markdown 이고, 그걸 R용으로 더 쉽게 개선한 것이 R 마크다운입니다. 그러니 R 마크다운은 사용하기가 정말로 편합니다. 이걸 한 번 더 개선해서 R뿐만 아니라 다양한 컴퓨터 언어에 사용하도록 만든 범용이 <code>Quarto</code>입니다. “Quarto”는 출판업계 용어이며, 인쇄에 사용하는 큰 종이를 두 번 접어 1/4 크기로 만든, 책 크기를 뜻한답니다. 복사에 흔히 사용하는 A4 용지보다 약간 큰 크기입니다.</p>
+<p>콰르토는 워드 프로세서입니다. 말하자면, <code>아래한글</code>이나 <code>MS 워드</code>와 같은 기능을 합니다. 그러나 일반 워드프로세서는 글을 작성하는 즉시 출력 형태가 화면에 그대로 보이지만, 콰르토는 그걸 실행하고 (render) 난 결과물이 출력물이라는 겁니다. 즉 실행하고 출력물을 봐야 비로소 결과를 알 수 있습니다. 물론 R Studio의 Visual 모드를 사용하면 출력물의 형태를 어느 정도 실시간으로 미리 볼 수 있으나 한계가 존재합니다.</p>
+<p>콰르토의 좋은 점은 그 안에서 R 이나 파이썬을 포함한 몇 개의 컴퓨터 언어를 사용할 수 있다는 겁니다. 그래서 보고서 안에서 R을 실행하고 그 결과를 표나 그래프로 즉각적으로 포함할 수 있습니다. 또 다른 특징은 포맷이 일정한 틀을 지닌다는 점입니다. 즉 미리 정한 표준 포맷을 사용하므로 시간과 노력을 절약하고 다른 이들과 협업이 쉽다는 겁니다. 그래서 앞으로 직장에서 콰르토를 많이 사용할 것으로 예상합니다. 물론 미리 정한 포맷을 사용하므로 어느 정도 개성있는 포맷은 포기해야 합니다. 그렇지만 일반 사용자가 만들 수 있는 포맷보다는 아주 훨씬 훌륭합니다.</p>
+<section id="콰르토의-작동-단계" class="level3" data-number="4.1.1">
+<h3 data-number="4.1.1" class="anchored" data-anchor-id="콰르토의-작동-단계"><span class="header-section-number">4.1.1</span> 콰르토의 작동 단계</h3>
+<p>콰르토로 문서를 작성하고 렌더 <code>Render</code>를 클릭하면 원하는 최종 문서로 출력합니다. 이때 .qmd 파일이 .md (Markdown) 파일이 되고 또 pandoc 파일로 번역되어 최종 문서를 출력합니다. 최종 문서는 주로 웹페이지인 .html 파일로 출력하지만 .pdf 나 MS 워드 .docx 파일로 출력할 수도 있습니다.</p>
+<div id="fig-qmd-step" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="images/qmd-output-processing.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Figure&nbsp;4.1: Quarto 작동 단계: R Studio</figcaption>
+</figure>
+</div>
+</section>
+<section id="콰르토-시작하기" class="level3" data-number="4.1.2">
+<h3 data-number="4.1.2" class="anchored" data-anchor-id="콰르토-시작하기"><span class="header-section-number">4.1.2</span> 콰르토 시작하기</h3>
+<p>새 콰르토 문서를 만드는 가장 편한 방법이 RStudio를 이용하는 겁니다. RStudio를 열고 메뉴 왼쪽 위 <strong>File &gt; New File &gt; Quarto Document</strong> 를 차례로 클릭하면 새 문서를 가져옵니다.</p>
+<p>콰르토는 R 스튜디오에 포함되어서 별도로 설치할 필요가 없습니다. 혹시 <code>New File</code> 에서 나타나지 않으면 설치가 안 된 것일 수 있으니, <a href="https://quarto.org/">콰르토 사이트</a>에 가서 다운로드해 설치하면 R 스튜디오에 나타납니다. <a href="https://quarto.org/">(https://quarto.org)</a></p>
+<p>R스튜디오에서 <strong>File &gt; New File &gt; Quarto Document</strong> 를 클릭하면 콰르토 파일이 형성되니까 바로 사용합니다. 콰르토 파일을 맨 처음 생성하면 관련 패키지를 설치해야 (install) 할 수도 있습니다. 만일 그렇다면 그냥 설치하면 됩니다.</p>
+<p>콰르토 새 파일을 열면 제일 위에 아래와 같이 YAML 언어가 써 있습니다. 이것은 ---로 아래 위로 둘러싸인 부분입니다. ---와 첫 줄 사이에 빈 줄이 없어야 합니다.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>title: "Untitled"</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>---</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>YAML 언어는 두 가지 기능을 합니다. 첫째는 한 컴퓨터 언어에서 다른 컴퓨터 언어로 데이터를 전해주는 역할입니다. 여기서는 콰르토 언어에서 마크다운 언어를 거쳐 최종 아웃풋을 만드는 Pandoc 언어로 포맷과 관련한 메타 데이터를 전달합니다. 둘째는 전달하는 정보를 사람이 알아보기 쉬운 형태로 작성하는 겁니다. 위의 YAML 언어도 척 보면 무슨 말인지 알 수 있습니다. R 마크다운의 단점 중 하나가 YAML 언어를 다루기 힘든 것이었는데 콰르토에서는 다루기 쉽게 되었습니다.</p>
+<p>사실 새 문서 첫 머리의 YAML 부분이 없어도 문제없이 작동합니다. 여러분이 작성하는 파일은 기본적인 것이니까요. YAML은 주로 콰르토 파일의 아웃풋에 관련한 내용이며, 현재 단계에서는, 그냥 그런 것이 있다고 받아들이면 됩니다.</p>
+<p>아래는 세줄 짜리 YAML 예입니다. html은 웹페이지로 출력하라는 명령이고 visual은 R 스튜디오에서 <code>Visual</code> 에디터 모드를 사용한다는 겁니다. R 스튜디오에서 에디터 모드는 언제든 바꿀 수 있습니다. 만일 워드 파일 docx 로 출력하려면 <code>format: html</code>을 <code>format: docx</code>로 수정합니다.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>title: "Hello, Quarto"</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>format: html</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>editor: visual</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>---</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>아래는 Quarto 새 파일을 열었을 때 나오는 화면입니다. 위의 둘은 각각 Source 모드와 Visual 모드이고, 아래는 편집 창 바로 위 가운데의 <code>Render</code> 버튼을 눌렀을 때 Viewer 탭 패널에 나타나는 최종 출력물입니다. Rendering은 Quarto 파일이 저장되어야 가능하므로 아마도 파일이름을 넣어 저장하라는 창이 먼저 뜰 겁니다.</p>
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="images/quarto-newfile-source.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<figcaption class="figure-caption">콰르토 새 파일: Source 편집 모드</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="images/quarto-newfile-visual.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<figcaption class="figure-caption">콰르토 새 파일: Visual 편집 모드</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="images/quarto-newfile-output.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">콰르토 새 파일: html 형태의 최종 출력물</figcaption>
+</figure>
+</div>
+<p>위의 편집화면이 둘 다 까맣게 나오지요? 그건 눈부심을 방지하려고 편집 화면의 테마를 그렇게 설정한 겁니다. 아래 그림에서 Editor theme을 <code>Tomorrow Night Bright</code>로 선택한 결과입니다. Editor font도 <code>D2 coding ligature</code>로, default가 아닌 걸로 따로 설치하고 선택했습니다. 한글은 편집 화면 글자가 그게 예쁘게 나온다고 합니다. 혹시 여러분도 변경하려면 <code>R Studio</code> 맨위 메뉴 띠에서 <strong>Tools &gt; Global Options.. &gt; Appearandce</strong> 창으로 가서 해당 옵션을 선택하고 <code>OK</code> 버튼을 클릭하세요.</p>
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="images/quarto-newfile-option.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Quarto 편집 화면 옵션</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="콰르토-편집-방법" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="콰르토-편집-방법"><span class="header-section-number">4.2</span> 콰르토 편집 방법</h2>
+<p>여기에 나오는 편집 방법은 Quarto/Markdown에서 사용하는 방법입니다. R Studio를 보면 스크립트 패널 바로 위 왼쪽 끝에 <code>Source</code> 와 <code>Visual</code> 에디터 버튼이 있습니다. 여기에 지금부터 나오는 내용은 <code>Source</code> 모드에서 사용하는 것입니다. <code>Visual</code> 모드에서는 그 줄에 나타나는 여러 버튼들을 사용하면 편리합니다. 물론 두 에디터 모드는 언제든지 버튼을 눌러서 서로 편집방법을 바꿀 수 있습니다. 초보자는 <code>Visual</code> 모드를 사용하는 게 편리합니다. 익숙해지면 아마도 <code>Source</code> 모드가 더 편해질 겁니다.</p>
+<section id="본문-내용-줄바꿈" class="level3" data-number="4.2.1">
+<h3 data-number="4.2.1" class="anchored" data-anchor-id="본문-내용-줄바꿈"><span class="header-section-number">4.2.1</span> 본문 내용, 줄바꿈</h3>
+<p>본문은 그냥 타이핑해서 넣으면 됩니다. 출력문의 폰트와 크기는 원래 디폴트로 정한 것으로 나타납니다. 다르게 하려면 YAML 파일이나 옵션을 변경해야 하는데 좀 복잡할 수 있으니 그냥 디폴트를 사용하는 걸 권장합니다.</p>
+<p>띄어쓰기를 할 때 편집하는 본문에서 한 칸을 띄나 두 칸을 띄나 Quarto는 출력문에서 한 칸을 띕니다. 즉 .qmd 파일에서는 두 칸 또는 그 이상 칸을 띈 부분은 html 등 출력문에서는 한 칸 띈 것으로 나타납니다.</p>
+<p>마찬가지로 본문에서 <code>Enter</code> 키를 쳐서 줄을 바꾸어도 Quarto는 줄을 바꾸지 않은 것으로 인식합니다. 즉 <code>Enter</code> 키를 쳐서 줄을 바꾼 것이나 바꾸지 않고 그냥 한 줄로 죽 쓴 것이나 출력물은 동일합니다.</p>
+<p>문단을 나누고 싶으면, 즉 <code>아래한글</code>이나 <code>MS 워드</code>에서 <code>Enter</code> 키를 친 것과 동일한 결과를 가져오고 싶으면, <code>Enter</code> 키를 두 번 쳐서 앞 줄과 뒷 줄 사이에 빈 줄이 하나 들어가면 됩니다. 빈 줄이 하나건 둘이건 출력물은 동일한 결과가 나옵니다.</p>
+<p>만일 문단을 나누지 않고 그냥 줄바꿈을 하고 싶으면, 즉 <code>아래한글</code>이나 <code>MS 워드</code>에서 <code>Shift+Enter</code> 키를 친 것과 동일한 결과를 가져오고 싶으면, 줄바꿈 전의 줄 마지막에 빈칸을 두 개나 그 이상 넣으면 줄바꿈을 합니다. 또는 줄바꿈 전의 줄 마지막에 <code>&lt;br&gt;</code> 이라는 html 태그를 직접 넣으면 됩니다.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>위에 적은 것처럼 Quarto에서 빈칸이, 일반적인 <code>아래한글</code>이나 <code>워드</code>를 사용할 때와 역할이 좀 다른 경우가 있습니다. 주의하세요!</p>
+</div>
+</div>
+</section>
+<section id="섹션-제목" class="level3" data-number="4.2.2">
+<h3 data-number="4.2.2" class="anchored" data-anchor-id="섹션-제목"><span class="header-section-number">4.2.2</span> 섹션 제목</h3>
+<p><code>h1</code>부터 <code>h6</code>까지 표현할 수 있으며, #의 갯수로 표현합니다. 6개까지 가능합니다.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a># chapter title</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>## section title</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>### subsection title</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>#### header4 title</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><code>chapter title</code>은 장 chapter의 제목이며 제일 큰 폰트로 나타납니다. <code>section title</code>은 절 section 의 제목이며 장보다는 작은 폰트입니다. 그 아래 소제목들도 #의 갯수에 따라서 폰트의 크기가 상대적으로 작아집니다.</p>
+</section>
+<section id="코드청크" class="level3" data-number="4.2.3">
+<h3 data-number="4.2.3" class="anchored" data-anchor-id="코드청크"><span class="header-section-number">4.2.3</span> 코드청크</h3>
+<p><code>```</code>를 아래 위로 넣어서 표시합니다. <code>`</code>는 백틱 backtick 이라 부르고 자판 왼쪽 위 구석에 있습니다. 코드청크 블락은 단축키 <code>Ctrl+Alt+i</code> 를 누르면 자동으로 본문에 삽입됩니다. 또는 메뉴의 <strong>Code &gt; Insert Chunk</strong> 를 사용합니다.</p>
+<p><code>Visual</code> 에디터 모드에서는 에디터 창 바로 위의 <code>Insert</code> 단추를 클릭해서 코드청크를 넣어도 됩니다. 대체로 단축키 <code>Ctrl+Alt+i</code> 의 사용이 가장 간편합니다.</p>
+<p>옵션의 종류는 아래와 같습니다. 모두 Render 단추를 눌렀을 때 출력의 결과에 대한 옵션입니다. 옵션 앞에는 모두 <code>#|</code>가 붙어야 합니다. 코드청크 오른 위의 조그만 삼각형 실행버튼을 누르면 코드청크가 실행하는데, 그때는 옵션과 관계없이 실행합니다.</p>
+<ul>
+<li><code>include: false</code> : 코드를 실행하지만 코드와 결과는 마지막 아웃풋에 출력하지 않는다. 코드의 결과는 다른 청크에서 사용할 수 있다. (예: 변수나 그래프를 만들고 그걸 다른 청크에서 사용)</li>
+<li><code>echo: false</code> : (코드를 실행하지만) 코드를 아웃풋에 출력하지 않는다.</li>
+<li><code>eval: false</code> : 코드를 실행하지 않는다. (코드는 아웃풋에 나타난다.)</li>
+<li><code>warning: false</code> : 코드를 실행해서 나타난 경고를 아웃풋에 출력하지 않는다.</li>
+<li><code>error: true</code> : 청크에서 에러가 나도 R Markdown 문서를 계속 실행한다</li>
+<li><code>collapse: true</code> : 청크 안의 각 코드 실행 결과를 나누지 않고 한 곳으로 몰아 output에 출력한다</li>
+<li><code>message: false</code> : 코드를 실행해서 나타난 메시지를 아웃풋에 출력하지 않는다.</li>
+<li><code>result: "hide"</code> 문자로 된 실행 결과물을 output에 안 넣는다.</li>
+<li><code>fig-show: "hide"</code> : 그래프를 output에 안 넣는다</li>
+<li><code>fig-cap: "내용"</code> : 코드를 실행해서 얻은 그래프에 캡션을 단다.</li>
+</ul>
+<p>아래 두 개의 청크 옵션 결과를 비교해봅시다.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>```{r}</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>#| echo: false</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>summary(cars)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>```</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>위와 같이 <code>echo: false</code> 옵션을 주면 아래처럼 코드는 출력하지 않고 결과만 출력합니다.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>     speed           dist       
+ Min.   : 4.0   Min.   :  2.00  
+ 1st Qu.:12.0   1st Qu.: 26.00  
+ Median :15.0   Median : 36.00  
+ Mean   :15.4   Mean   : 42.98  
+ 3rd Qu.:19.0   3rd Qu.: 56.00  
+ Max.   :25.0   Max.   :120.00  </code></pre>
+</div>
+</div>
+<p>이번에는 <code>eval: false</code> 옵션을 봅니다. 아래처럼 적습니다. 그러면 <code>eval: false</code>는 코드는 출력하지만 실행하지 않으므로 결과는 나타나지 않습니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cars)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>코드 청크에 이름(id)을 붙일 수 있고, 캡션(제목)을 붙여 나중에 자동으로 그래프에 번호가 붙습니다. 이때 그래프 이름(id)은 반드시 fig- 가 앞에 붙어야 합니다. 만일 코드청크가 테이블을 그리는 것이라면 이름(id) 앞에 반드시 tbl- 가 붙어야 합니다.</p>
+<p>이름을 붙인 것은 본문 다른 곳에서 링크할 수 있습니다. 이렇게 코드 청크에 이름을 붙이고, 본문의 다른 곳에서 <code>@fig-pressureplot</code>라고 적으면 <a href="#fig-pressureplot">Figure&nbsp;<span>4.2</span></a> 로 출력합니다. 클릭하면 그 플롯으로 이동합니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-pressureplot</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "이것은 플롯 제목"</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pressure)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-pressureplot" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="write-quarto_files/figure-html/fig-pressureplot-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;4.2: 이것은 플롯 제목</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="폰트-스타일" class="level3" data-number="4.2.4">
+<h3 data-number="4.2.4" class="anchored" data-anchor-id="폰트-스타일"><span class="header-section-number">4.2.4</span> 폰트 스타일</h3>
+<p>_나 *가 한 번이면 기울인 이탤릭체, 두 번이면 굵은 볼드체입니다.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>__굵게__</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>**굵게**</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>_기울여 쓰기_</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>*기울여 쓰기*</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>~~취소선~~</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>윗첨자^2^</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>아래첨자~2~</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>굵게</strong> <br> <strong>굵게</strong> <br> <em>기울여 쓰기</em> <br> <em>기울여 쓰기</em> <br> <del>취소선</del> <br> 윗첨자<sup>2</sup> <br> 아래첨자<sub>2</sub></p>
+</section>
+<section id="링크-넣기" class="level3" data-number="4.2.5">
+<h3 data-number="4.2.5" class="anchored" data-anchor-id="링크-넣기"><span class="header-section-number">4.2.5</span> 링크 넣기</h3>
+<p>아래의 첫 줄처럼 적으면 뒷 줄처럼 출력합니다. 여기서는 “쿼르토 가이드”란 글귀가 인터넷 콰르토 사이트와 링크되었습니다. 링크된 글자들을 클릭하면 그 사이트로 이동합니다. <code>[]</code>와 <code>()</code> 사이에 빈칸이 있으면 안됩니다.</p>
+<p><code>[쿼르토 가이드](https://quarto.org/docs/guide/)를 참조하세요</code></p>
+<p><a href="https://quarto.org/docs/guide/">쿼르토 가이드</a>를 참조하세요.</p>
+<p>같은 사이트를 여러 번 링크할 때 아래처럼 이름/번호를 넣어주고 나중에 본문 아무곳이나 그 이름/번호를 정의해주면 편합니다. 청크 아래에 출력이 나와있는데, 출력에서 <code>[1]</code>과 <code>[1]: https://commonmark.org/help/</code>는 나타나지 않습니다.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>아주 간단히 마크다운을 배우려면 [여기][1]를 클릭해주세요. </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>[1]: https://commonmark.org/help/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>아주 간단히 마크다운을 배우려면 <a href="https://commonmark.org/help/">여기</a>를 클릭해주세요.</p>
+</section>
+<section id="그림-넣기" class="level3" data-number="4.2.6">
+<h3 data-number="4.2.6" class="anchored" data-anchor-id="그림-넣기"><span class="header-section-number">4.2.6</span> 그림 넣기</h3>
+<p>아래처럼 그림을 넣을 수 있습니다. 아래 첫 줄은 사이트에서 그림을 가져오는 코드고 그 아래 그림이 가져온 그림입니다. 둘째 줄처럼 자신의 폴더에서 그림을 넣어도 됩니다. <code>[]</code>와 <code>()</code>, 그리고 <code>{}</code>는 붙여야 합니다. 즉 사이에 빈칸이 있으면 안됩니다.</p>
+<p><code>![Quarto 로고](https://quarto.org/quarto.png){fig-align='left'}</code></p>
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="https://quarto.org/quarto.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Quarto 로고</figcaption>
+</figure>
+</div>
+<p><code>![Quarto 로고](quarto.png){fig-align='left'}</code></p>
+<p>그림에 링크를 걸 수 있습니다. 아래의 첫 줄처럼 콰르토 파일에 적고 출력한 다음에, 출력한 그림을 클릭하면 그 사이트로 갑니다. 만일 그림의 제목을 넣지않고 그냥 []을 적으면 그림만 출력합니다. 아래의 그림은 제목이 없이 그림만 있는 예이며, 그래서 그림을 클릭하면 Quarto 사이트로 갑니다.</p>
+<p><code>[![Quarto](https://quarto.org/quarto.png)](https://quarto.org)</code></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://quarto.org"><img src="https://quarto.org/quarto.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+</section>
+<section id="인라인-코드-넣기" class="level3" data-number="4.2.7">
+<h3 data-number="4.2.7" class="anchored" data-anchor-id="인라인-코드-넣기"><span class="header-section-number">4.2.7</span> 인라인 코드 넣기</h3>
+<p>일반글 속에 r 코드를 넣을 수 있습니다. 코드 앞뒤에 <code>`</code>를 붙이면 됩니다. 이것은 간단한 계산을 한다던지, 특히 변수를 불러와서 변수값을 출력할 때 아주 편리합니다. r 코드는 앞에 r을 붙입니다. 만일 python이면 <code>`python code`</code>라고 적습니다. 아래는 청크에서 계산하고 그 값을 본문에 출력하는 예입니다.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>```{r}</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>month_sale &lt;- 18,000,000</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>```</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>"이번 달의 매출액은 `r month_sale`원입니다."로 적어 넣으면, </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>"이번 달의 매출액은 18,000,000 원입니다."로 출력합니다. </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="수식-넣기" class="level3" data-number="4.2.8">
+<h3 data-number="4.2.8" class="anchored" data-anchor-id="수식-넣기"><span class="header-section-number">4.2.8</span> 수식 넣기</h3>
+<p>수식을 넣는 방식은 두 가지가 있습니다. 하나는 일반 문장 속에 들어가는 겁니다 $를 수식 양 끝에 하나씩 넣으면 됩니다. 별도의 줄에 들어가는 방식은 $$를 수식 양 끝에 넣은 겁니다.</p>
+<ul>
+<li><code>$a^2 + b ^ 2 = c^2$</code> : 문장 안에 수식을 LaTEx 를 이용해서 이처럼 <span class="math inline">\(a^2 + b ^ 2 = c^2\)</span> 넣는다</li>
+<li><code>$$a^2 + b ^ 2 = c^2$$</code> : 새 줄을 만들어 그 중앙에 수식을 넣는다</li>
+</ul>
+<p><span class="math display">\[a^2 + b ^ 2 = c^2\]</span></p>
+</section>
+<section id="수평선-넣기" class="level3" data-number="4.2.9">
+<h3 data-number="4.2.9" class="anchored" data-anchor-id="수평선-넣기"><span class="header-section-number">4.2.9</span> 수평선 넣기</h3>
+<p>---를 입력하면 수평선을 그릴 수 있습니다.</p>
+<p>결과는 아래와 같습니다.</p>
+<hr>
+</section>
+<section id="리스트-표-그림-넣기" class="level3" data-number="4.2.10">
+<h3 data-number="4.2.10" class="anchored" data-anchor-id="리스트-표-그림-넣기"><span class="header-section-number">4.2.10</span> 리스트, 표, 그림 넣기</h3>
+<p>글머리 기호와 들여쓰기를 자동으로 하는 걸 리스트 list 라고 합니다.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>* 하나 1</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>* 하나 2</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  + 아래하나 1</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  + 아래하나 2</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>* 하나 3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>위처럼 적으면 아래처럼 출력합니다.</p>
+<ul>
+<li>하나 1</li>
+<li>하나 2
+<ul>
+<li>아래하나 1</li>
+<li>아래하나 2</li>
+</ul></li>
+<li>하나 3</li>
+</ul>
+<p>글머리 번호를 붙이려면 문장 맨처음에 숫자와 마침표를 차례로 넣습니다.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>1. 하나 1</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>2. 하나 2</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    i) 아래하나 1</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    ii) 아래하나 2</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>1. 하나 3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>첫 머리에 숫자만 붙으면 번호가 달라도 알아서 순서대로 번호를 답니다. 여기서 i)의 들여쓰기는 반드시 네 자, 또는 두 탭을 해야합니다. 글머리 기호는 두 자 들여쓰면 되지만, 숫자는 네 자 들여쓰기입니다.</p>
+<ol type="1">
+<li>하나 1</li>
+<li>하나 2
+<ol type="i">
+<li>아래하나 1</li>
+<li>아래하나 2</li>
+</ol></li>
+<li>하나 3</li>
+</ol>
+</section>
+<section id="테이블-넣기" class="level3" data-number="4.2.11">
+<h3 data-number="4.2.11" class="anchored" data-anchor-id="테이블-넣기"><span class="header-section-number">4.2.11</span> 테이블 넣기</h3>
+<p>아래처럼 하여 표를 그릴 수 있습니다. | 로 구분하고 -(하이픈)에 각각 왼쪽, 양쪽, 오른쪽에 : 을 붙여서 왼쪽 정렬, 가운데 정렬, 오른쪽 정렬을 합니다. :을 붙이지 않으면 디폴트는 왼쪽 정렬입니다.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>|제목|내용1|내용2|내용3|</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>|:---|:---: |---:|---|</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>|왼 정렬|중앙 정렬|오른 정렬|디폴트(왼)|</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>|왼 정렬|**볼드체 가능**|오른 정렬|디폴트(왼)|</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>|왼 정렬|[색 가능]{style="color: green"}|오른 정렬|디폴트(왼)|</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>: 테이블 제목 {#tbl-table-id}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>위 내용 중에 <span style="color:green">색가능</span>은 본문의 일부글 색을 지정할 때 사용합니다. 맨 아래 줄은 테이블의 제목입니다. 아래가 결과입니다.</p>
+<div id="tbl-table-id" class="anchored">
+<table class="table">
+<caption>Table&nbsp;4.1: 테이블 제목</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">제목</th>
+<th style="text-align: center;">내용1</th>
+<th style="text-align: right;">내용2</th>
+<th>내용3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">왼 정렬</td>
+<td style="text-align: center;">중앙 정렬</td>
+<td style="text-align: right;">오른 정렬</td>
+<td>디폴트(왼)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">왼 정렬</td>
+<td style="text-align: center;"><strong>볼드체 가능</strong></td>
+<td style="text-align: right;">오른 정렬</td>
+<td>디폴트(왼)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">왼 정렬</td>
+<td style="text-align: center;"><span style="color:green">색 가능</span></td>
+<td style="text-align: right;">오른 정렬</td>
+<td>디폴트(왼)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>테이블 제목은 없어도 됩니다. 테이블 제목은 두고 번호만 붙이지 않으려면 위에서 {#tbl-table-id} 를 안 넣으면 됩니다. 테이블 제목과 테이블 id 사이에 한 칸 이상의 빈칸이 있어야 합니다. 줄 양 옆 맨끝의 |는 없어도 상관없습니다. 없어도 동일한 출력을 합니다.</p>
+<p>위의 표 그리기는 <strong>단순 표 그리기</strong>입니다. <strong>격자 표 그리기</strong> Grid Table 를 이용하면 더 정교한 표를 그립니다.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>+---------------------+----------+</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>| Property            | Earth    |</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>+=============+=======+==========+</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>|             | min   | -89.2 °C |</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>| Temperature +-------+----------+</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>| 1961-1990   | mean  | 14 °C    |</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>|             +-------+----------+</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>|             | max   | 56.7 °C  |</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>+-------------+-------+----------+</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>: Grid Table 의 예</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<table class="table">
+<caption>Grid Table 의 예</caption>
+<colgroup>
+<col style="width: 19%">
+<col style="width: 11%">
+<col style="width: 15%">
+</colgroup>
+<thead>
+<tr class="header">
+<th colspan="2">Property</th>
+<th>Earth</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td rowspan="3">Temperature 1961-1990</td>
+<td>min</td>
+<td>-89.2 °C</td>
+</tr>
+<tr class="even">
+<td>mean</td>
+<td>14 °C</td>
+</tr>
+<tr class="odd">
+<td>max</td>
+<td>56.7 °C</td>
+</tr>
+</tbody>
+</table>
+<p>위의 테이블은 격자 테이블 중에서도 좀 복잡한 형태의 예입니다. 칸 수를 조정한 형태입니다. 물론 칸 수가 동일한 형태도 더 쉽게 가능합니다. 단순 격자 테이블과 달리 격자 테이블은, 위의 예처럼, 네모난 형태를 정확하게 맞춰야 출력이 제대로 될 수도 있습니다.</p>
+</section>
+<section id="다이아그램-넣기" class="level3" data-number="4.2.12">
+<h3 data-number="4.2.12" class="anchored" data-anchor-id="다이아그램-넣기"><span class="header-section-number">4.2.12</span> 다이아그램 넣기</h3>
+<p>쿼르토는 <code>mermaid</code> 언어를 이용해서 다이아그램을 넣을 수 있습니다. 만일 위에서 아래로 그리려면 LR (left <span class="math inline">\(\rightarrow\)</span> right) 대신에 TD를 (top <span class="math inline">\(\rightarrow\)</span> down) 넣습니다.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>```{mermaid}</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>%%| label: fig-diagram-exm</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>%%| fig-cap: "다이어그램 예"</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>%%| fig-align: "left"</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>flowchart LR</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  A[Hard edge] --&gt; B(Round edge)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  B --&gt; C{Decision}</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  C --&gt; D[Result one]</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  C --&gt; E[Result two]</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>```</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-layout-align="left">
+<div class="cell-output-display">
+<div id="fig-diagram-exm" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<div>
+<pre class="mermaid mermaid-js" data-label="fig-diagram-exm">flowchart LR
+  A[Hard edge] --&gt; B(Round edge)
+  B --&gt; C{Decision}
+  C --&gt; D[Result one]
+  C --&gt; E[Result two]
+</pre>
+</div>
+<figcaption class="figure-caption">Figure&nbsp;4.3: 다이어그램 예</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+옵션 표현이 달라요
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>여기 코드청크 mermaid 언어에서 옵션을 주는 표현은 %%|입니다. 코멘트는 %%입니다. #|를 사용하는 r과 살짝 다르니까 혼동하지 말고 사용하세요.</p>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./base-r.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">R 기본</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./data-transform.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">데이터의 변환, 요약, 분석</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

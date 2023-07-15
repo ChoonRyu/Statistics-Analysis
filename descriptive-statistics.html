@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.361">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="For the class: Statistics and Analysis with R &amp; Quarto">
+
+<title>통계와 분석 - 6&nbsp; 기술통계</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./exploratoy-analysis.html" rel="next">
+<link href="./data-transform.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./descriptive-statistics.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">기술통계</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">통계와 분석</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">안내</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">강의 소개</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./basic-concepts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">통계의 기초 개념</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./base-r.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">R 기본</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./write-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Quarto 사용하기</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data-transform.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">데이터의 변환, 요약, 분석</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./descriptive-statistics.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">기술통계</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exploratoy-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">탐색적 데이터 분석</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./probabilistic-distribution.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">확률분포와 표집분포</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./inference-hypothesis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">추정과 가설 검정</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./categorical-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">범주형 자료분석</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./variance-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">분산분석</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./linear-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">선형 회귀분석</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./solutions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">해답</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">참고문헌</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#빈도분포" id="toc-빈도분포" class="nav-link active" data-scroll-target="#빈도분포"><span class="header-section-number">6.1</span> 빈도분포</a></li>
+  <li><a href="#집중화-경향치" id="toc-집중화-경향치" class="nav-link" data-scroll-target="#집중화-경향치"><span class="header-section-number">6.2</span> 집중화 경향치</a>
+  <ul class="collapse">
+  <li><a href="#평균" id="toc-평균" class="nav-link" data-scroll-target="#평균"><span class="header-section-number">6.2.1</span> 평균</a></li>
+  <li><a href="#중앙값" id="toc-중앙값" class="nav-link" data-scroll-target="#중앙값"><span class="header-section-number">6.2.2</span> 중앙값</a></li>
+  <li><a href="#최빈값" id="toc-최빈값" class="nav-link" data-scroll-target="#최빈값"><span class="header-section-number">6.2.3</span> 최빈값</a></li>
+  <li><a href="#집중화경향치의-비교" id="toc-집중화경향치의-비교" class="nav-link" data-scroll-target="#집중화경향치의-비교"><span class="header-section-number">6.2.4</span> 집중화경향치의 비교</a></li>
+  </ul></li>
+  <li><a href="#분포와-분산도" id="toc-분포와-분산도" class="nav-link" data-scroll-target="#분포와-분산도"><span class="header-section-number">6.3</span> 분포와 분산도</a>
+  <ul class="collapse">
+  <li><a href="#범위" id="toc-범위" class="nav-link" data-scroll-target="#범위"><span class="header-section-number">6.3.1</span> 범위</a></li>
+  <li><a href="#표준편차와-분산" id="toc-표준편차와-분산" class="nav-link" data-scroll-target="#표준편차와-분산"><span class="header-section-number">6.3.2</span> 표준편차와 분산</a></li>
+  <li><a href="#사분위편차" id="toc-사분위편차" class="nav-link" data-scroll-target="#사분위편차"><span class="header-section-number">6.3.3</span> 사분위편차</a></li>
+  <li><a href="#변동계수와-사분위-분산계수" id="toc-변동계수와-사분위-분산계수" class="nav-link" data-scroll-target="#변동계수와-사분위-분산계수"><span class="header-section-number">6.3.4</span> 변동계수와 사분위 분산계수</a></li>
+  </ul></li>
+  <li><a href="#sec-des-z" id="toc-sec-des-z" class="nav-link" data-scroll-target="#sec-des-z"><span class="header-section-number">6.4</span> Z값과 분포의 표준화</a></li>
+  <li><a href="#비대칭도" id="toc-비대칭도" class="nav-link" data-scroll-target="#비대칭도"><span class="header-section-number">6.5</span> 비대칭도</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="sec-des" class="quarto-section-identifier"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">기술통계</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>기술 통계는 관찰 대상의 속성을 조사하여 추론하지 않고 그대로 제시하는 통계를 말합니다.</p>
+<section id="빈도분포" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="빈도분포"><span class="header-section-number">6.1</span> 빈도분포</h2>
+<p><strong>빈도</strong> frequency 는 측정 단위의 숫자, 관찰의 숫자, 혹은 사례의 숫자를 말합니다. 만일 사람 20명의 키를 측정했다면 관찰 빈도는 20입니다. 키가 170cm인 사람이 15명이면 키 170cm의 값에 해당하는 빈도는 15가 됩니다. 빈도를 나타내는 데 <strong>도수</strong>라는 용어도 많이 사용합니다. 빈도와 도수, 빈도분포와 도수분포는 같은 뜻입니다. <strong>상대빈도</strong> relative frequency 는 해당 빈도를 전체 빈도로 나눈 것입니다. 만일 전체 10명에서 여자가 4명, 남자가 6명이라면 여자의 상대빈도는 0.4 또는 40%, 남자는 0.6 또는 60%입니다.</p>
+<p><strong>빈도분포</strong> frequency distribution 는 측정한 점수를 크기 순서대로 체계화해서 측정 척도에 맞도록 범주화한 것입다. 예를 들어, 측정한 키가 각각 159, 161, 162,168 171, 173, 175, 177, 182, 183이라면 아래 표와 같이 보기 좋게 범주화해서 정리합니다. 이러한 표를 <strong>빈도분포표</strong>라고 합니다.</p>
+<div id="tbl-fre-dis-exm" class="anchored">
+<table class="table">
+<caption>Table&nbsp;6.1: 빈도분포표의 예</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">키 x</th>
+<th style="text-align: center;">빈도 <span class="math inline">\(f\)</span></th>
+<th style="text-align: center;">상대빈도</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">150-160cm</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0.1</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">160-170cm</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">0.3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">170-180cm</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">0.4</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">180-190cm</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">0.2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">합</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>빈도분포에서 총합은 x값과 그 값의 빈도를 곱해서 모두 더하면 됩니다.</p>
+<p><span class="math display">\[총합 = \sum xf\]</span></p>
+<p>참고로 위의 수식을 표현하는 콸토 방법은,</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>$$총합 = \sum xf$$</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>위의 빈도분포표처럼 수치를 범주화해서 정리했다면 중간 값을 취해서 빈도를 곱한 다음에 모두 더합니다.</p>
+<div id="exm-" class="theorem example">
+<p><span class="theorem-title"><strong>Example 6.1 </strong></span>&nbsp;</p>
+<blockquote class="blockquote">
+<p>위 빈도분포표(<a href="#tbl-fre-dis-exm">Table&nbsp;<span>6.1</span></a>)의 키 총합을 구하세요.</p>
+</blockquote>
+</div>
+<p><strong>답</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>총합 <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="dv">155</span><span class="sc">*</span><span class="dv">1</span>, <span class="dv">165</span><span class="sc">*</span><span class="dv">3</span>, <span class="dv">175</span><span class="sc">*</span><span class="dv">4</span>, <span class="dv">185</span><span class="sc">*</span><span class="dv">2</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"총합은 "</span>, 총합, <span class="st">"입니다."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>총합은  1720 입니다.</code></pre>
+</div>
+</div>
+<p>중앙을 중심으로 서로 닯은 꼴인 분포를 <strong>대칭 분포</strong>라고 하고, 중앙을 중심으로 서로 다른 것을 <strong>비대칭 분포</strong>라고 합니다. 분포의 양끝은 대개 좁고 길게 늘어지게 마련인데 그것을 <strong>꼬리</strong> tail 라고 부릅니다. 꼬리가 오른쪽이 더 길면 정적 비대칭이고, 왼쪽이 더 길게 늘어지면 부적 비대칭입니다.</p>
+<p><span style="color:red">빈도, 도수, 상대빈도, 빈도분포표, 대칭분포, 비대칭분포, 꼬리</span></p>
+</section>
+<section id="집중화-경향치" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="집중화-경향치"><span class="header-section-number">6.2</span> 집중화 경향치</h2>
+<p>기술 통계의 목적 중 하나는 집단을 대표하는 값을 산출하는 것입니다. 평균이 가장 흔하게 이런 목적으로 쓰입니다. 평균처럼 집단의 속성을 나타내는 대표성을 가지는 값을 <strong>집중화 경향치</strong> central tendency (or measure of central tendency) 라고 합니다. 평균, 중앙값, 최빈값 등이 자주 사용되는 집중화 경향치입니다.</p>
+<p>R에는 각 기본패키지를 비롯하여 여러 패키지가 데이터셋을 내장한 경우가 많습니다. 기본패키지가 내장한 <code>iris</code> 데이터셋의 <code>Pedal.Length</code>라는 변수를 이용하여 집중화 경향치를 산출해 봅니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(iris<span class="sc">$</span>Petal.Length)      <span class="co"># 평균</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(iris<span class="sc">$</span>Petal.Length)    <span class="co"># 중앙값</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(iris<span class="sc">$</span>Petal.Length)       <span class="co"># 최대값</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(iris<span class="sc">$</span>Petal.Length)       <span class="co"># 최소값</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(iris<span class="sc">$</span>Petal.Length)        <span class="co"># 표준편차</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(iris<span class="sc">$</span>Petal.Length)       <span class="co"># 분산</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(iris<span class="sc">$</span>Petal.Length)  <span class="co"># 사분위값</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.758
+[1] 4.35
+[1] 6.9
+[1] 1
+[1] 1.765298
+[1] 3.116278
+  0%  25%  50%  75% 100% 
+1.00 1.60 4.35 5.10 6.90 </code></pre>
+</div>
+</div>
+<section id="평균" class="level3" data-number="6.2.1">
+<h3 data-number="6.2.1" class="anchored" data-anchor-id="평균"><span class="header-section-number">6.2.1</span> 평균</h3>
+<p><strong>평균</strong> average 은 <strong>산술평균</strong> arithmatic mean 이라고 부르기도 합니다. 모든 측정값의 합을 측정값의 갯수로 나눈 값입니다. 집중화 경향치로 가장 많이 사용합니다. 계산법은 아래와 같습니다. 위는 모집단의 평균이고 아래는 표본의 평균이지요. 방법은 둘이 동일합니다.</p>
+<p><span class="math display">\[ \mu = \frac{1}{N}\sum_{i=1}^{N}x_i = (\frac{1}{N})(x_1 + x_2 + x_3 + ... +x_N)\]</span></p>
+<p><span class="math display">\[ \bar x = \frac{1}{n}\sum_{i=1}^{n}x_i = (\frac{1}{n})(x_1 + x_2 + x_3 + ... +x_n)\]</span></p>
+<p>참고: 총합인 <span class="math inline">\(\sum x\)</span> 를 <span class="math inline">\(\frac{1}{n}\)</span> 로 곱한 것은 총합 <span class="math inline">\(\sum x\)</span> 를 <span class="math inline">\(n\)</span> 로 나눈 것과 마찬가지입니다.</p>
+<p><span class="math display">\[\frac{1}{n}\sum x = \frac{\sum x}{n}\]</span></p>
+<p><strong>가중평균</strong> weighted average 은 이미 평균을 산출한 여러 집단을 합친 전체 집단의 평균을 계산할 때 사용합니다. 예를 들어, 한국대학의 남자 키 평균과 여자 키 평균이 있을 때 그 둘을 더해서 2로 나눈다고 전체 평균이 되지 않습니다. 남자 수와 여자 수가 다르기 때문에 그것을 고려해야 합니다.</p>
+<p><span class="math display">\[\bar x_w = \frac{\sum_{i=1}^{k}w_i\bar x_i}{\sum_{i=1}^{k}w_i}\]</span></p>
+<p>여기에서 <span class="math inline">\(k\)</span>: 평균의 수, <span class="math inline">\(\bar x_i\)</span>: <span class="math inline">\(i\)</span> 번째 평균, <span class="math inline">\(w_i\)</span>: <span class="math inline">\(i\)</span> 번째 평균의 가중치.</p>
+<div id="exm-" class="theorem example">
+<p><span class="theorem-title"><strong>Example 6.2 </strong></span>&nbsp;</p>
+<blockquote class="blockquote">
+<p>남자 100명 여자 150명으로 구성한 어떤 집단에서, 남자 키 평균이 175cm고 여자 평균이 165cm라면 전체 평균은 얼마가 되어야 할까요?</p>
+</blockquote>
+</div>
+<p><strong>답:</strong> 남자 평균 가중치는 100, 여자 평균 가중치는 150입니다. 따라서 전체 평균은 169cm.</p>
+<p><span class="math display">\[가중평균 \; \bar{x}_w = \frac{(100*175) + (150*165)}{100 + 150}=169\]</span></p>
+<p>참고로 위의 Quarto 수식을 표현하는 방법은,</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>$$가중평균 \; \bar{x}_w = \frac{(100*175) + (150*165)}{100 + 150}=169$$</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>참고: \bar{x}, \bar{x}_w, \frac{}{}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="중앙값" class="level3" data-number="6.2.2">
+<h3 data-number="6.2.2" class="anchored" data-anchor-id="중앙값"><span class="header-section-number">6.2.2</span> 중앙값</h3>
+<p><strong>중앙값</strong> median 은 분포를 정확하게 반으로 나누는 측정값을 말합니다. 즉 측정값들을 크기 순서로 늘어놓았을 때 가운데 오는 값이 중앙값입니다. 측정값의 수가 홀수라면 가운데 값이 중앙값입니다. 즉 측정값이 1, 2, 2, 4, 5, 이렇게 다섯이라면 세번째의 2가 중앙값입니다. 짝수라면 가운데 값이 두 개가 될 수도 있어요. 즉 측정값이 1, 2, 2, 4, 5, 6, 이렇게 여섯이라면 세번째의 2와 네번째의 4가 달라서 곤란합니다. 이럴 때 두 수의 평균을 중앙값으로 합니다. 여기서는 <span class="math inline">\(\frac{2+4}{2} = 3\)</span> 이므로 3이 중앙값입니다.</p>
+<p><strong>극단값</strong>은 대부분의 값에서 멀리 떨어진 예외적인 값들을 말합니다. 평균이 극단값의 영향을 크게 받는 경우에 평균보다 중앙값이 더 대표성을 갖게 됩니다. 또 비대칭분포가 심할 경우에도 역시 중앙값의 대표성이 평균의 대표성보다 높습니다. 일반적으로 한 국가의 개인소득에서 부유한 극소수가 평균 소득을 높이게 되므로 한 국가의 일반적인 개인소득은 평균보다 중앙값으로 대표하는 게 적절합니다.</p>
+</section>
+<section id="최빈값" class="level3" data-number="6.2.3">
+<h3 data-number="6.2.3" class="anchored" data-anchor-id="최빈값"><span class="header-section-number">6.2.3</span> 최빈값</h3>
+<p>분포에서 빈도가 가장 높은 값이 <strong>최빈값</strong> mode 입니다. 빈도 분포표가 계급구간으로 구성된 경우 빈도가 가장 높은 구간값을 최빈값으로 합니다. 예를 들어, 측정값이 1, 1, 2, 3, 3, 3, 4, 5, 6, 6, 6, 6, 6, 이렇다면 6이 5개로 가장 많으니 최빈값은 6입니다. 최빈값은 그 특성상 여러 개가 있을 수 있습니다. 최빈값은 명목척도를 대표할 때 자주 사용합니다. 예를 들어, “옷 색깔에서 파란색을 선택한 사람이 가장 많았다”는 표현은 명목척도에서 최빈값의 대표성을 이용한 것입니다.</p>
+<p>사람의 수명을 말할 때도 평균 수명보다 유용합니다. 신생아의 상대적 사망율이 높아서 평균이 왜곡되기 때문입니다. 사망 나이의 최빈값을 택하는 것이 성인의 사망나이를 추정할 때 효율적입니다. 또 이산변수일 때도 소수점 아래를 말하기 어려울 때 유용합니다. 주택을 말할 때 3.6 채보다는 4채가 더 익숙합니다.</p>
+</section>
+<section id="집중화경향치의-비교" class="level3" data-number="6.2.4">
+<h3 data-number="6.2.4" class="anchored" data-anchor-id="집중화경향치의-비교"><span class="header-section-number">6.2.4</span> 집중화경향치의 비교</h3>
+<p>빈도분포가 대칭적이면 집중화경향치는 평균, 중앙값, 최빈값이 상당히 비슷합니다. 이때는 평균이 대표성이 가장 높습니다. 그러나 비대칭분포일 때는 세 집중화경향치가 차이가 있습니다. 극단적인 비대칭분포일 때 중앙값은 극단값의 영향을 잘 받지 않기 때문에 중앙값의 대표성이 더 우수합니다. 최빈값은 명목척도나 대략적인 경향을 알아보려 할 때 좋습니다.</p>
+<p><a href="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Comparison_mean_median_mode.svg/768px-Comparison_mean_median_mode.svg.png">위키피디아의 집중경향치 비교</a>도 클릭해서 참고로 보면 좋습니다.</p>
+</section>
+</section>
+<section id="분포와-분산도" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="분포와-분산도"><span class="header-section-number">6.3</span> 분포와 분산도</h2>
+<p>집중경향치는 전체 측정값을 대표하는 값으로 대체로 측정값의 중심을 나타냅니다. 측정값이 어떤 형태로 분포되어 있는가 하는 것은 또 다른 방법이 필요합니다. 측정값이 넓게 또는 좁게 퍼져 있는 정도를 나타내는 게 <strong>분산도</strong> dispersion, variability, scatter 다. 분산도를 보여주는 방법은 범위, 표준편차, 분산, 사분위편차 등이 있습니다.</p>
+<p><span style="color:red">분산도</span></p>
+<section id="범위" class="level3" data-number="6.3.1">
+<h3 data-number="6.3.1" class="anchored" data-anchor-id="범위"><span class="header-section-number">6.3.1</span> 범위</h3>
+<p><strong>범위</strong> range 는 측정값에서 <strong>최대값</strong> maximum 과 <strong>최소값</strong> minimum 의 차이를 말합니다. 극단값이 있는 경우에 범위가 크기 증가하므로 적절한 방법이 되지 못합니다. 극단값이 아니라도 최소값과 최대값의 단 두 개 값이 크기를 좌우하므로 바람직하지 않습니다.</p>
+<p><span style="color:red">범위, 최대값, 최소값</span></p>
+</section>
+<section id="표준편차와-분산" class="level3" data-number="6.3.2">
+<h3 data-number="6.3.2" class="anchored" data-anchor-id="표준편차와-분산"><span class="header-section-number">6.3.2</span> 표준편차와 분산</h3>
+<p><strong>표준편차</strong> standard deviation 는 분산도를 나타내는 가장 대표적인 방법입니다. 측정값들이 평균에서 멀리 흩어진 정도를 알려줍니다. 표준편차는 분산의 제곱근입니다. <strong>분산</strong> variance 은 측정값과 평균의 차이를 제곱해서 모두 합한 것을 총 빈도로 나눈 것입니다. 측정값과 평균의 편차를 그대로 더하지 않고 제곱해서 더 한 이유는 편차가 <span class="math inline">\(+\)</span> 와 <span class="math inline">\(-\)</span> 가 섞여 있므로 총합이 언제나 0가 되기 때문입니다. 편차의 절대값을 다 더해서 평균을 낸 <strong>평균편차</strong> mean deviation 라는 방법도 있으나 통계에서 거의 사용하지 않습니다. 평균과 표준편차는 자료를 가장 흔하게 대표하는 두 방법입니다. 자료의 중심과 흩어진 정도를 각각 알려줍니다.</p>
+<p><span class="math inline">\(\sigma\)</span>: 모집단 표준편차, <span class="math inline">\(N\)</span>: 모집단 측정값의 빈도, <span class="math inline">\(\mu\)</span>: 모집단 측정값의 평균</p>
+<p><span class="math display">\[ 모집단  \; 분산 \;  \;  \sigma^{2} = \frac{1}{N}\sum_{i=1}^{N} (x_i-\mu)^{2} = \frac{\sum_{i=1}^{N} (x_i-\mu)^{2}}{N}\]</span></p>
+<p><span class="math display">\[ 모집단  \; 표준편차 \; \; \sigma =\sqrt{\frac{1}{N}\sum_{i=1}^{N} (x_i-\mu)^{2}}=\sqrt{\frac{\sum_{i=1}^{N} (x_i-\mu)^{2}}{N}}\]</span></p>
+<p>참고: 위 계산식의 Quarto 표현</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>$$ 모집단 분산 \sigma^{2} = \frac{1}{N} \sum_{i=1}^{N} (x_i-\mu)^{2} = \frac{\sum_{i=1}^{N} (x_i-\mu)^{2}}{N}$$</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>$$ 모집단 표준편차 \sigma =\sqrt{\frac{1}{N} \sum_{i=1}^{N} (x_i-\mu)^{2}}=\sqrt{\frac{\sum_{i=1}^{N} (x_i-\mu)^{2}}{N}}$$</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>$$, \sigma, \sigma^{}, \frac{}{}, \sum_{}^{}, \sum, \mu, ^{}, \sqrt{}, \bar x, x_i</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>문장 안에서는 양쪽에 $ 하나씩, 별도의 줄 가운데에 놓으려면 맨앞과 맨뒤에 각각 $$</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>$n$, $n-1$</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><span class="math inline">\(s\)</span>: 표본 표준편차, <span class="math inline">\(n\)</span>: 표본 크기, <span class="math inline">\(\bar x\)</span>: 표본 평균</p>
+<p><span class="math display">\[ 표본  \; 분산  \;  \; s^{2} =\frac{1}{n-1}\sum_{i=1}^{n} (x_i-\bar x)^{2}=\sqrt{\frac{\sum_{i=1}^{n} (x_i-\bar x)^{2}}{n-1}}\]</span></p>
+<p><span class="math display">\[ 표본  \; 표준편차  \;  \; s =\sqrt{\frac{1}{n-1}\sum_{i=1}^{n} (x_i-\bar x)^{2}}=\sqrt{\frac{\sum_{i=1}^{n} (x_i-\bar x)^{2}}{n-1}}\]</span></p>
+<p>표준편차와 분산은 모집단을 위한 공식과 표본을 위한 공식이 다릅니다. 이것은 표본의 표준편차가 모집단의 표준편차를 추론하려는 방법인데, 똑같이 측정값의 빈도로 나누면 추론에서 왜곡이 생기기 때문입니다. 표본 크기가 작을수록 왜곡이 크고 표본 크기가 커질수록 왜곡이 작아지는데 이걸 보정해서 정확하게 추론하는 방법이 <span class="math inline">\(n\)</span> 대신에 <span class="math inline">\(n-1\)</span> 로 나누는 겁니다. 나중에 확률 부분에서 다시 논의합니다.</p>
+<p>표본의 표준편차를 계산할 때 사용한 <span class="math inline">\(n-1\)</span> 을 <strong>자유도</strong> degree of freedom 라고 합니다. 표준편차의 계산 과정에서 평균과의 편차를 산출하는 데, 이때 모평균을 사용해야 이론적으로 맞습니다. 왜냐하면 표본의 표준편차를 구하는 이유가 모표준편차를 추정하려는 것이므로 모평균을 넣어야 하는 겁니다. 하지만 우리는 모평균을 모르므로 표본평균을 대신 사용했습니다. 표본평균을 대신 사용하는 순간 자유도가 하나 줄어들어서 <span class="math inline">\(n\)</span>이 아닌 <span class="math inline">\(n-1\)</span> 이 됩니다.</p>
+<p>예를 들어, a, b, c, 세 수의 평균이 5 라고 합시다. a=4, b=5 라면 c는 반드시 6이 되어야 합니다. a=3, b=9 라면 c는 반드시 3이 되어야 합니다. 이처럼 평균이 정해져도 두 수는 자유롭게 값을 정하지만 마지막 하나는 일정한 값을 가져야하므로 자유가 없는 겁니다. 그래서 모평균 대신에 표본평균을 이용하는 순간 자유도가 <span class="math inline">\(n-1\)</span> 이 되었습니다.</p>
+<p>현실적인 예를 들어보죠. 철수, 영희, 복길이의 나이가 각각 20살, 22살, 24살입니다. 나이평균은 (20+22+24)/3 = 22. 분산은 (20-22)<sup>2</sup> + (22-22)<sup>2</sup>+(24-22)<sup>2</sup>인데 이것은 중간이 0이므로 (20-22)<sup>2</sup> + (24-22)<sup>2</sup>과 같습니다. 즉 사례가 하나 없어진 것과 마찬가지죠. 그래서 표본 평균이 모집단 평균을 대체할 때 편차 제곱의 합에서 사례가 하나 적어진 것 같은 편향이 생깁니다.</p>
+<p><span style="color:red">표준편차, 분산, 평균편차, 자유도</span></p>
+</section>
+<section id="사분위편차" class="level3" data-number="6.3.3">
+<h3 data-number="6.3.3" class="anchored" data-anchor-id="사분위편차"><span class="header-section-number">6.3.3</span> 사분위편차</h3>
+<p>측정값을 큰 순서대로 늘어놓았을 때 측정값들이 사등분되는 즉 각각25%, 50%, 75% 되는 위치의 측정값을 <strong>사분위수</strong> quartile 라고 합니다. 25% 위치를 <strong>제1사분위</strong> <span class="math inline">\(Q_1\)</span>, 50% 위치를 <strong>제2사분위</strong> <span class="math inline">\(Q_2\)</span>, 75% 위치를 <strong>제3사분위</strong> <span class="math inline">\(Q_3\)</span> 라고 합니다. 제2사분위를 중위수라고 부르기도 합니다. 제1사분위와 제3사분위의 차이를 2로 나눈 값이 <strong>사분위편차</strong> quantile deviation 입니다. 2로 나누지 않은 값을 <strong>사분위범위</strong> interquantile range 라고 구분합니다. 사분위편차는 양끝에 존재하는 극단값을 배제하므로 예외적인 사례의 영향을 더 받는 게 장점입니다. 그러나 빈도가 25보다 적다면 다소 불안하므로 적정한 빈도가 되는 게 바람직합니다.</p>
+<p>사분위편차: <span class="math inline">\(Q = \frac{Q_3-Q_1}{2}\)</span>, 사분위범위: <span class="math inline">\(IRQ = Q_3-Q_1\)</span></p>
+<p>박스플롯은 사분위편차와 밀접한 관련이 있습니다. 박스플롯은 중앙값, 1사분위, 3사분위, 최소값, 최대값, 극단값 등을 나타냅니다. 아래는 ggplot2 패키지의 msleep 데이터셋을 이용해서 그룹의 박스플롯을 보여줍니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>msleep <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(msleep) <span class="co"># 결측값 사례를 제거</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>msleep<span class="sc">$</span>식성 <span class="ot">&lt;-</span> <span class="fu">recode</span>(msleep<span class="sc">$</span>vore, <span class="st">"carni"</span> <span class="ot">=</span> <span class="st">"육식"</span>, <span class="st">"herbi"</span> <span class="ot">=</span> <span class="st">"초식"</span>, <span class="st">"insecti"</span> <span class="ot">=</span> <span class="st">"곤충식"</span>, <span class="st">"omni"</span> <span class="ot">=</span> <span class="st">"잡식"</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(msleep, <span class="fu">aes</span>(식성, sleep_total)) <span class="sc">+</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">xlab</span>(<span class="st">"식성"</span>) <span class="sc">+</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ylab</span>(<span class="st">"전체 잠 시간"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="descriptive-statistics_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p><span style="color:red">사분위수, 제1사분위, 제2사분위, 제3사분위, 사분위편차, 사분위범위</span></p>
+</section>
+<section id="변동계수와-사분위-분산계수" class="level3" data-number="6.3.4">
+<h3 data-number="6.3.4" class="anchored" data-anchor-id="변동계수와-사분위-분산계수"><span class="header-section-number">6.3.4</span> 변동계수와 사분위 분산계수</h3>
+<p><strong>변동계수</strong> coefficient of variation 는 표준편차를 평균으로 나눈 것입니다. <strong>상대 표준편차</strong> relative standard deviation 라고도 합니다. 표준편차는 크기가 측정단위에 영향을 받습니다. 그래서 측정 단위가 다른 자료를 비교할 때 변동계수를 사용하지요. 변동계수는 0이 의미를 가지는 비율척도에만 사용해야 합니다. 등간척도에 사용하면 왜곡된 결과가 나올 가능성이 높으므로 사용하지 않습니다.</p>
+<p><span class="math display">\[ CV = \frac{\sigma}{\mu} \rightarrow \frac{s}{\bar x}\]</span></p>
+<p>참고로 위의 표현식은</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>$$ CV = \frac{\sigma}{\mu} \rightarrow \frac{s}{\bar x}$$</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>그래서 <strong>사분위분산계수</strong> quantile coefficient of dispersion 를 더 선호하기도 합니다. 사분위분산계수는 극단값에 영향을 덜 받는 장점도 있습니다.</p>
+<p><span class="math inline">\(QCD = \frac{Q_3-Q_1}{Q_3+Q_1}\)</span></p>
+<p><span style="color:red">변동계수, 상대표준편차, 사분위분산계수</span></p>
+</section>
+</section>
+<section id="sec-des-z" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="sec-des-z"><span class="header-section-number">6.4</span> Z값과 분포의 표준화</h2>
+<p>측정 단위가 다른 자료를 비교하기는 어렵고, 평균과 표준편차가 다를 때 역시 자료를 비교하기가 곤란합니다. 이럴 때 표준화한 측정값을 사용하면 여러 자료를 비교하는 것이 가능해집니다. 그래서 z값은 여러 곳에서 유용하게 사용합니다. 예를 들어, 중간시험과 기말시험의 평균과 표준편차가 다르다면 성적이 공정하지 못할지 모릅니다. 상대적으로 중간고사를 잘 본 학생이 유리하거나 아니면 역으로 기말고사를 잘 본 학생이 유리해지기 때문입니다. 이럴 때 중간시험 점수와 기말시험 점수를 각각 z값으로 표준화해서 둘을 합산한다면 그냥 합산해서 처리하는 것보다 더 공정한 절차가 될 수 있습니다.</p>
+<p>측정값들이 <strong>정규분포</strong>를 한다고 가정할 때, 말하자면 아주 많은 측정값들이 존재한다고 가정할 때, 우리는 z값을 이용하여 어떤 측정값이 상위 혹은 하위 몇 %에 속하는 위치에 있는지 추정할 수 있습니다. 평균이나 표준편차는 전체 측정값을 대상으로 산출하지만 x값은 하나의 측정값을 대상으로 계산합니다. z값은 측정값에서 평균을 빼고 표준편차로 나누면 됩니다. 따라서 z값은 측정값과 평균의 편차를 표준편차와 상대적 크기로 계산합니다.</p>
+<p>z값은 표준화되었기 때문에 언제나 평균은 0이고 표준편차는 1입니다. 아래는 측정값을 표준화한 Z값으로 변환하는 공식입니다.</p>
+<p><span class="math display">\[ 모집단에서 \; \; Z = \frac{X - \mu}{\sigma} \]</span></p>
+<p><span class="math display">\[ 표본에서 \; \; z = \frac{x - \bar x}{s} \]</span></p>
+<div id="exm-" class="theorem example">
+<p><span class="theorem-title"><strong>Example 6.3 </strong></span>&nbsp;</p>
+<blockquote class="blockquote">
+<ol type="1">
+<li>iris 데이터셋의 Petal.Length 변수에서 5.5의 z값은 얼마인가요?</li>
+<li>Petal.Length가 정규분포를 한다면 5.5는 길이에서 상위 몇 %에 속하는가요? (긴 것이 상위)</li>
+<li>Petal.Length 변수 전체를 z값을 바꾸어서 Petal.Length.z 변수로 저장하세요.</li>
+</ol>
+</blockquote>
+</div>
+<p>참고로 Iris Versicolor 그림이 <a href="https://www.sciencedirect.com/topics/mathematics/virginica">이 페이지에</a> 있어요.</p>
+<p><strong>답:</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>x_5<span class="fl">.5</span> <span class="ot">&lt;-</span> <span class="fl">5.5</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>m.x <span class="ot">&lt;-</span> <span class="fu">mean</span>(iris<span class="sc">$</span>Petal.Length)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>sd.x <span class="ot">&lt;-</span> <span class="fu">sd</span>(iris<span class="sc">$</span>Petal.Length)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) 답</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>z_5<span class="fl">.5</span> <span class="ot">&lt;-</span> (x_5<span class="fl">.5</span> <span class="sc">-</span> m.x) <span class="sc">/</span> sd.x</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 2)답   옵션; lower.tail = FALSE</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>p_5<span class="fl">.5</span> <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(x_5<span class="fl">.5</span>, m.x, sd.x, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>p_5<span class="fl">.5</span> <span class="ot">&lt;-</span> <span class="fu">round</span>(p_5<span class="fl">.5</span>, <span class="dv">2</span>)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 3)답</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">scale</span>(iris<span class="sc">$</span>Petal.Length)   <span class="co"># 표준화</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">" 1) 5.5의 z값은 "</span>, z_5<span class="fl">.5</span>, <span class="st">"입니다. </span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"2) 정규분포라면, 5.5는 상위 "</span>, p_5<span class="fl">.5</span>, <span class="st">"%입니다. </span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"3) 앞 다섯 개 값만 출력"</span>, z[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1) 5.5의 z값은  0.9868021 입니다. 
+ 2) 정규분포라면, 5.5는 상위  16.19 %입니다. 
+ 3) 앞 다섯 개 값만 출력 -1.335752 -1.335752 -1.392399 -1.279104 -1.335752</code></pre>
+</div>
+</div>
+</section>
+<section id="비대칭도" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="비대칭도"><span class="header-section-number">6.5</span> 비대칭도</h2>
+<p><strong>비대칭도</strong> skewness 는 분포가 한쪽으로 치우친 정도를 나타내는 수치입니다. <strong>피어슨 비대칭계수</strong> Pearson’s coefficient of skewness 가 그 하나입니다. 0일 때 완전 대칭분포고 음이나 양의 값이면 한쪽으로 치우친 비대칭분포입니다. 아래는 계산 공식입니다.</p>
+<p><span class="math display">\[ 피어슨  \; 비대칭계수 \; \; S_k = \frac{3(\bar x-M_d)}{s} : M_d; 중앙값\]</span></p>
+<p>비대칭계수는 위 공식을 사용해서 계산할 수 있습니다. 만일 비대칭계수를 자주 계산한다면, R에는 직접 계산하는 함수가 없으므로, 여러분이 함수를 간단히 만들어 사용할 수 있습니다. <code>function</code> 함수를 사용해서 사용자 정의 함수를 만듭니다.</p>
+<div id="exm-make-func-sk" class="theorem example">
+<p><span class="theorem-title"><strong>Example 6.4 (사용자 정의 함수를 만들기) </strong></span>&nbsp;</p>
+<blockquote class="blockquote">
+<p>“비대칭계수_계산”이라는 함수를 만들어 Petal.Length의 비대칭계수를 계산하세요.</p>
+</blockquote>
+</div>
+<p><strong>답:</strong>*</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 사용자 정의 함수를 만듭니다. </span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>비대칭계수_계산 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  mean_x <span class="ot">&lt;-</span> <span class="fu">mean</span>(x)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  sd_x <span class="ot">&lt;-</span> <span class="fu">sd</span>(x)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  median_x <span class="ot">&lt;-</span> <span class="fu">median</span>(x)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  skewness <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="sc">*</span> (mean_x <span class="sc">-</span> median_x) <span class="sc">/</span> sd_x</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(skewness)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 만든 함수를 사용해서 계산합니다. </span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>비대칭계수_계산(iris<span class="sc">$</span>Petal.Length)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -1.006062</code></pre>
+</div>
+</div>
+<p>환경 패널의 <code>Environment Tab</code>의 Functions에 비대칭계수_계산이라는 함수가 나타났읍니다. 이제 RStudio를 종료하기 전까지 이 함수를 사용할 수 있습니다.</p>
+<p><span style="color:red">비대칭도, 피어슨 비대칭계수</span></p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./data-transform.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">데이터의 변환, 요약, 분석</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./exploratoy-analysis.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">탐색적 데이터 분석</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>
